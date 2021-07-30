@@ -1,0 +1,1416 @@
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"SW_Tx_UART_1.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	SW_Tx_UART_1_pinNumber
+  20              		.data
+  21              		.align	2
+  22              		.type	SW_Tx_UART_1_pinNumber, %object
+  23              		.size	SW_Tx_UART_1_pinNumber, 4
+  24              	SW_Tx_UART_1_pinNumber:
+  25 0000 03000000 		.word	3
+  26              		.global	SW_Tx_UART_1_pinPortNumber
+  27              		.bss
+  28              		.align	2
+  29              		.type	SW_Tx_UART_1_pinPortNumber, %object
+  30              		.size	SW_Tx_UART_1_pinPortNumber, 4
+  31              	SW_Tx_UART_1_pinPortNumber:
+  32 0000 00000000 		.space	4
+  33              		.global	SW_Tx_UART_1_pinDrAdress
+  34              		.data
+  35              		.align	2
+  36              		.type	SW_Tx_UART_1_pinDrAdress, %object
+  37              		.size	SW_Tx_UART_1_pinDrAdress, 4
+  38              	SW_Tx_UART_1_pinDrAdress:
+  39 0004 00000440 		.word	1074003968
+  40              		.section	.text.SW_Tx_UART_1_Start,"ax",%progbits
+  41              		.align	2
+  42              		.global	SW_Tx_UART_1_Start
+  43              		.code	16
+  44              		.thumb_func
+  45              		.type	SW_Tx_UART_1_Start, %function
+  46              	SW_Tx_UART_1_Start:
+  47              	.LFB0:
+  48              		.file 1 "Generated_Source\\PSoC4\\SW_Tx_UART_1.c"
+   1:Generated_Source\PSoC4/SW_Tx_UART_1.c **** /*******************************************************************************
+   2:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * File Name: SW_Tx_UART_1.c
+   3:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Version 1.50
+   4:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+   5:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Description:
+   6:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  This file provides the source code to the API for the Software Transmit UART.
+   7:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+   8:Generated_Source\PSoC4/SW_Tx_UART_1.c **** ********************************************************************************
+   9:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Copyright 2013-2015, Cypress Semiconductor Corporation.  All rights reserved.
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 2
+
+
+  10:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * You may use this file only in accordance with the license, terms, conditions,
+  11:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  12:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * the software package with which this file was provided.
+  13:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *******************************************************************************/
+  14:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+  15:Generated_Source\PSoC4/SW_Tx_UART_1.c **** #include "SW_Tx_UART_1_PVT.h"
+  16:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+  17:Generated_Source\PSoC4/SW_Tx_UART_1.c **** #if(SW_Tx_UART_1_PIN_STATIC_MODE == 1u)
+  18:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     uint32 SW_Tx_UART_1_pinNumber = SW_Tx_UART_1_PIN_NUMBER;
+  19:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     uint32 SW_Tx_UART_1_pinPortNumber = SW_Tx_UART_1_PIN_PORT_NUMBER;
+  20:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     #if(CY_PSOC3)
+  21:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         uint32 pdata SW_Tx_UART_1_pinDrAdress = SW_Tx_UART_1_PIN_DR;
+  22:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     #else
+  23:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         uint32 SW_Tx_UART_1_pinDrAdress = SW_Tx_UART_1_PIN_DR;
+  24:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     #endif /* (CY_PSOC3) */
+  25:Generated_Source\PSoC4/SW_Tx_UART_1.c **** #else
+  26:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     uint32 SW_Tx_UART_1_pinNumber;
+  27:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     uint32 SW_Tx_UART_1_pinPortNumber;
+  28:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     #if(CY_PSOC3)
+  29:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         uint32 pdata SW_Tx_UART_1_pinDrAdress;
+  30:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     #else
+  31:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         uint32 SW_Tx_UART_1_pinDrAdress;
+  32:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     #endif /* (CY_PSOC3) */
+  33:Generated_Source\PSoC4/SW_Tx_UART_1.c **** #endif /* (SW_Tx_UART_1_PIN_STATIC_MODE == 1u) */
+  34:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+  35:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+  36:Generated_Source\PSoC4/SW_Tx_UART_1.c **** #if(SW_Tx_UART_1_PIN_STATIC_MODE == 1u)
+  37:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     /*******************************************************************************
+  38:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     * Function Name: SW_Tx_UART_1_Start
+  39:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     ********************************************************************************
+  40:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *
+  41:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     * Summary:
+  42:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *  Empty function. Included for consistency with other
+  43:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *  components. This API is not available when PinAssignmentMethod
+  44:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *  is set to Dynamic.
+  45:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *
+  46:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     * Parameters:
+  47:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *  None
+  48:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *
+  49:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     * Return:
+  50:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *  None
+  51:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *
+  52:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *******************************************************************************/
+  53:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     void SW_Tx_UART_1_Start(void) 
+  54:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     {
+  49              		.loc 1 54 0
+  50              		.cfi_startproc
+  51              		@ args = 0, pretend = 0, frame = 0
+  52              		@ frame_needed = 1, uses_anonymous_args = 0
+  53 0000 80B5     		push	{r7, lr}
+  54              		.cfi_def_cfa_offset 8
+  55              		.cfi_offset 7, -8
+  56              		.cfi_offset 14, -4
+  57 0002 00AF     		add	r7, sp, #0
+  58              		.cfi_def_cfa_register 7
+  55:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+  56:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     }
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 3
+
+
+  59              		.loc 1 56 0
+  60 0004 C046     		nop
+  61 0006 BD46     		mov	sp, r7
+  62              		@ sp needed
+  63 0008 80BD     		pop	{r7, pc}
+  64              		.cfi_endproc
+  65              	.LFE0:
+  66              		.size	SW_Tx_UART_1_Start, .-SW_Tx_UART_1_Start
+  67 000a C046     		.section	.text.SW_Tx_UART_1_Stop,"ax",%progbits
+  68              		.align	2
+  69              		.global	SW_Tx_UART_1_Stop
+  70              		.code	16
+  71              		.thumb_func
+  72              		.type	SW_Tx_UART_1_Stop, %function
+  73              	SW_Tx_UART_1_Stop:
+  74              	.LFB1:
+  57:Generated_Source\PSoC4/SW_Tx_UART_1.c **** #else
+  58:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     /*******************************************************************************
+  59:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     * Function Name: SW_Tx_UART_1_StartEx
+  60:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     ********************************************************************************
+  61:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *
+  62:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     * Summary:
+  63:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *  Configures the SW Tx UART to use the pin specified
+  64:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *  by the parameters. This API is only available when
+  65:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *  PinAssignmentMethod is set to Dynamic.
+  66:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *
+  67:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     * Parameters:
+  68:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *  port:  Port number for dynamic pin assignment
+  69:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *  pin:   Pin number for dynamic pin assignment
+  70:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *
+  71:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     * Return:
+  72:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *  None
+  73:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *
+  74:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     *******************************************************************************/
+  75:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     void SW_Tx_UART_1_StartEx(uint8 port, uint8 pin) 
+  76:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     {
+  77:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         uint32 portConfigAddr;
+  78:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+  79:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         #if (CY_PSOC4)
+  80:Generated_Source\PSoC4/SW_Tx_UART_1.c ****             uint32 portDataRegAddr;
+  81:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         #endif /* (CY_PSOC4) */
+  82:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+  83:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         if ((pin <= SW_Tx_UART_1_MAX_PIN_NUMBER) && (port <= SW_Tx_UART_1_MAX_PORT_NUMBER))
+  84:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         {
+  85:Generated_Source\PSoC4/SW_Tx_UART_1.c ****             #if (!CY_PSOC4)
+  86:Generated_Source\PSoC4/SW_Tx_UART_1.c ****                 portConfigAddr = SW_Tx_UART_1_PORT_CNF_BASE;
+  87:Generated_Source\PSoC4/SW_Tx_UART_1.c ****                 portConfigAddr += ((uint32)port * (SW_Tx_UART_1_MAX_PIN_NUMBER + 1u)) + pin;
+  88:Generated_Source\PSoC4/SW_Tx_UART_1.c ****                 CyPins_SetPinDriveMode(portConfigAddr, CY_PINS_DM_STRONG);
+  89:Generated_Source\PSoC4/SW_Tx_UART_1.c ****                 CyPins_SetPin(portConfigAddr);
+  90:Generated_Source\PSoC4/SW_Tx_UART_1.c ****                 SW_Tx_UART_1_pinDrAdress = portConfigAddr;
+  91:Generated_Source\PSoC4/SW_Tx_UART_1.c ****             #else
+  92:Generated_Source\PSoC4/SW_Tx_UART_1.c ****                 portConfigAddr = SW_Tx_UART_1_PORT_CNF_BASE + (SW_Tx_UART_1_PORT_CNF_SIZE * port) +
+  93:Generated_Source\PSoC4/SW_Tx_UART_1.c ****                                                                                 SW_Tx_UART_1_PORT_C
+  94:Generated_Source\PSoC4/SW_Tx_UART_1.c ****                 CY_SYS_PINS_SET_DRIVE_MODE(portConfigAddr, pin, CY_SYS_PINS_DM_STRONG);
+  95:Generated_Source\PSoC4/SW_Tx_UART_1.c ****                 portDataRegAddr = SW_Tx_UART_1_PORT_CNF_BASE + (SW_Tx_UART_1_PORT_CNF_SIZE * port) 
+  96:Generated_Source\PSoC4/SW_Tx_UART_1.c ****                                                                                 SW_Tx_UART_1_PORT_C
+  97:Generated_Source\PSoC4/SW_Tx_UART_1.c ****                 CY_SYS_PINS_SET_PIN(portDataRegAddr, pin);
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 4
+
+
+  98:Generated_Source\PSoC4/SW_Tx_UART_1.c ****                 SW_Tx_UART_1_pinDrAdress = portDataRegAddr;
+  99:Generated_Source\PSoC4/SW_Tx_UART_1.c ****             #endif /* (!CY_PSOC4) */
+ 100:Generated_Source\PSoC4/SW_Tx_UART_1.c ****             SW_Tx_UART_1_pinNumber = pin;
+ 101:Generated_Source\PSoC4/SW_Tx_UART_1.c ****             SW_Tx_UART_1_pinPortNumber = port;
+ 102:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         }
+ 103:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     }
+ 104:Generated_Source\PSoC4/SW_Tx_UART_1.c **** #endif /* (SW_Tx_UART_1_PIN_STATIC_MODE == 1u) */
+ 105:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 106:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 107:Generated_Source\PSoC4/SW_Tx_UART_1.c **** /*******************************************************************************
+ 108:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Function Name: SW_Tx_UART_1_Stop
+ 109:Generated_Source\PSoC4/SW_Tx_UART_1.c **** ********************************************************************************
+ 110:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 111:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Summary:
+ 112:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  Empty function. Included for consistency with other components.
+ 113:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 114:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Parameters:
+ 115:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  None
+ 116:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 117:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Return:
+ 118:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  None
+ 119:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 120:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *******************************************************************************/
+ 121:Generated_Source\PSoC4/SW_Tx_UART_1.c **** void SW_Tx_UART_1_Stop(void) 
+ 122:Generated_Source\PSoC4/SW_Tx_UART_1.c **** {
+  75              		.loc 1 122 0
+  76              		.cfi_startproc
+  77              		@ args = 0, pretend = 0, frame = 0
+  78              		@ frame_needed = 1, uses_anonymous_args = 0
+  79 0000 80B5     		push	{r7, lr}
+  80              		.cfi_def_cfa_offset 8
+  81              		.cfi_offset 7, -8
+  82              		.cfi_offset 14, -4
+  83 0002 00AF     		add	r7, sp, #0
+  84              		.cfi_def_cfa_register 7
+ 123:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 124:Generated_Source\PSoC4/SW_Tx_UART_1.c **** }
+  85              		.loc 1 124 0
+  86 0004 C046     		nop
+  87 0006 BD46     		mov	sp, r7
+  88              		@ sp needed
+  89 0008 80BD     		pop	{r7, pc}
+  90              		.cfi_endproc
+  91              	.LFE1:
+  92              		.size	SW_Tx_UART_1_Stop, .-SW_Tx_UART_1_Stop
+  93              		.section	.text.SW_Tx_UART_1_PutString,"ax",%progbits
+  94              		.align	2
+  95              		.global	SW_Tx_UART_1_PutString
+  96              		.code	16
+  97              		.thumb_func
+  98              		.type	SW_Tx_UART_1_PutString, %function
+  99              	SW_Tx_UART_1_PutString:
+ 100              	.LFB2:
+ 125:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 126:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 127:Generated_Source\PSoC4/SW_Tx_UART_1.c **** /*******************************************************************************
+ 128:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Function Name: SW_Tx_UART_1_PutString
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 5
+
+
+ 129:Generated_Source\PSoC4/SW_Tx_UART_1.c **** ********************************************************************************
+ 130:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 131:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Summary:
+ 132:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  Sends a NULL terminated string via the Tx pin.
+ 133:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 134:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Parameters:
+ 135:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  string: Pointer to the null terminated string to send
+ 136:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 137:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Return:
+ 138:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  None
+ 139:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 140:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *******************************************************************************/
+ 141:Generated_Source\PSoC4/SW_Tx_UART_1.c **** void SW_Tx_UART_1_PutString(const char8 string[]) 
+ 142:Generated_Source\PSoC4/SW_Tx_UART_1.c **** {
+ 101              		.loc 1 142 0
+ 102              		.cfi_startproc
+ 103              		@ args = 0, pretend = 0, frame = 16
+ 104              		@ frame_needed = 1, uses_anonymous_args = 0
+ 105 0000 80B5     		push	{r7, lr}
+ 106              		.cfi_def_cfa_offset 8
+ 107              		.cfi_offset 7, -8
+ 108              		.cfi_offset 14, -4
+ 109 0002 84B0     		sub	sp, sp, #16
+ 110              		.cfi_def_cfa_offset 24
+ 111 0004 00AF     		add	r7, sp, #0
+ 112              		.cfi_def_cfa_register 7
+ 113 0006 7860     		str	r0, [r7, #4]
+ 143:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     uint8 stringIndex = 1u;
+ 114              		.loc 1 143 0
+ 115 0008 0F23     		movs	r3, #15
+ 116 000a FB18     		adds	r3, r7, r3
+ 117 000c 0122     		movs	r2, #1
+ 118 000e 1A70     		strb	r2, [r3]
+ 144:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     char8 current = *string;
+ 119              		.loc 1 144 0
+ 120 0010 0E23     		movs	r3, #14
+ 121 0012 FB18     		adds	r3, r7, r3
+ 122 0014 7A68     		ldr	r2, [r7, #4]
+ 123 0016 1278     		ldrb	r2, [r2]
+ 124 0018 1A70     		strb	r2, [r3]
+ 145:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 146:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     /* Until null is reached, print next character */
+ 147:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     while((char8) '\0' != current)
+ 125              		.loc 1 147 0
+ 126 001a 15E0     		b	.L4
+ 127              	.L5:
+ 148:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     {
+ 149:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         SW_Tx_UART_1_PutChar((uint8)current);
+ 128              		.loc 1 149 0
+ 129 001c 0E23     		movs	r3, #14
+ 130 001e FB18     		adds	r3, r7, r3
+ 131 0020 1B78     		ldrb	r3, [r3]
+ 132 0022 1800     		movs	r0, r3
+ 133 0024 FFF7FEFF 		bl	SW_Tx_UART_1_PutChar
+ 150:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         current = string[stringIndex];
+ 134              		.loc 1 150 0
+ 135 0028 0F23     		movs	r3, #15
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 6
+
+
+ 136 002a FB18     		adds	r3, r7, r3
+ 137 002c 1B78     		ldrb	r3, [r3]
+ 138 002e 7A68     		ldr	r2, [r7, #4]
+ 139 0030 D218     		adds	r2, r2, r3
+ 140 0032 0E23     		movs	r3, #14
+ 141 0034 FB18     		adds	r3, r7, r3
+ 142 0036 1278     		ldrb	r2, [r2]
+ 143 0038 1A70     		strb	r2, [r3]
+ 151:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         stringIndex++;
+ 144              		.loc 1 151 0
+ 145 003a 0F23     		movs	r3, #15
+ 146 003c FB18     		adds	r3, r7, r3
+ 147 003e 1A78     		ldrb	r2, [r3]
+ 148 0040 0F23     		movs	r3, #15
+ 149 0042 FB18     		adds	r3, r7, r3
+ 150 0044 0132     		adds	r2, r2, #1
+ 151 0046 1A70     		strb	r2, [r3]
+ 152              	.L4:
+ 147:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     {
+ 153              		.loc 1 147 0
+ 154 0048 0E23     		movs	r3, #14
+ 155 004a FB18     		adds	r3, r7, r3
+ 156 004c 1B78     		ldrb	r3, [r3]
+ 157 004e 002B     		cmp	r3, #0
+ 158 0050 E4D1     		bne	.L5
+ 152:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     }
+ 153:Generated_Source\PSoC4/SW_Tx_UART_1.c **** }
+ 159              		.loc 1 153 0
+ 160 0052 C046     		nop
+ 161 0054 BD46     		mov	sp, r7
+ 162 0056 04B0     		add	sp, sp, #16
+ 163              		@ sp needed
+ 164 0058 80BD     		pop	{r7, pc}
+ 165              		.cfi_endproc
+ 166              	.LFE2:
+ 167              		.size	SW_Tx_UART_1_PutString, .-SW_Tx_UART_1_PutString
+ 168 005a C046     		.section	.text.SW_Tx_UART_1_PutArray,"ax",%progbits
+ 169              		.align	2
+ 170              		.global	SW_Tx_UART_1_PutArray
+ 171              		.code	16
+ 172              		.thumb_func
+ 173              		.type	SW_Tx_UART_1_PutArray, %function
+ 174              	SW_Tx_UART_1_PutArray:
+ 175              	.LFB3:
+ 154:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 155:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 156:Generated_Source\PSoC4/SW_Tx_UART_1.c **** /*******************************************************************************
+ 157:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Function Name: SW_Tx_UART_1_PutArray
+ 158:Generated_Source\PSoC4/SW_Tx_UART_1.c **** ********************************************************************************
+ 159:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 160:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Summary:
+ 161:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  Sends byteCount bytes from a memory array via the Tx pin.
+ 162:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 163:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Parameters:
+ 164:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  data: Pointer to the memory array
+ 165:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  byteCount: Number of bytes to be transmitted
+ 166:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 7
+
+
+ 167:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Return:
+ 168:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  None
+ 169:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 170:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *******************************************************************************/
+ 171:Generated_Source\PSoC4/SW_Tx_UART_1.c **** void SW_Tx_UART_1_PutArray(const uint8 array[], uint32 byteCount) 
+ 172:Generated_Source\PSoC4/SW_Tx_UART_1.c **** {
+ 176              		.loc 1 172 0
+ 177              		.cfi_startproc
+ 178              		@ args = 0, pretend = 0, frame = 16
+ 179              		@ frame_needed = 1, uses_anonymous_args = 0
+ 180 0000 80B5     		push	{r7, lr}
+ 181              		.cfi_def_cfa_offset 8
+ 182              		.cfi_offset 7, -8
+ 183              		.cfi_offset 14, -4
+ 184 0002 84B0     		sub	sp, sp, #16
+ 185              		.cfi_def_cfa_offset 24
+ 186 0004 00AF     		add	r7, sp, #0
+ 187              		.cfi_def_cfa_register 7
+ 188 0006 7860     		str	r0, [r7, #4]
+ 189 0008 3960     		str	r1, [r7]
+ 173:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     uint32 arrayIndex;
+ 174:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 175:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     for (arrayIndex = 0u; arrayIndex < byteCount; arrayIndex++)
+ 190              		.loc 1 175 0
+ 191 000a 0023     		movs	r3, #0
+ 192 000c FB60     		str	r3, [r7, #12]
+ 193 000e 09E0     		b	.L7
+ 194              	.L8:
+ 176:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     {
+ 177:Generated_Source\PSoC4/SW_Tx_UART_1.c ****         SW_Tx_UART_1_PutChar(array[arrayIndex]);
+ 195              		.loc 1 177 0 discriminator 3
+ 196 0010 7A68     		ldr	r2, [r7, #4]
+ 197 0012 FB68     		ldr	r3, [r7, #12]
+ 198 0014 D318     		adds	r3, r2, r3
+ 199 0016 1B78     		ldrb	r3, [r3]
+ 200 0018 1800     		movs	r0, r3
+ 201 001a FFF7FEFF 		bl	SW_Tx_UART_1_PutChar
+ 175:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     {
+ 202              		.loc 1 175 0 discriminator 3
+ 203 001e FB68     		ldr	r3, [r7, #12]
+ 204 0020 0133     		adds	r3, r3, #1
+ 205 0022 FB60     		str	r3, [r7, #12]
+ 206              	.L7:
+ 175:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     {
+ 207              		.loc 1 175 0 is_stmt 0 discriminator 1
+ 208 0024 FA68     		ldr	r2, [r7, #12]
+ 209 0026 3B68     		ldr	r3, [r7]
+ 210 0028 9A42     		cmp	r2, r3
+ 211 002a F1D3     		bcc	.L8
+ 178:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     }
+ 179:Generated_Source\PSoC4/SW_Tx_UART_1.c **** }
+ 212              		.loc 1 179 0 is_stmt 1
+ 213 002c C046     		nop
+ 214 002e BD46     		mov	sp, r7
+ 215 0030 04B0     		add	sp, sp, #16
+ 216              		@ sp needed
+ 217 0032 80BD     		pop	{r7, pc}
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 8
+
+
+ 218              		.cfi_endproc
+ 219              	.LFE3:
+ 220              		.size	SW_Tx_UART_1_PutArray, .-SW_Tx_UART_1_PutArray
+ 221              		.section	.text.SW_Tx_UART_1_PutHexByte,"ax",%progbits
+ 222              		.align	2
+ 223              		.global	SW_Tx_UART_1_PutHexByte
+ 224              		.code	16
+ 225              		.thumb_func
+ 226              		.type	SW_Tx_UART_1_PutHexByte, %function
+ 227              	SW_Tx_UART_1_PutHexByte:
+ 228              	.LFB4:
+ 180:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 181:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 182:Generated_Source\PSoC4/SW_Tx_UART_1.c **** /*******************************************************************************
+ 183:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Function Name: SW_Tx_UART_1_PutHexByte
+ 184:Generated_Source\PSoC4/SW_Tx_UART_1.c **** ********************************************************************************
+ 185:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 186:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Summary:
+ 187:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  Sends a byte in Hex representation (two characters, uppercase for A-F) via
+ 188:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  the Tx pin.
+ 189:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 190:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Parameters:
+ 191:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  TxHexByte: The byte to be converted to ASCII characters and
+ 192:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *             sent via the Tx pin.
+ 193:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 194:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Return:
+ 195:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  None
+ 196:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 197:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *******************************************************************************/
+ 198:Generated_Source\PSoC4/SW_Tx_UART_1.c **** void SW_Tx_UART_1_PutHexByte(uint8 txHexByte) 
+ 199:Generated_Source\PSoC4/SW_Tx_UART_1.c **** {
+ 229              		.loc 1 199 0
+ 230              		.cfi_startproc
+ 231              		@ args = 0, pretend = 0, frame = 8
+ 232              		@ frame_needed = 1, uses_anonymous_args = 0
+ 233 0000 80B5     		push	{r7, lr}
+ 234              		.cfi_def_cfa_offset 8
+ 235              		.cfi_offset 7, -8
+ 236              		.cfi_offset 14, -4
+ 237 0002 82B0     		sub	sp, sp, #8
+ 238              		.cfi_def_cfa_offset 16
+ 239 0004 00AF     		add	r7, sp, #0
+ 240              		.cfi_def_cfa_register 7
+ 241 0006 0200     		movs	r2, r0
+ 242 0008 FB1D     		adds	r3, r7, #7
+ 243 000a 1A70     		strb	r2, [r3]
+ 200:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     static char8 const CYCODE SW_Tx_UART_1_hex[] = "0123456789ABCDEF";
+ 201:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 202:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     SW_Tx_UART_1_PutChar((uint8) SW_Tx_UART_1_hex[txHexByte >> SW_Tx_UART_1_BYTE_UPPER_NIBBLE_SHIFT
+ 244              		.loc 1 202 0
+ 245 000c FB1D     		adds	r3, r7, #7
+ 246 000e 1B78     		ldrb	r3, [r3]
+ 247 0010 1B09     		lsrs	r3, r3, #4
+ 248 0012 DBB2     		uxtb	r3, r3
+ 249 0014 1A00     		movs	r2, r3
+ 250 0016 094B     		ldr	r3, .L10
+ 251 0018 9B5C     		ldrb	r3, [r3, r2]
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 9
+
+
+ 252 001a 1800     		movs	r0, r3
+ 253 001c FFF7FEFF 		bl	SW_Tx_UART_1_PutChar
+ 203:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     SW_Tx_UART_1_PutChar((uint8) SW_Tx_UART_1_hex[txHexByte & SW_Tx_UART_1_BYTE_LOWER_NIBBLE_MASK])
+ 254              		.loc 1 203 0
+ 255 0020 FB1D     		adds	r3, r7, #7
+ 256 0022 1B78     		ldrb	r3, [r3]
+ 257 0024 0F22     		movs	r2, #15
+ 258 0026 1340     		ands	r3, r2
+ 259 0028 044A     		ldr	r2, .L10
+ 260 002a D35C     		ldrb	r3, [r2, r3]
+ 261 002c 1800     		movs	r0, r3
+ 262 002e FFF7FEFF 		bl	SW_Tx_UART_1_PutChar
+ 204:Generated_Source\PSoC4/SW_Tx_UART_1.c **** }
+ 263              		.loc 1 204 0
+ 264 0032 C046     		nop
+ 265 0034 BD46     		mov	sp, r7
+ 266 0036 02B0     		add	sp, sp, #8
+ 267              		@ sp needed
+ 268 0038 80BD     		pop	{r7, pc}
+ 269              	.L11:
+ 270 003a C046     		.align	2
+ 271              	.L10:
+ 272 003c 00000000 		.word	SW_Tx_UART_1_hex.4276
+ 273              		.cfi_endproc
+ 274              	.LFE4:
+ 275              		.size	SW_Tx_UART_1_PutHexByte, .-SW_Tx_UART_1_PutHexByte
+ 276              		.section	.text.SW_Tx_UART_1_PutHexInt,"ax",%progbits
+ 277              		.align	2
+ 278              		.global	SW_Tx_UART_1_PutHexInt
+ 279              		.code	16
+ 280              		.thumb_func
+ 281              		.type	SW_Tx_UART_1_PutHexInt, %function
+ 282              	SW_Tx_UART_1_PutHexInt:
+ 283              	.LFB5:
+ 205:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 206:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 207:Generated_Source\PSoC4/SW_Tx_UART_1.c **** /*******************************************************************************
+ 208:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Function Name: SW_Tx_UART_1_PutHexInt
+ 209:Generated_Source\PSoC4/SW_Tx_UART_1.c **** ********************************************************************************
+ 210:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 211:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Summary:
+ 212:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  Sends a 16-bit unsigned integer in Hex representation (four characters,
+ 213:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  uppercase for A-F) via the Tx pin.
+ 214:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 215:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Parameters:
+ 216:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  TxHexInt: The uint16 to be converted to ASCII characters and sent via
+ 217:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *            the Tx pin.
+ 218:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 219:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Return:
+ 220:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  None
+ 221:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 222:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *******************************************************************************/
+ 223:Generated_Source\PSoC4/SW_Tx_UART_1.c **** void SW_Tx_UART_1_PutHexInt(uint16 txHexInt) 
+ 224:Generated_Source\PSoC4/SW_Tx_UART_1.c **** {
+ 284              		.loc 1 224 0
+ 285              		.cfi_startproc
+ 286              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 10
+
+
+ 287              		@ frame_needed = 1, uses_anonymous_args = 0
+ 288 0000 80B5     		push	{r7, lr}
+ 289              		.cfi_def_cfa_offset 8
+ 290              		.cfi_offset 7, -8
+ 291              		.cfi_offset 14, -4
+ 292 0002 82B0     		sub	sp, sp, #8
+ 293              		.cfi_def_cfa_offset 16
+ 294 0004 00AF     		add	r7, sp, #0
+ 295              		.cfi_def_cfa_register 7
+ 296 0006 0200     		movs	r2, r0
+ 297 0008 BB1D     		adds	r3, r7, #6
+ 298 000a 1A80     		strh	r2, [r3]
+ 225:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     SW_Tx_UART_1_PutHexByte((uint8)(txHexInt >> SW_Tx_UART_1_U16_UPPER_BYTE_SHIFT));
+ 299              		.loc 1 225 0
+ 300 000c BB1D     		adds	r3, r7, #6
+ 301 000e 1B88     		ldrh	r3, [r3]
+ 302 0010 1B0A     		lsrs	r3, r3, #8
+ 303 0012 9BB2     		uxth	r3, r3
+ 304 0014 DBB2     		uxtb	r3, r3
+ 305 0016 1800     		movs	r0, r3
+ 306 0018 FFF7FEFF 		bl	SW_Tx_UART_1_PutHexByte
+ 226:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     SW_Tx_UART_1_PutHexByte((uint8)(txHexInt & SW_Tx_UART_1_U16_LOWER_BYTE_MASK));
+ 307              		.loc 1 226 0
+ 308 001c BB1D     		adds	r3, r7, #6
+ 309 001e 1B88     		ldrh	r3, [r3]
+ 310 0020 DBB2     		uxtb	r3, r3
+ 311 0022 1800     		movs	r0, r3
+ 312 0024 FFF7FEFF 		bl	SW_Tx_UART_1_PutHexByte
+ 227:Generated_Source\PSoC4/SW_Tx_UART_1.c **** }
+ 313              		.loc 1 227 0
+ 314 0028 C046     		nop
+ 315 002a BD46     		mov	sp, r7
+ 316 002c 02B0     		add	sp, sp, #8
+ 317              		@ sp needed
+ 318 002e 80BD     		pop	{r7, pc}
+ 319              		.cfi_endproc
+ 320              	.LFE5:
+ 321              		.size	SW_Tx_UART_1_PutHexInt, .-SW_Tx_UART_1_PutHexInt
+ 322              		.section	.text.SW_Tx_UART_1_PutCRLF,"ax",%progbits
+ 323              		.align	2
+ 324              		.global	SW_Tx_UART_1_PutCRLF
+ 325              		.code	16
+ 326              		.thumb_func
+ 327              		.type	SW_Tx_UART_1_PutCRLF, %function
+ 328              	SW_Tx_UART_1_PutCRLF:
+ 329              	.LFB6:
+ 228:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 229:Generated_Source\PSoC4/SW_Tx_UART_1.c **** 
+ 230:Generated_Source\PSoC4/SW_Tx_UART_1.c **** /*******************************************************************************
+ 231:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Function Name: SW_Tx_UART_1_PutCRLF
+ 232:Generated_Source\PSoC4/SW_Tx_UART_1.c **** ********************************************************************************
+ 233:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 234:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Summary:
+ 235:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  Sends a carriage return (0x0D) and a line feed (0x0A) via the Tx pin.
+ 236:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 237:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Parameters:
+ 238:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  None
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 11
+
+
+ 239:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 240:Generated_Source\PSoC4/SW_Tx_UART_1.c **** * Return:
+ 241:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *  None
+ 242:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *
+ 243:Generated_Source\PSoC4/SW_Tx_UART_1.c **** *******************************************************************************/
+ 244:Generated_Source\PSoC4/SW_Tx_UART_1.c **** void SW_Tx_UART_1_PutCRLF(void) 
+ 245:Generated_Source\PSoC4/SW_Tx_UART_1.c **** {
+ 330              		.loc 1 245 0
+ 331              		.cfi_startproc
+ 332              		@ args = 0, pretend = 0, frame = 0
+ 333              		@ frame_needed = 1, uses_anonymous_args = 0
+ 334 0000 80B5     		push	{r7, lr}
+ 335              		.cfi_def_cfa_offset 8
+ 336              		.cfi_offset 7, -8
+ 337              		.cfi_offset 14, -4
+ 338 0002 00AF     		add	r7, sp, #0
+ 339              		.cfi_def_cfa_register 7
+ 246:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     SW_Tx_UART_1_PutChar(0x0Du);
+ 340              		.loc 1 246 0
+ 341 0004 0D20     		movs	r0, #13
+ 342 0006 FFF7FEFF 		bl	SW_Tx_UART_1_PutChar
+ 247:Generated_Source\PSoC4/SW_Tx_UART_1.c ****     SW_Tx_UART_1_PutChar(0x0Au);
+ 343              		.loc 1 247 0
+ 344 000a 0A20     		movs	r0, #10
+ 345 000c FFF7FEFF 		bl	SW_Tx_UART_1_PutChar
+ 248:Generated_Source\PSoC4/SW_Tx_UART_1.c **** }
+ 346              		.loc 1 248 0
+ 347 0010 C046     		nop
+ 348 0012 BD46     		mov	sp, r7
+ 349              		@ sp needed
+ 350 0014 80BD     		pop	{r7, pc}
+ 351              		.cfi_endproc
+ 352              	.LFE6:
+ 353              		.size	SW_Tx_UART_1_PutCRLF, .-SW_Tx_UART_1_PutCRLF
+ 354 0016 C046     		.section	.rodata
+ 355              		.align	2
+ 356              		.type	SW_Tx_UART_1_hex.4276, %object
+ 357              		.size	SW_Tx_UART_1_hex.4276, 17
+ 358              	SW_Tx_UART_1_hex.4276:
+ 359 0000 30313233 		.ascii	"0123456789ABCDEF\000"
+ 359      34353637 
+ 359      38394142 
+ 359      43444546 
+ 359      00
+ 360              		.text
+ 361              	.Letext0:
+ 362              		.file 2 "Generated_Source\\PSoC4\\cytypes.h"
+ 363              		.section	.debug_info,"",%progbits
+ 364              	.Ldebug_info0:
+ 365 0000 1E020000 		.4byte	0x21e
+ 366 0004 0400     		.2byte	0x4
+ 367 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 368 000a 04       		.byte	0x4
+ 369 000b 01       		.uleb128 0x1
+ 370 000c CD000000 		.4byte	.LASF36
+ 371 0010 0C       		.byte	0xc
+ 372 0011 A4010000 		.4byte	.LASF37
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 12
+
+
+ 373 0015 5B010000 		.4byte	.LASF38
+ 374 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 375 001d 00000000 		.4byte	0
+ 376 0021 00000000 		.4byte	.Ldebug_line0
+ 377 0025 02       		.uleb128 0x2
+ 378 0026 01       		.byte	0x1
+ 379 0027 06       		.byte	0x6
+ 380 0028 05020000 		.4byte	.LASF0
+ 381 002c 02       		.uleb128 0x2
+ 382 002d 01       		.byte	0x1
+ 383 002e 08       		.byte	0x8
+ 384 002f D4010000 		.4byte	.LASF1
+ 385 0033 02       		.uleb128 0x2
+ 386 0034 02       		.byte	0x2
+ 387 0035 05       		.byte	0x5
+ 388 0036 11000000 		.4byte	.LASF2
+ 389 003a 02       		.uleb128 0x2
+ 390 003b 02       		.byte	0x2
+ 391 003c 07       		.byte	0x7
+ 392 003d 5E020000 		.4byte	.LASF3
+ 393 0041 02       		.uleb128 0x2
+ 394 0042 04       		.byte	0x4
+ 395 0043 05       		.byte	0x5
+ 396 0044 A2000000 		.4byte	.LASF4
+ 397 0048 02       		.uleb128 0x2
+ 398 0049 04       		.byte	0x4
+ 399 004a 07       		.byte	0x7
+ 400 004b 9F020000 		.4byte	.LASF5
+ 401 004f 02       		.uleb128 0x2
+ 402 0050 08       		.byte	0x8
+ 403 0051 05       		.byte	0x5
+ 404 0052 94000000 		.4byte	.LASF6
+ 405 0056 02       		.uleb128 0x2
+ 406 0057 08       		.byte	0x8
+ 407 0058 07       		.byte	0x7
+ 408 0059 11020000 		.4byte	.LASF7
+ 409 005d 03       		.uleb128 0x3
+ 410 005e 04       		.byte	0x4
+ 411 005f 05       		.byte	0x5
+ 412 0060 696E7400 		.ascii	"int\000"
+ 413 0064 02       		.uleb128 0x2
+ 414 0065 04       		.byte	0x4
+ 415 0066 07       		.byte	0x7
+ 416 0067 31020000 		.4byte	.LASF8
+ 417 006b 04       		.uleb128 0x4
+ 418 006c 4A000000 		.4byte	.LASF9
+ 419 0070 02       		.byte	0x2
+ 420 0071 D201     		.2byte	0x1d2
+ 421 0073 2C000000 		.4byte	0x2c
+ 422 0077 04       		.uleb128 0x4
+ 423 0078 2A000000 		.4byte	.LASF10
+ 424 007c 02       		.byte	0x2
+ 425 007d D301     		.2byte	0x1d3
+ 426 007f 3A000000 		.4byte	0x3a
+ 427 0083 04       		.uleb128 0x4
+ 428 0084 98020000 		.4byte	.LASF11
+ 429 0088 02       		.byte	0x2
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 13
+
+
+ 430 0089 D401     		.2byte	0x1d4
+ 431 008b 48000000 		.4byte	0x48
+ 432 008f 02       		.uleb128 0x2
+ 433 0090 04       		.byte	0x4
+ 434 0091 04       		.byte	0x4
+ 435 0092 77000000 		.4byte	.LASF12
+ 436 0096 02       		.uleb128 0x2
+ 437 0097 08       		.byte	0x8
+ 438 0098 04       		.byte	0x4
+ 439 0099 B1020000 		.4byte	.LASF13
+ 440 009d 04       		.uleb128 0x4
+ 441 009e 24000000 		.4byte	.LASF14
+ 442 00a2 02       		.byte	0x2
+ 443 00a3 E301     		.2byte	0x1e3
+ 444 00a5 A9000000 		.4byte	0xa9
+ 445 00a9 02       		.uleb128 0x2
+ 446 00aa 01       		.byte	0x1
+ 447 00ab 08       		.byte	0x8
+ 448 00ac 71020000 		.4byte	.LASF15
+ 449 00b0 05       		.uleb128 0x5
+ 450 00b1 D4020000 		.4byte	.LASF16
+ 451 00b5 01       		.byte	0x1
+ 452 00b6 35       		.byte	0x35
+ 453 00b7 00000000 		.4byte	.LFB0
+ 454 00bb 0A000000 		.4byte	.LFE0-.LFB0
+ 455 00bf 01       		.uleb128 0x1
+ 456 00c0 9C       		.byte	0x9c
+ 457 00c1 05       		.uleb128 0x5
+ 458 00c2 50000000 		.4byte	.LASF17
+ 459 00c6 01       		.byte	0x1
+ 460 00c7 79       		.byte	0x79
+ 461 00c8 00000000 		.4byte	.LFB1
+ 462 00cc 0A000000 		.4byte	.LFE1-.LFB1
+ 463 00d0 01       		.uleb128 0x1
+ 464 00d1 9C       		.byte	0x9c
+ 465 00d2 06       		.uleb128 0x6
+ 466 00d3 76020000 		.4byte	.LASF20
+ 467 00d7 01       		.byte	0x1
+ 468 00d8 8D       		.byte	0x8d
+ 469 00d9 00000000 		.4byte	.LFB2
+ 470 00dd 5A000000 		.4byte	.LFE2-.LFB2
+ 471 00e1 01       		.uleb128 0x1
+ 472 00e2 9C       		.byte	0x9c
+ 473 00e3 12010000 		.4byte	0x112
+ 474 00e7 07       		.uleb128 0x7
+ 475 00e8 AB000000 		.4byte	.LASF22
+ 476 00ec 01       		.byte	0x1
+ 477 00ed 8D       		.byte	0x8d
+ 478 00ee 12010000 		.4byte	0x112
+ 479 00f2 02       		.uleb128 0x2
+ 480 00f3 91       		.byte	0x91
+ 481 00f4 6C       		.sleb128 -20
+ 482 00f5 08       		.uleb128 0x8
+ 483 00f6 F9010000 		.4byte	.LASF18
+ 484 00fa 01       		.byte	0x1
+ 485 00fb 8F       		.byte	0x8f
+ 486 00fc 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 14
+
+
+ 487 0100 02       		.uleb128 0x2
+ 488 0101 91       		.byte	0x91
+ 489 0102 77       		.sleb128 -9
+ 490 0103 08       		.uleb128 0x8
+ 491 0104 56020000 		.4byte	.LASF19
+ 492 0108 01       		.byte	0x1
+ 493 0109 90       		.byte	0x90
+ 494 010a 9D000000 		.4byte	0x9d
+ 495 010e 02       		.uleb128 0x2
+ 496 010f 91       		.byte	0x91
+ 497 0110 76       		.sleb128 -10
+ 498 0111 00       		.byte	0
+ 499 0112 09       		.uleb128 0x9
+ 500 0113 04       		.byte	0x4
+ 501 0114 18010000 		.4byte	0x118
+ 502 0118 0A       		.uleb128 0xa
+ 503 0119 9D000000 		.4byte	0x9d
+ 504 011d 06       		.uleb128 0x6
+ 505 011e B8020000 		.4byte	.LASF21
+ 506 0122 01       		.byte	0x1
+ 507 0123 AB       		.byte	0xab
+ 508 0124 00000000 		.4byte	.LFB3
+ 509 0128 34000000 		.4byte	.LFE3-.LFB3
+ 510 012c 01       		.uleb128 0x1
+ 511 012d 9C       		.byte	0x9c
+ 512 012e 5D010000 		.4byte	0x15d
+ 513 0132 07       		.uleb128 0x7
+ 514 0133 CE020000 		.4byte	.LASF23
+ 515 0137 01       		.byte	0x1
+ 516 0138 AB       		.byte	0xab
+ 517 0139 5D010000 		.4byte	0x15d
+ 518 013d 02       		.uleb128 0x2
+ 519 013e 91       		.byte	0x91
+ 520 013f 6C       		.sleb128 -20
+ 521 0140 07       		.uleb128 0x7
+ 522 0141 E7020000 		.4byte	.LASF24
+ 523 0145 01       		.byte	0x1
+ 524 0146 AB       		.byte	0xab
+ 525 0147 83000000 		.4byte	0x83
+ 526 014b 02       		.uleb128 0x2
+ 527 014c 91       		.byte	0x91
+ 528 014d 68       		.sleb128 -24
+ 529 014e 08       		.uleb128 0x8
+ 530 014f 8D020000 		.4byte	.LASF25
+ 531 0153 01       		.byte	0x1
+ 532 0154 AD       		.byte	0xad
+ 533 0155 83000000 		.4byte	0x83
+ 534 0159 02       		.uleb128 0x2
+ 535 015a 91       		.byte	0x91
+ 536 015b 74       		.sleb128 -12
+ 537 015c 00       		.byte	0
+ 538 015d 09       		.uleb128 0x9
+ 539 015e 04       		.byte	0x4
+ 540 015f 63010000 		.4byte	0x163
+ 541 0163 0A       		.uleb128 0xa
+ 542 0164 6B000000 		.4byte	0x6b
+ 543 0168 06       		.uleb128 0x6
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 15
+
+
+ 544 0169 3E020000 		.4byte	.LASF26
+ 545 016d 01       		.byte	0x1
+ 546 016e C6       		.byte	0xc6
+ 547 016f 00000000 		.4byte	.LFB4
+ 548 0173 40000000 		.4byte	.LFE4-.LFB4
+ 549 0177 01       		.uleb128 0x1
+ 550 0178 9C       		.byte	0x9c
+ 551 0179 9D010000 		.4byte	0x19d
+ 552 017d 07       		.uleb128 0x7
+ 553 017e CA010000 		.4byte	.LASF27
+ 554 0182 01       		.byte	0x1
+ 555 0183 C6       		.byte	0xc6
+ 556 0184 6B000000 		.4byte	0x6b
+ 557 0188 02       		.uleb128 0x2
+ 558 0189 91       		.byte	0x91
+ 559 018a 77       		.sleb128 -9
+ 560 018b 08       		.uleb128 0x8
+ 561 018c 00000000 		.4byte	.LASF28
+ 562 0190 01       		.byte	0x1
+ 563 0191 C8       		.byte	0xc8
+ 564 0192 B4010000 		.4byte	0x1b4
+ 565 0196 05       		.uleb128 0x5
+ 566 0197 03       		.byte	0x3
+ 567 0198 00000000 		.4byte	SW_Tx_UART_1_hex.4276
+ 568 019c 00       		.byte	0
+ 569 019d 0B       		.uleb128 0xb
+ 570 019e 18010000 		.4byte	0x118
+ 571 01a2 AD010000 		.4byte	0x1ad
+ 572 01a6 0C       		.uleb128 0xc
+ 573 01a7 AD010000 		.4byte	0x1ad
+ 574 01ab 10       		.byte	0x10
+ 575 01ac 00       		.byte	0
+ 576 01ad 02       		.uleb128 0x2
+ 577 01ae 04       		.byte	0x4
+ 578 01af 07       		.byte	0x7
+ 579 01b0 1B000000 		.4byte	.LASF29
+ 580 01b4 0A       		.uleb128 0xa
+ 581 01b5 9D010000 		.4byte	0x19d
+ 582 01b9 06       		.uleb128 0x6
+ 583 01ba 7D000000 		.4byte	.LASF30
+ 584 01be 01       		.byte	0x1
+ 585 01bf DF       		.byte	0xdf
+ 586 01c0 00000000 		.4byte	.LFB5
+ 587 01c4 30000000 		.4byte	.LFE5-.LFB5
+ 588 01c8 01       		.uleb128 0x1
+ 589 01c9 9C       		.byte	0x9c
+ 590 01ca DD010000 		.4byte	0x1dd
+ 591 01ce 07       		.uleb128 0x7
+ 592 01cf 28020000 		.4byte	.LASF31
+ 593 01d3 01       		.byte	0x1
+ 594 01d4 DF       		.byte	0xdf
+ 595 01d5 77000000 		.4byte	0x77
+ 596 01d9 02       		.uleb128 0x2
+ 597 01da 91       		.byte	0x91
+ 598 01db 76       		.sleb128 -10
+ 599 01dc 00       		.byte	0
+ 600 01dd 0D       		.uleb128 0xd
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 16
+
+
+ 601 01de 62000000 		.4byte	.LASF32
+ 602 01e2 01       		.byte	0x1
+ 603 01e3 F4       		.byte	0xf4
+ 604 01e4 00000000 		.4byte	.LFB6
+ 605 01e8 16000000 		.4byte	.LFE6-.LFB6
+ 606 01ec 01       		.uleb128 0x1
+ 607 01ed 9C       		.byte	0x9c
+ 608 01ee 0E       		.uleb128 0xe
+ 609 01ef E2010000 		.4byte	.LASF33
+ 610 01f3 01       		.byte	0x1
+ 611 01f4 12       		.byte	0x12
+ 612 01f5 83000000 		.4byte	0x83
+ 613 01f9 05       		.uleb128 0x5
+ 614 01fa 03       		.byte	0x3
+ 615 01fb 00000000 		.4byte	SW_Tx_UART_1_pinNumber
+ 616 01ff 0E       		.uleb128 0xe
+ 617 0200 B2000000 		.4byte	.LASF34
+ 618 0204 01       		.byte	0x1
+ 619 0205 13       		.byte	0x13
+ 620 0206 83000000 		.4byte	0x83
+ 621 020a 05       		.uleb128 0x5
+ 622 020b 03       		.byte	0x3
+ 623 020c 00000000 		.4byte	SW_Tx_UART_1_pinPortNumber
+ 624 0210 0E       		.uleb128 0xe
+ 625 0211 31000000 		.4byte	.LASF35
+ 626 0215 01       		.byte	0x1
+ 627 0216 17       		.byte	0x17
+ 628 0217 83000000 		.4byte	0x83
+ 629 021b 05       		.uleb128 0x5
+ 630 021c 03       		.byte	0x3
+ 631 021d 00000000 		.4byte	SW_Tx_UART_1_pinDrAdress
+ 632 0221 00       		.byte	0
+ 633              		.section	.debug_abbrev,"",%progbits
+ 634              	.Ldebug_abbrev0:
+ 635 0000 01       		.uleb128 0x1
+ 636 0001 11       		.uleb128 0x11
+ 637 0002 01       		.byte	0x1
+ 638 0003 25       		.uleb128 0x25
+ 639 0004 0E       		.uleb128 0xe
+ 640 0005 13       		.uleb128 0x13
+ 641 0006 0B       		.uleb128 0xb
+ 642 0007 03       		.uleb128 0x3
+ 643 0008 0E       		.uleb128 0xe
+ 644 0009 1B       		.uleb128 0x1b
+ 645 000a 0E       		.uleb128 0xe
+ 646 000b 55       		.uleb128 0x55
+ 647 000c 17       		.uleb128 0x17
+ 648 000d 11       		.uleb128 0x11
+ 649 000e 01       		.uleb128 0x1
+ 650 000f 10       		.uleb128 0x10
+ 651 0010 17       		.uleb128 0x17
+ 652 0011 00       		.byte	0
+ 653 0012 00       		.byte	0
+ 654 0013 02       		.uleb128 0x2
+ 655 0014 24       		.uleb128 0x24
+ 656 0015 00       		.byte	0
+ 657 0016 0B       		.uleb128 0xb
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 17
+
+
+ 658 0017 0B       		.uleb128 0xb
+ 659 0018 3E       		.uleb128 0x3e
+ 660 0019 0B       		.uleb128 0xb
+ 661 001a 03       		.uleb128 0x3
+ 662 001b 0E       		.uleb128 0xe
+ 663 001c 00       		.byte	0
+ 664 001d 00       		.byte	0
+ 665 001e 03       		.uleb128 0x3
+ 666 001f 24       		.uleb128 0x24
+ 667 0020 00       		.byte	0
+ 668 0021 0B       		.uleb128 0xb
+ 669 0022 0B       		.uleb128 0xb
+ 670 0023 3E       		.uleb128 0x3e
+ 671 0024 0B       		.uleb128 0xb
+ 672 0025 03       		.uleb128 0x3
+ 673 0026 08       		.uleb128 0x8
+ 674 0027 00       		.byte	0
+ 675 0028 00       		.byte	0
+ 676 0029 04       		.uleb128 0x4
+ 677 002a 16       		.uleb128 0x16
+ 678 002b 00       		.byte	0
+ 679 002c 03       		.uleb128 0x3
+ 680 002d 0E       		.uleb128 0xe
+ 681 002e 3A       		.uleb128 0x3a
+ 682 002f 0B       		.uleb128 0xb
+ 683 0030 3B       		.uleb128 0x3b
+ 684 0031 05       		.uleb128 0x5
+ 685 0032 49       		.uleb128 0x49
+ 686 0033 13       		.uleb128 0x13
+ 687 0034 00       		.byte	0
+ 688 0035 00       		.byte	0
+ 689 0036 05       		.uleb128 0x5
+ 690 0037 2E       		.uleb128 0x2e
+ 691 0038 00       		.byte	0
+ 692 0039 3F       		.uleb128 0x3f
+ 693 003a 19       		.uleb128 0x19
+ 694 003b 03       		.uleb128 0x3
+ 695 003c 0E       		.uleb128 0xe
+ 696 003d 3A       		.uleb128 0x3a
+ 697 003e 0B       		.uleb128 0xb
+ 698 003f 3B       		.uleb128 0x3b
+ 699 0040 0B       		.uleb128 0xb
+ 700 0041 27       		.uleb128 0x27
+ 701 0042 19       		.uleb128 0x19
+ 702 0043 11       		.uleb128 0x11
+ 703 0044 01       		.uleb128 0x1
+ 704 0045 12       		.uleb128 0x12
+ 705 0046 06       		.uleb128 0x6
+ 706 0047 40       		.uleb128 0x40
+ 707 0048 18       		.uleb128 0x18
+ 708 0049 9742     		.uleb128 0x2117
+ 709 004b 19       		.uleb128 0x19
+ 710 004c 00       		.byte	0
+ 711 004d 00       		.byte	0
+ 712 004e 06       		.uleb128 0x6
+ 713 004f 2E       		.uleb128 0x2e
+ 714 0050 01       		.byte	0x1
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 18
+
+
+ 715 0051 3F       		.uleb128 0x3f
+ 716 0052 19       		.uleb128 0x19
+ 717 0053 03       		.uleb128 0x3
+ 718 0054 0E       		.uleb128 0xe
+ 719 0055 3A       		.uleb128 0x3a
+ 720 0056 0B       		.uleb128 0xb
+ 721 0057 3B       		.uleb128 0x3b
+ 722 0058 0B       		.uleb128 0xb
+ 723 0059 27       		.uleb128 0x27
+ 724 005a 19       		.uleb128 0x19
+ 725 005b 11       		.uleb128 0x11
+ 726 005c 01       		.uleb128 0x1
+ 727 005d 12       		.uleb128 0x12
+ 728 005e 06       		.uleb128 0x6
+ 729 005f 40       		.uleb128 0x40
+ 730 0060 18       		.uleb128 0x18
+ 731 0061 9642     		.uleb128 0x2116
+ 732 0063 19       		.uleb128 0x19
+ 733 0064 01       		.uleb128 0x1
+ 734 0065 13       		.uleb128 0x13
+ 735 0066 00       		.byte	0
+ 736 0067 00       		.byte	0
+ 737 0068 07       		.uleb128 0x7
+ 738 0069 05       		.uleb128 0x5
+ 739 006a 00       		.byte	0
+ 740 006b 03       		.uleb128 0x3
+ 741 006c 0E       		.uleb128 0xe
+ 742 006d 3A       		.uleb128 0x3a
+ 743 006e 0B       		.uleb128 0xb
+ 744 006f 3B       		.uleb128 0x3b
+ 745 0070 0B       		.uleb128 0xb
+ 746 0071 49       		.uleb128 0x49
+ 747 0072 13       		.uleb128 0x13
+ 748 0073 02       		.uleb128 0x2
+ 749 0074 18       		.uleb128 0x18
+ 750 0075 00       		.byte	0
+ 751 0076 00       		.byte	0
+ 752 0077 08       		.uleb128 0x8
+ 753 0078 34       		.uleb128 0x34
+ 754 0079 00       		.byte	0
+ 755 007a 03       		.uleb128 0x3
+ 756 007b 0E       		.uleb128 0xe
+ 757 007c 3A       		.uleb128 0x3a
+ 758 007d 0B       		.uleb128 0xb
+ 759 007e 3B       		.uleb128 0x3b
+ 760 007f 0B       		.uleb128 0xb
+ 761 0080 49       		.uleb128 0x49
+ 762 0081 13       		.uleb128 0x13
+ 763 0082 02       		.uleb128 0x2
+ 764 0083 18       		.uleb128 0x18
+ 765 0084 00       		.byte	0
+ 766 0085 00       		.byte	0
+ 767 0086 09       		.uleb128 0x9
+ 768 0087 0F       		.uleb128 0xf
+ 769 0088 00       		.byte	0
+ 770 0089 0B       		.uleb128 0xb
+ 771 008a 0B       		.uleb128 0xb
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 19
+
+
+ 772 008b 49       		.uleb128 0x49
+ 773 008c 13       		.uleb128 0x13
+ 774 008d 00       		.byte	0
+ 775 008e 00       		.byte	0
+ 776 008f 0A       		.uleb128 0xa
+ 777 0090 26       		.uleb128 0x26
+ 778 0091 00       		.byte	0
+ 779 0092 49       		.uleb128 0x49
+ 780 0093 13       		.uleb128 0x13
+ 781 0094 00       		.byte	0
+ 782 0095 00       		.byte	0
+ 783 0096 0B       		.uleb128 0xb
+ 784 0097 01       		.uleb128 0x1
+ 785 0098 01       		.byte	0x1
+ 786 0099 49       		.uleb128 0x49
+ 787 009a 13       		.uleb128 0x13
+ 788 009b 01       		.uleb128 0x1
+ 789 009c 13       		.uleb128 0x13
+ 790 009d 00       		.byte	0
+ 791 009e 00       		.byte	0
+ 792 009f 0C       		.uleb128 0xc
+ 793 00a0 21       		.uleb128 0x21
+ 794 00a1 00       		.byte	0
+ 795 00a2 49       		.uleb128 0x49
+ 796 00a3 13       		.uleb128 0x13
+ 797 00a4 2F       		.uleb128 0x2f
+ 798 00a5 0B       		.uleb128 0xb
+ 799 00a6 00       		.byte	0
+ 800 00a7 00       		.byte	0
+ 801 00a8 0D       		.uleb128 0xd
+ 802 00a9 2E       		.uleb128 0x2e
+ 803 00aa 00       		.byte	0
+ 804 00ab 3F       		.uleb128 0x3f
+ 805 00ac 19       		.uleb128 0x19
+ 806 00ad 03       		.uleb128 0x3
+ 807 00ae 0E       		.uleb128 0xe
+ 808 00af 3A       		.uleb128 0x3a
+ 809 00b0 0B       		.uleb128 0xb
+ 810 00b1 3B       		.uleb128 0x3b
+ 811 00b2 0B       		.uleb128 0xb
+ 812 00b3 27       		.uleb128 0x27
+ 813 00b4 19       		.uleb128 0x19
+ 814 00b5 11       		.uleb128 0x11
+ 815 00b6 01       		.uleb128 0x1
+ 816 00b7 12       		.uleb128 0x12
+ 817 00b8 06       		.uleb128 0x6
+ 818 00b9 40       		.uleb128 0x40
+ 819 00ba 18       		.uleb128 0x18
+ 820 00bb 9642     		.uleb128 0x2116
+ 821 00bd 19       		.uleb128 0x19
+ 822 00be 00       		.byte	0
+ 823 00bf 00       		.byte	0
+ 824 00c0 0E       		.uleb128 0xe
+ 825 00c1 34       		.uleb128 0x34
+ 826 00c2 00       		.byte	0
+ 827 00c3 03       		.uleb128 0x3
+ 828 00c4 0E       		.uleb128 0xe
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 20
+
+
+ 829 00c5 3A       		.uleb128 0x3a
+ 830 00c6 0B       		.uleb128 0xb
+ 831 00c7 3B       		.uleb128 0x3b
+ 832 00c8 0B       		.uleb128 0xb
+ 833 00c9 49       		.uleb128 0x49
+ 834 00ca 13       		.uleb128 0x13
+ 835 00cb 3F       		.uleb128 0x3f
+ 836 00cc 19       		.uleb128 0x19
+ 837 00cd 02       		.uleb128 0x2
+ 838 00ce 18       		.uleb128 0x18
+ 839 00cf 00       		.byte	0
+ 840 00d0 00       		.byte	0
+ 841 00d1 00       		.byte	0
+ 842              		.section	.debug_aranges,"",%progbits
+ 843 0000 4C000000 		.4byte	0x4c
+ 844 0004 0200     		.2byte	0x2
+ 845 0006 00000000 		.4byte	.Ldebug_info0
+ 846 000a 04       		.byte	0x4
+ 847 000b 00       		.byte	0
+ 848 000c 0000     		.2byte	0
+ 849 000e 0000     		.2byte	0
+ 850 0010 00000000 		.4byte	.LFB0
+ 851 0014 0A000000 		.4byte	.LFE0-.LFB0
+ 852 0018 00000000 		.4byte	.LFB1
+ 853 001c 0A000000 		.4byte	.LFE1-.LFB1
+ 854 0020 00000000 		.4byte	.LFB2
+ 855 0024 5A000000 		.4byte	.LFE2-.LFB2
+ 856 0028 00000000 		.4byte	.LFB3
+ 857 002c 34000000 		.4byte	.LFE3-.LFB3
+ 858 0030 00000000 		.4byte	.LFB4
+ 859 0034 40000000 		.4byte	.LFE4-.LFB4
+ 860 0038 00000000 		.4byte	.LFB5
+ 861 003c 30000000 		.4byte	.LFE5-.LFB5
+ 862 0040 00000000 		.4byte	.LFB6
+ 863 0044 16000000 		.4byte	.LFE6-.LFB6
+ 864 0048 00000000 		.4byte	0
+ 865 004c 00000000 		.4byte	0
+ 866              		.section	.debug_ranges,"",%progbits
+ 867              	.Ldebug_ranges0:
+ 868 0000 00000000 		.4byte	.LFB0
+ 869 0004 0A000000 		.4byte	.LFE0
+ 870 0008 00000000 		.4byte	.LFB1
+ 871 000c 0A000000 		.4byte	.LFE1
+ 872 0010 00000000 		.4byte	.LFB2
+ 873 0014 5A000000 		.4byte	.LFE2
+ 874 0018 00000000 		.4byte	.LFB3
+ 875 001c 34000000 		.4byte	.LFE3
+ 876 0020 00000000 		.4byte	.LFB4
+ 877 0024 40000000 		.4byte	.LFE4
+ 878 0028 00000000 		.4byte	.LFB5
+ 879 002c 30000000 		.4byte	.LFE5
+ 880 0030 00000000 		.4byte	.LFB6
+ 881 0034 16000000 		.4byte	.LFE6
+ 882 0038 00000000 		.4byte	0
+ 883 003c 00000000 		.4byte	0
+ 884              		.section	.debug_line,"",%progbits
+ 885              	.Ldebug_line0:
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 21
+
+
+ 886 0000 E4000000 		.section	.debug_str,"MS",%progbits,1
+ 886      02004900 
+ 886      00000201 
+ 886      FB0E0D00 
+ 886      01010101 
+ 887              	.LASF28:
+ 888 0000 53575F54 		.ascii	"SW_Tx_UART_1_hex\000"
+ 888      785F5541 
+ 888      52545F31 
+ 888      5F686578 
+ 888      00
+ 889              	.LASF2:
+ 890 0011 73686F72 		.ascii	"short int\000"
+ 890      7420696E 
+ 890      7400
+ 891              	.LASF29:
+ 892 001b 73697A65 		.ascii	"sizetype\000"
+ 892      74797065 
+ 892      00
+ 893              	.LASF14:
+ 894 0024 63686172 		.ascii	"char8\000"
+ 894      3800
+ 895              	.LASF10:
+ 896 002a 75696E74 		.ascii	"uint16\000"
+ 896      313600
+ 897              	.LASF35:
+ 898 0031 53575F54 		.ascii	"SW_Tx_UART_1_pinDrAdress\000"
+ 898      785F5541 
+ 898      52545F31 
+ 898      5F70696E 
+ 898      44724164 
+ 899              	.LASF9:
+ 900 004a 75696E74 		.ascii	"uint8\000"
+ 900      3800
+ 901              	.LASF17:
+ 902 0050 53575F54 		.ascii	"SW_Tx_UART_1_Stop\000"
+ 902      785F5541 
+ 902      52545F31 
+ 902      5F53746F 
+ 902      7000
+ 903              	.LASF32:
+ 904 0062 53575F54 		.ascii	"SW_Tx_UART_1_PutCRLF\000"
+ 904      785F5541 
+ 904      52545F31 
+ 904      5F507574 
+ 904      43524C46 
+ 905              	.LASF12:
+ 906 0077 666C6F61 		.ascii	"float\000"
+ 906      7400
+ 907              	.LASF30:
+ 908 007d 53575F54 		.ascii	"SW_Tx_UART_1_PutHexInt\000"
+ 908      785F5541 
+ 908      52545F31 
+ 908      5F507574 
+ 908      48657849 
+ 909              	.LASF6:
+ 910 0094 6C6F6E67 		.ascii	"long long int\000"
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 22
+
+
+ 910      206C6F6E 
+ 910      6720696E 
+ 910      7400
+ 911              	.LASF4:
+ 912 00a2 6C6F6E67 		.ascii	"long int\000"
+ 912      20696E74 
+ 912      00
+ 913              	.LASF22:
+ 914 00ab 73747269 		.ascii	"string\000"
+ 914      6E6700
+ 915              	.LASF34:
+ 916 00b2 53575F54 		.ascii	"SW_Tx_UART_1_pinPortNumber\000"
+ 916      785F5541 
+ 916      52545F31 
+ 916      5F70696E 
+ 916      506F7274 
+ 917              	.LASF36:
+ 918 00cd 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 918      43313120 
+ 918      352E342E 
+ 918      31203230 
+ 918      31363036 
+ 919 0100 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 919      20726576 
+ 919      6973696F 
+ 919      6E203233 
+ 919      37373135 
+ 920 0133 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 920      66756E63 
+ 920      74696F6E 
+ 920      2D736563 
+ 920      74696F6E 
+ 921              	.LASF38:
+ 922 015b 433A5C55 		.ascii	"C:\\Users\\SHOZO\\Documents\\PSoC Creator\\STONE_VO"
+ 922      73657273 
+ 922      5C53484F 
+ 922      5A4F5C44 
+ 922      6F63756D 
+ 923 0189 4943455C 		.ascii	"ICE\\STONE_VOICE_2021.cydsn\000"
+ 923      53544F4E 
+ 923      455F564F 
+ 923      4943455F 
+ 923      32303231 
+ 924              	.LASF37:
+ 925 01a4 47656E65 		.ascii	"Generated_Source\\PSoC4\\SW_Tx_UART_1.c\000"
+ 925      72617465 
+ 925      645F536F 
+ 925      75726365 
+ 925      5C50536F 
+ 926              	.LASF27:
+ 927 01ca 74784865 		.ascii	"txHexByte\000"
+ 927      78427974 
+ 927      6500
+ 928              	.LASF1:
+ 929 01d4 756E7369 		.ascii	"unsigned char\000"
+ 929      676E6564 
+ 929      20636861 
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 23
+
+
+ 929      7200
+ 930              	.LASF33:
+ 931 01e2 53575F54 		.ascii	"SW_Tx_UART_1_pinNumber\000"
+ 931      785F5541 
+ 931      52545F31 
+ 931      5F70696E 
+ 931      4E756D62 
+ 932              	.LASF18:
+ 933 01f9 73747269 		.ascii	"stringIndex\000"
+ 933      6E67496E 
+ 933      64657800 
+ 934              	.LASF0:
+ 935 0205 7369676E 		.ascii	"signed char\000"
+ 935      65642063 
+ 935      68617200 
+ 936              	.LASF7:
+ 937 0211 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 937      206C6F6E 
+ 937      6720756E 
+ 937      7369676E 
+ 937      65642069 
+ 938              	.LASF31:
+ 939 0228 74784865 		.ascii	"txHexInt\000"
+ 939      78496E74 
+ 939      00
+ 940              	.LASF8:
+ 941 0231 756E7369 		.ascii	"unsigned int\000"
+ 941      676E6564 
+ 941      20696E74 
+ 941      00
+ 942              	.LASF26:
+ 943 023e 53575F54 		.ascii	"SW_Tx_UART_1_PutHexByte\000"
+ 943      785F5541 
+ 943      52545F31 
+ 943      5F507574 
+ 943      48657842 
+ 944              	.LASF19:
+ 945 0256 63757272 		.ascii	"current\000"
+ 945      656E7400 
+ 946              	.LASF3:
+ 947 025e 73686F72 		.ascii	"short unsigned int\000"
+ 947      7420756E 
+ 947      7369676E 
+ 947      65642069 
+ 947      6E7400
+ 948              	.LASF15:
+ 949 0271 63686172 		.ascii	"char\000"
+ 949      00
+ 950              	.LASF20:
+ 951 0276 53575F54 		.ascii	"SW_Tx_UART_1_PutString\000"
+ 951      785F5541 
+ 951      52545F31 
+ 951      5F507574 
+ 951      53747269 
+ 952              	.LASF25:
+ 953 028d 61727261 		.ascii	"arrayIndex\000"
+ 953      79496E64 
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccf7VlP.s 			page 24
+
+
+ 953      657800
+ 954              	.LASF11:
+ 955 0298 75696E74 		.ascii	"uint32\000"
+ 955      333200
+ 956              	.LASF5:
+ 957 029f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 957      20756E73 
+ 957      69676E65 
+ 957      6420696E 
+ 957      7400
+ 958              	.LASF13:
+ 959 02b1 646F7562 		.ascii	"double\000"
+ 959      6C6500
+ 960              	.LASF21:
+ 961 02b8 53575F54 		.ascii	"SW_Tx_UART_1_PutArray\000"
+ 961      785F5541 
+ 961      52545F31 
+ 961      5F507574 
+ 961      41727261 
+ 962              	.LASF23:
+ 963 02ce 61727261 		.ascii	"array\000"
+ 963      7900
+ 964              	.LASF16:
+ 965 02d4 53575F54 		.ascii	"SW_Tx_UART_1_Start\000"
+ 965      785F5541 
+ 965      52545F31 
+ 965      5F537461 
+ 965      727400
+ 966              	.LASF24:
+ 967 02e7 62797465 		.ascii	"byteCount\000"
+ 967      436F756E 
+ 967      7400
+ 968              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

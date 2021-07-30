@@ -1,0 +1,954 @@
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	bright
+  20              		.bss
+  21              		.align	2
+  22              		.type	bright, %object
+  23              		.size	bright, 4
+  24              	bright:
+  25 0000 00000000 		.space	4
+  26              		.global	Button
+  27              		.align	2
+  28              		.type	Button, %object
+  29              		.size	Button, 26
+  30              	Button:
+  31 0004 00000000 		.space	26
+  31      00000000 
+  31      00000000 
+  31      00000000 
+  31      00000000 
+  32              		.global	Status
+  33 001e 0000     		.align	2
+  34              		.type	Status, %object
+  35              		.size	Status, 26
+  36              	Status:
+  37 0020 00000000 		.space	26
+  37      00000000 
+  37      00000000 
+  37      00000000 
+  37      00000000 
+  38              		.global	myData
+  39 003a 0000     		.align	2
+  40              		.type	myData, %object
+  41              		.size	myData, 26
+  42              	myData:
+  43 003c 00000000 		.space	26
+  43      00000000 
+  43      00000000 
+  43      00000000 
+  43      00000000 
+  44              		.comm	DataStr,78,4
+  45              		.global	__aeabi_ui2d
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 2
+
+
+  46              		.global	__aeabi_dmul
+  47              		.global	__aeabi_d2uiz
+  48              		.section	.text.main,"ax",%progbits
+  49              		.align	2
+  50              		.global	main
+  51              		.code	16
+  52              		.thumb_func
+  53              		.type	main, %function
+  54              	main:
+  55              	.LFB33:
+  56              		.file 1 "main.c"
+   1:main.c        **** /*******************************************************************************
+   2:main.c        **** * File Name: main.c
+   3:main.c        **** *
+   4:main.c        **** * Version: 1.30
+   5:main.c        **** *
+   6:main.c        **** * Description:
+   7:main.c        **** *  The project explains the usage of CapSense CSD component. The 2 buttons and
+   8:main.c        **** *  linear sliders are used as sensing elements. LED displays buttons active
+   9:main.c        **** *  state and slider position is shown on LCD.
+  10:main.c        **** *
+  11:main.c        **** ********************************************************************************
+  12:main.c        **** * Copyright 2013, Cypress Semiconductor Corporation. All rights reserved.
+  13:main.c        **** * This software is owned by Cypress Semiconductor Corporation and is protected
+  14:main.c        **** * by and subject to worldwide patent and copyright laws and treaties.
+  15:main.c        **** * Therefore, you may use this software only as provided in the license agreement
+  16:main.c        **** * accompanying the software package from which you obtained this software.
+  17:main.c        **** * CYPRESS AND ITS SUPPLIERS MAKE NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+  18:main.c        **** * WITH REGARD TO THIS SOFTWARE, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT,
+  19:main.c        **** * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  20:main.c        **** *******************************************************************************/
+  21:main.c        **** 
+  22:main.c        **** #include "project.h"
+  23:main.c        **** #include <stdio.h>
+  24:main.c        **** #include <string.h>
+  25:main.c        **** #include <stdlib.h>
+  26:main.c        **** 
+  27:main.c        **** void CapSense_DisplayState(void);
+  28:main.c        **** uint32_t bright = 0;
+  29:main.c        **** uint16_t Button[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+  30:main.c        **** uint16_t Status[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+  31:main.c        **** uint16_t myData[13] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+  32:main.c        **** char8 DataStr[13][6];
+  33:main.c        **** 
+  34:main.c        **** /*******************************************************************************
+  35:main.c        **** * Function Name: main
+  36:main.c        **** ********************************************************************************
+  37:main.c        **** * Summary:
+  38:main.c        **** *  Main function performs following functions:
+  39:main.c        **** *   1. Enable global interrupts.
+  40:main.c        **** *   2. Initialize CapSense CSD and Start the sensor scanning loop.
+  41:main.c        **** *   3. Process scanning results and display it on with LEDs.
+  42:main.c        **** *
+  43:main.c        **** * Parameters:
+  44:main.c        **** *  None
+  45:main.c        **** *
+  46:main.c        **** * Return:
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 3
+
+
+  47:main.c        **** *  None
+  48:main.c        **** *
+  49:main.c        **** *******************************************************************************/
+  50:main.c        **** int main()
+  51:main.c        **** {
+  57              		.loc 1 51 0
+  58              		.cfi_startproc
+  59              		@ args = 0, pretend = 0, frame = 8
+  60              		@ frame_needed = 1, uses_anonymous_args = 0
+  61 0000 90B5     		push	{r4, r7, lr}
+  62              		.cfi_def_cfa_offset 12
+  63              		.cfi_offset 4, -12
+  64              		.cfi_offset 7, -8
+  65              		.cfi_offset 14, -4
+  66 0002 83B0     		sub	sp, sp, #12
+  67              		.cfi_def_cfa_offset 24
+  68 0004 00AF     		add	r7, sp, #0
+  69              		.cfi_def_cfa_register 7
+  52:main.c        ****     /* Enable global interrupts */
+  53:main.c        ****     CyGlobalIntEnable;
+  70              		.loc 1 53 0
+  71              		.syntax divided
+  72              	@ 53 "main.c" 1
+  73 0006 62B6     		CPSIE   i
+  74              	@ 0 "" 2
+  54:main.c        **** 
+  55:main.c        ****     /* Start PWM and CapSense components */
+  56:main.c        ****     LED_CONTROL_Start();
+  75              		.loc 1 56 0
+  76              		.thumb
+  77              		.syntax unified
+  78 0008 FFF7FEFF 		bl	LED_CONTROL_Start
+  79              	.LBB2:
+  57:main.c        ****     
+  58:main.c        ****     for(int i=0; i<13; i++){
+  80              		.loc 1 58 0
+  81 000c 0023     		movs	r3, #0
+  82 000e 7B60     		str	r3, [r7, #4]
+  83 0010 08E0     		b	.L2
+  84              	.L3:
+  59:main.c        ****         CapSense_CSD_SetScanResolution(i,CapSense_CSD_RESOLUTION_14_BITS);
+  85              		.loc 1 59 0 discriminator 3
+  86 0012 7B68     		ldr	r3, [r7, #4]
+  87 0014 474A     		ldr	r2, .L11
+  88 0016 1100     		movs	r1, r2
+  89 0018 1800     		movs	r0, r3
+  90 001a FFF7FEFF 		bl	CapSense_CSD_SetScanResolution
+  58:main.c        ****         CapSense_CSD_SetScanResolution(i,CapSense_CSD_RESOLUTION_14_BITS);
+  91              		.loc 1 58 0 discriminator 3
+  92 001e 7B68     		ldr	r3, [r7, #4]
+  93 0020 0133     		adds	r3, r3, #1
+  94 0022 7B60     		str	r3, [r7, #4]
+  95              	.L2:
+  58:main.c        ****         CapSense_CSD_SetScanResolution(i,CapSense_CSD_RESOLUTION_14_BITS);
+  96              		.loc 1 58 0 is_stmt 0 discriminator 1
+  97 0024 7B68     		ldr	r3, [r7, #4]
+  98 0026 0C2B     		cmp	r3, #12
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 4
+
+
+  99 0028 F3DD     		ble	.L3
+ 100              	.LBE2:
+  60:main.c        ****     }
+  61:main.c        ****     CapSense_CSD_Start();
+ 101              		.loc 1 61 0 is_stmt 1
+ 102 002a FFF7FEFF 		bl	CapSense_CSD_Start
+  62:main.c        ****     SW_Tx_UART_1_Start();
+ 103              		.loc 1 62 0
+ 104 002e FFF7FEFF 		bl	SW_Tx_UART_1_Start
+  63:main.c        **** 
+  64:main.c        ****     /* Initialize baselines */
+  65:main.c        ****     CapSense_CSD_InitializeAllBaselines();
+ 105              		.loc 1 65 0
+ 106 0032 FFF7FEFF 		bl	CapSense_CSD_InitializeAllBaselines
+ 107              	.L10:
+  66:main.c        ****     
+  67:main.c        ****     
+  68:main.c        ****     
+  69:main.c        ****     while(1u)
+  70:main.c        ****     {
+  71:main.c        ****         /* Check whether the scanning of all enabled widgets is completed. */
+  72:main.c        ****         if(0u == CapSense_CSD_IsBusy())
+ 108              		.loc 1 72 0
+ 109 0036 FFF7FEFF 		bl	CapSense_CSD_IsBusy
+ 110 003a 031E     		subs	r3, r0, #0
+ 111 003c 5FD1     		bne	.L4
+  73:main.c        ****         {
+  74:main.c        ****             /* Update all baselines */
+  75:main.c        ****             CapSense_CSD_UpdateEnabledBaselines();
+ 112              		.loc 1 75 0
+ 113 003e FFF7FEFF 		bl	CapSense_CSD_UpdateEnabledBaselines
+  76:main.c        ****             
+  77:main.c        ****        		/* Start scanning all enabled sensors */
+  78:main.c        ****         	CapSense_CSD_ScanEnabledWidgets();
+ 114              		.loc 1 78 0
+ 115 0042 FFF7FEFF 		bl	CapSense_CSD_ScanEnabledWidgets
+ 116              	.LBB3:
+  79:main.c        **** 
+  80:main.c        ****             /* Start scanning all enabled sensors */
+  81:main.c        ****             for(int i=0; i<13; i++){
+ 117              		.loc 1 81 0
+ 118 0046 0023     		movs	r3, #0
+ 119 0048 3B60     		str	r3, [r7]
+ 120 004a 53E0     		b	.L5
+ 121              	.L9:
+  82:main.c        ****                 Button[i] = CapSense_CSD_CheckIsWidgetActive(i);
+ 122              		.loc 1 82 0
+ 123 004c 3B68     		ldr	r3, [r7]
+ 124 004e 1800     		movs	r0, r3
+ 125 0050 FFF7FEFF 		bl	CapSense_CSD_CheckIsWidgetActive
+ 126 0054 0300     		movs	r3, r0
+ 127 0056 99B2     		uxth	r1, r3
+ 128 0058 374B     		ldr	r3, .L11+4
+ 129 005a 3A68     		ldr	r2, [r7]
+ 130 005c 5200     		lsls	r2, r2, #1
+ 131 005e D152     		strh	r1, [r2, r3]
+  83:main.c        ****                 myData[i] = CapSense_CSD_GetDiffCountData(i);
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 5
+
+
+ 132              		.loc 1 83 0
+ 133 0060 3B68     		ldr	r3, [r7]
+ 134 0062 1800     		movs	r0, r3
+ 135 0064 FFF7FEFF 		bl	CapSense_CSD_GetDiffCountData
+ 136 0068 0300     		movs	r3, r0
+ 137 006a 1900     		movs	r1, r3
+ 138 006c 334B     		ldr	r3, .L11+8
+ 139 006e 3A68     		ldr	r2, [r7]
+ 140 0070 5200     		lsls	r2, r2, #1
+ 141 0072 D152     		strh	r1, [r2, r3]
+  84:main.c        ****                 //myData[i] = Button[i];
+  85:main.c        **** 
+  86:main.c        ****                 if(Button[i]==1){
+ 142              		.loc 1 86 0
+ 143 0074 304B     		ldr	r3, .L11+4
+ 144 0076 3A68     		ldr	r2, [r7]
+ 145 0078 5200     		lsls	r2, r2, #1
+ 146 007a D35A     		ldrh	r3, [r2, r3]
+ 147 007c 012B     		cmp	r3, #1
+ 148 007e 0ED1     		bne	.L6
+  87:main.c        ****                     bright = 65535;
+ 149              		.loc 1 87 0
+ 150 0080 2F4B     		ldr	r3, .L11+12
+ 151 0082 304A     		ldr	r2, .L11+16
+ 152 0084 1A60     		str	r2, [r3]
+  88:main.c        ****                     if(Status[i]==0){
+ 153              		.loc 1 88 0
+ 154 0086 304B     		ldr	r3, .L11+20
+ 155 0088 3A68     		ldr	r2, [r7]
+ 156 008a 5200     		lsls	r2, r2, #1
+ 157 008c D35A     		ldrh	r3, [r2, r3]
+ 158 008e 002B     		cmp	r3, #0
+ 159 0090 10D1     		bne	.L8
+  89:main.c        ****                         Status[i]=1;
+ 160              		.loc 1 89 0
+ 161 0092 2D4B     		ldr	r3, .L11+20
+ 162 0094 3A68     		ldr	r2, [r7]
+ 163 0096 5200     		lsls	r2, r2, #1
+ 164 0098 0121     		movs	r1, #1
+ 165 009a D152     		strh	r1, [r2, r3]
+ 166 009c 0AE0     		b	.L8
+ 167              	.L6:
+  90:main.c        ****                         
+  91:main.c        ****                     }
+  92:main.c        ****                 }else{
+  93:main.c        ****                     if(Status[i]==1){
+ 168              		.loc 1 93 0
+ 169 009e 2A4B     		ldr	r3, .L11+20
+ 170 00a0 3A68     		ldr	r2, [r7]
+ 171 00a2 5200     		lsls	r2, r2, #1
+ 172 00a4 D35A     		ldrh	r3, [r2, r3]
+ 173 00a6 012B     		cmp	r3, #1
+ 174 00a8 04D1     		bne	.L8
+  94:main.c        ****                         Status[i]=0;
+ 175              		.loc 1 94 0
+ 176 00aa 274B     		ldr	r3, .L11+20
+ 177 00ac 3A68     		ldr	r2, [r7]
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 6
+
+
+ 178 00ae 5200     		lsls	r2, r2, #1
+ 179 00b0 0021     		movs	r1, #0
+ 180 00b2 D152     		strh	r1, [r2, r3]
+ 181              	.L8:
+  95:main.c        ****                     }
+  96:main.c        ****                 }
+  97:main.c        ****                 itoa(myData[i],DataStr[i],10);
+ 182              		.loc 1 97 0 discriminator 2
+ 183 00b4 214B     		ldr	r3, .L11+8
+ 184 00b6 3A68     		ldr	r2, [r7]
+ 185 00b8 5200     		lsls	r2, r2, #1
+ 186 00ba D35A     		ldrh	r3, [r2, r3]
+ 187 00bc 1800     		movs	r0, r3
+ 188 00be 3A68     		ldr	r2, [r7]
+ 189 00c0 1300     		movs	r3, r2
+ 190 00c2 5B00     		lsls	r3, r3, #1
+ 191 00c4 9B18     		adds	r3, r3, r2
+ 192 00c6 5B00     		lsls	r3, r3, #1
+ 193 00c8 204A     		ldr	r2, .L11+24
+ 194 00ca 9B18     		adds	r3, r3, r2
+ 195 00cc 0A22     		movs	r2, #10
+ 196 00ce 1900     		movs	r1, r3
+ 197 00d0 FFF7FEFF 		bl	itoa
+  98:main.c        ****                 SW_Tx_UART_1_PutString(DataStr[i]);
+ 198              		.loc 1 98 0 discriminator 2
+ 199 00d4 3A68     		ldr	r2, [r7]
+ 200 00d6 1300     		movs	r3, r2
+ 201 00d8 5B00     		lsls	r3, r3, #1
+ 202 00da 9B18     		adds	r3, r3, r2
+ 203 00dc 5B00     		lsls	r3, r3, #1
+ 204 00de 1B4A     		ldr	r2, .L11+24
+ 205 00e0 9B18     		adds	r3, r3, r2
+ 206 00e2 1800     		movs	r0, r3
+ 207 00e4 FFF7FEFF 		bl	SW_Tx_UART_1_PutString
+  99:main.c        ****                 SW_Tx_UART_1_PutChar(',');
+ 208              		.loc 1 99 0 discriminator 2
+ 209 00e8 2C20     		movs	r0, #44
+ 210 00ea FFF7FEFF 		bl	SW_Tx_UART_1_PutChar
+  81:main.c        ****                 Button[i] = CapSense_CSD_CheckIsWidgetActive(i);
+ 211              		.loc 1 81 0 discriminator 2
+ 212 00ee 3B68     		ldr	r3, [r7]
+ 213 00f0 0133     		adds	r3, r3, #1
+ 214 00f2 3B60     		str	r3, [r7]
+ 215              	.L5:
+  81:main.c        ****                 Button[i] = CapSense_CSD_CheckIsWidgetActive(i);
+ 216              		.loc 1 81 0 is_stmt 0 discriminator 1
+ 217 00f4 3B68     		ldr	r3, [r7]
+ 218 00f6 0C2B     		cmp	r3, #12
+ 219 00f8 A8DD     		ble	.L9
+ 220              	.LBE3:
+ 100:main.c        ****                 
+ 101:main.c        ****             }
+ 102:main.c        ****             SW_Tx_UART_1_PutCRLF();
+ 221              		.loc 1 102 0 is_stmt 1
+ 222 00fa FFF7FEFF 		bl	SW_Tx_UART_1_PutCRLF
+ 223              	.L4:
+ 103:main.c        ****         }
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 7
+
+
+ 104:main.c        **** 
+ 105:main.c        ****         /* Display CapSense state using LEDs */
+ 106:main.c        ****         LED_CONTROL_WriteCompare(65535-bright);
+ 224              		.loc 1 106 0
+ 225 00fe 104B     		ldr	r3, .L11+12
+ 226 0100 1B68     		ldr	r3, [r3]
+ 227 0102 104A     		ldr	r2, .L11+16
+ 228 0104 D31A     		subs	r3, r2, r3
+ 229 0106 1800     		movs	r0, r3
+ 230 0108 FFF7FEFF 		bl	LED_CONTROL_WriteCompare
+ 107:main.c        ****         bright*=0.9999;
+ 231              		.loc 1 107 0
+ 232 010c 0C4B     		ldr	r3, .L11+12
+ 233 010e 1B68     		ldr	r3, [r3]
+ 234 0110 1800     		movs	r0, r3
+ 235 0112 FFF7FEFF 		bl	__aeabi_ui2d
+ 236 0116 0E4A     		ldr	r2, .L11+28
+ 237 0118 0E4B     		ldr	r3, .L11+32
+ 238 011a FFF7FEFF 		bl	__aeabi_dmul
+ 239 011e 0300     		movs	r3, r0
+ 240 0120 0C00     		movs	r4, r1
+ 241 0122 1800     		movs	r0, r3
+ 242 0124 2100     		movs	r1, r4
+ 243 0126 FFF7FEFF 		bl	__aeabi_d2uiz
+ 244 012a 0200     		movs	r2, r0
+ 245 012c 044B     		ldr	r3, .L11+12
+ 246 012e 1A60     		str	r2, [r3]
+ 108:main.c        ****         
+ 109:main.c        ****     }
+ 247              		.loc 1 109 0
+ 248 0130 81E7     		b	.L10
+ 249              	.L12:
+ 250 0132 C046     		.align	2
+ 251              	.L11:
+ 252 0134 0000FF3F 		.word	1073676288
+ 253 0138 00000000 		.word	Button
+ 254 013c 00000000 		.word	myData
+ 255 0140 00000000 		.word	bright
+ 256 0144 FFFF0000 		.word	65535
+ 257 0148 00000000 		.word	Status
+ 258 014c 00000000 		.word	DataStr
+ 259 0150 1EA7E848 		.word	1223206686
+ 260 0154 2EFFEF3F 		.word	1072693038
+ 261              		.cfi_endproc
+ 262              	.LFE33:
+ 263              		.size	main, .-main
+ 264              		.text
+ 265              	.Letext0:
+ 266              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 267              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 268              		.file 4 "Generated_Source\\PSoC4/cytypes.h"
+ 269              		.section	.debug_info,"",%progbits
+ 270              	.Ldebug_info0:
+ 271 0000 88010000 		.4byte	0x188
+ 272 0004 0400     		.2byte	0x4
+ 273 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 274 000a 04       		.byte	0x4
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 8
+
+
+ 275 000b 01       		.uleb128 0x1
+ 276 000c 43010000 		.4byte	.LASF24
+ 277 0010 0C       		.byte	0xc
+ 278 0011 1B000000 		.4byte	.LASF25
+ 279 0015 B8000000 		.4byte	.LASF26
+ 280 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 281 001d 00000000 		.4byte	0
+ 282 0021 00000000 		.4byte	.Ldebug_line0
+ 283 0025 02       		.uleb128 0x2
+ 284 0026 01       		.byte	0x1
+ 285 0027 06       		.byte	0x6
+ 286 0028 75000000 		.4byte	.LASF0
+ 287 002c 02       		.uleb128 0x2
+ 288 002d 01       		.byte	0x1
+ 289 002e 08       		.byte	0x8
+ 290 002f 8C000000 		.4byte	.LASF1
+ 291 0033 02       		.uleb128 0x2
+ 292 0034 02       		.byte	0x2
+ 293 0035 05       		.byte	0x5
+ 294 0036 39010000 		.4byte	.LASF2
+ 295 003a 03       		.uleb128 0x3
+ 296 003b 81000000 		.4byte	.LASF5
+ 297 003f 02       		.byte	0x2
+ 298 0040 2B       		.byte	0x2b
+ 299 0041 45000000 		.4byte	0x45
+ 300 0045 02       		.uleb128 0x2
+ 301 0046 02       		.byte	0x2
+ 302 0047 07       		.byte	0x7
+ 303 0048 08010000 		.4byte	.LASF3
+ 304 004c 02       		.uleb128 0x2
+ 305 004d 04       		.byte	0x4
+ 306 004e 05       		.byte	0x5
+ 307 004f A8000000 		.4byte	.LASF4
+ 308 0053 03       		.uleb128 0x3
+ 309 0054 22000000 		.4byte	.LASF6
+ 310 0058 02       		.byte	0x2
+ 311 0059 41       		.byte	0x41
+ 312 005a 5E000000 		.4byte	0x5e
+ 313 005e 02       		.uleb128 0x2
+ 314 005f 04       		.byte	0x4
+ 315 0060 07       		.byte	0x7
+ 316 0061 3C000000 		.4byte	.LASF7
+ 317 0065 02       		.uleb128 0x2
+ 318 0066 08       		.byte	0x8
+ 319 0067 05       		.byte	0x5
+ 320 0068 00000000 		.4byte	.LASF8
+ 321 006c 02       		.uleb128 0x2
+ 322 006d 08       		.byte	0x8
+ 323 006e 07       		.byte	0x7
+ 324 006f 4E000000 		.4byte	.LASF9
+ 325 0073 04       		.uleb128 0x4
+ 326 0074 04       		.byte	0x4
+ 327 0075 05       		.byte	0x5
+ 328 0076 696E7400 		.ascii	"int\000"
+ 329 007a 02       		.uleb128 0x2
+ 330 007b 04       		.byte	0x4
+ 331 007c 07       		.byte	0x7
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 9
+
+
+ 332 007d 0E000000 		.4byte	.LASF10
+ 333 0081 03       		.uleb128 0x3
+ 334 0082 65000000 		.4byte	.LASF11
+ 335 0086 03       		.byte	0x3
+ 336 0087 24       		.byte	0x24
+ 337 0088 3A000000 		.4byte	0x3a
+ 338 008c 03       		.uleb128 0x3
+ 339 008d 9F000000 		.4byte	.LASF12
+ 340 0091 03       		.byte	0x3
+ 341 0092 30       		.byte	0x30
+ 342 0093 53000000 		.4byte	0x53
+ 343 0097 02       		.uleb128 0x2
+ 344 0098 04       		.byte	0x4
+ 345 0099 04       		.byte	0x4
+ 346 009a 33010000 		.4byte	.LASF13
+ 347 009e 02       		.uleb128 0x2
+ 348 009f 08       		.byte	0x8
+ 349 00a0 04       		.byte	0x4
+ 350 00a1 B1000000 		.4byte	.LASF14
+ 351 00a5 05       		.uleb128 0x5
+ 352 00a6 DA010000 		.4byte	.LASF15
+ 353 00aa 04       		.byte	0x4
+ 354 00ab E301     		.2byte	0x1e3
+ 355 00ad B1000000 		.4byte	0xb1
+ 356 00b1 02       		.uleb128 0x2
+ 357 00b2 01       		.byte	0x1
+ 358 00b3 08       		.byte	0x8
+ 359 00b4 9A000000 		.4byte	.LASF16
+ 360 00b8 02       		.uleb128 0x2
+ 361 00b9 04       		.byte	0x4
+ 362 00ba 07       		.byte	0x7
+ 363 00bb D1010000 		.4byte	.LASF17
+ 364 00bf 02       		.uleb128 0x2
+ 365 00c0 08       		.byte	0x8
+ 366 00c1 04       		.byte	0x4
+ 367 00c2 22010000 		.4byte	.LASF18
+ 368 00c6 06       		.uleb128 0x6
+ 369 00c7 2E010000 		.4byte	.LASF27
+ 370 00cb 01       		.byte	0x1
+ 371 00cc 32       		.byte	0x32
+ 372 00cd 73000000 		.4byte	0x73
+ 373 00d1 00000000 		.4byte	.LFB33
+ 374 00d5 58010000 		.4byte	.LFE33-.LFB33
+ 375 00d9 01       		.uleb128 0x1
+ 376 00da 9C       		.byte	0x9c
+ 377 00db 10010000 		.4byte	0x110
+ 378 00df 07       		.uleb128 0x7
+ 379 00e0 0C000000 		.4byte	.LBB2
+ 380 00e4 1E000000 		.4byte	.LBE2-.LBB2
+ 381 00e8 F9000000 		.4byte	0xf9
+ 382 00ec 08       		.uleb128 0x8
+ 383 00ed 6900     		.ascii	"i\000"
+ 384 00ef 01       		.byte	0x1
+ 385 00f0 3A       		.byte	0x3a
+ 386 00f1 73000000 		.4byte	0x73
+ 387 00f5 02       		.uleb128 0x2
+ 388 00f6 91       		.byte	0x91
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 10
+
+
+ 389 00f7 6C       		.sleb128 -20
+ 390 00f8 00       		.byte	0
+ 391 00f9 09       		.uleb128 0x9
+ 392 00fa 46000000 		.4byte	.LBB3
+ 393 00fe B4000000 		.4byte	.LBE3-.LBB3
+ 394 0102 08       		.uleb128 0x8
+ 395 0103 6900     		.ascii	"i\000"
+ 396 0105 01       		.byte	0x1
+ 397 0106 51       		.byte	0x51
+ 398 0107 73000000 		.4byte	0x73
+ 399 010b 02       		.uleb128 0x2
+ 400 010c 91       		.byte	0x91
+ 401 010d 68       		.sleb128 -24
+ 402 010e 00       		.byte	0
+ 403 010f 00       		.byte	0
+ 404 0110 0A       		.uleb128 0xa
+ 405 0111 1B010000 		.4byte	.LASF19
+ 406 0115 01       		.byte	0x1
+ 407 0116 1C       		.byte	0x1c
+ 408 0117 8C000000 		.4byte	0x8c
+ 409 011b 05       		.uleb128 0x5
+ 410 011c 03       		.byte	0x3
+ 411 011d 00000000 		.4byte	bright
+ 412 0121 0B       		.uleb128 0xb
+ 413 0122 81000000 		.4byte	0x81
+ 414 0126 31010000 		.4byte	0x131
+ 415 012a 0C       		.uleb128 0xc
+ 416 012b B8000000 		.4byte	0xb8
+ 417 012f 0C       		.byte	0xc
+ 418 0130 00       		.byte	0
+ 419 0131 0A       		.uleb128 0xa
+ 420 0132 01010000 		.4byte	.LASF20
+ 421 0136 01       		.byte	0x1
+ 422 0137 1D       		.byte	0x1d
+ 423 0138 21010000 		.4byte	0x121
+ 424 013c 05       		.uleb128 0x5
+ 425 013d 03       		.byte	0x3
+ 426 013e 00000000 		.4byte	Button
+ 427 0142 0A       		.uleb128 0xa
+ 428 0143 6E000000 		.4byte	.LASF21
+ 429 0147 01       		.byte	0x1
+ 430 0148 1E       		.byte	0x1e
+ 431 0149 21010000 		.4byte	0x121
+ 432 014d 05       		.uleb128 0x5
+ 433 014e 03       		.byte	0x3
+ 434 014f 00000000 		.4byte	Status
+ 435 0153 0A       		.uleb128 0xa
+ 436 0154 2D000000 		.4byte	.LASF22
+ 437 0158 01       		.byte	0x1
+ 438 0159 1F       		.byte	0x1f
+ 439 015a 21010000 		.4byte	0x121
+ 440 015e 05       		.uleb128 0x5
+ 441 015f 03       		.byte	0x3
+ 442 0160 00000000 		.4byte	myData
+ 443 0164 0B       		.uleb128 0xb
+ 444 0165 A5000000 		.4byte	0xa5
+ 445 0169 7A010000 		.4byte	0x17a
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 11
+
+
+ 446 016d 0C       		.uleb128 0xc
+ 447 016e B8000000 		.4byte	0xb8
+ 448 0172 0C       		.byte	0xc
+ 449 0173 0C       		.uleb128 0xc
+ 450 0174 B8000000 		.4byte	0xb8
+ 451 0178 05       		.byte	0x5
+ 452 0179 00       		.byte	0
+ 453 017a 0A       		.uleb128 0xa
+ 454 017b 34000000 		.4byte	.LASF23
+ 455 017f 01       		.byte	0x1
+ 456 0180 20       		.byte	0x20
+ 457 0181 64010000 		.4byte	0x164
+ 458 0185 05       		.uleb128 0x5
+ 459 0186 03       		.byte	0x3
+ 460 0187 00000000 		.4byte	DataStr
+ 461 018b 00       		.byte	0
+ 462              		.section	.debug_abbrev,"",%progbits
+ 463              	.Ldebug_abbrev0:
+ 464 0000 01       		.uleb128 0x1
+ 465 0001 11       		.uleb128 0x11
+ 466 0002 01       		.byte	0x1
+ 467 0003 25       		.uleb128 0x25
+ 468 0004 0E       		.uleb128 0xe
+ 469 0005 13       		.uleb128 0x13
+ 470 0006 0B       		.uleb128 0xb
+ 471 0007 03       		.uleb128 0x3
+ 472 0008 0E       		.uleb128 0xe
+ 473 0009 1B       		.uleb128 0x1b
+ 474 000a 0E       		.uleb128 0xe
+ 475 000b 55       		.uleb128 0x55
+ 476 000c 17       		.uleb128 0x17
+ 477 000d 11       		.uleb128 0x11
+ 478 000e 01       		.uleb128 0x1
+ 479 000f 10       		.uleb128 0x10
+ 480 0010 17       		.uleb128 0x17
+ 481 0011 00       		.byte	0
+ 482 0012 00       		.byte	0
+ 483 0013 02       		.uleb128 0x2
+ 484 0014 24       		.uleb128 0x24
+ 485 0015 00       		.byte	0
+ 486 0016 0B       		.uleb128 0xb
+ 487 0017 0B       		.uleb128 0xb
+ 488 0018 3E       		.uleb128 0x3e
+ 489 0019 0B       		.uleb128 0xb
+ 490 001a 03       		.uleb128 0x3
+ 491 001b 0E       		.uleb128 0xe
+ 492 001c 00       		.byte	0
+ 493 001d 00       		.byte	0
+ 494 001e 03       		.uleb128 0x3
+ 495 001f 16       		.uleb128 0x16
+ 496 0020 00       		.byte	0
+ 497 0021 03       		.uleb128 0x3
+ 498 0022 0E       		.uleb128 0xe
+ 499 0023 3A       		.uleb128 0x3a
+ 500 0024 0B       		.uleb128 0xb
+ 501 0025 3B       		.uleb128 0x3b
+ 502 0026 0B       		.uleb128 0xb
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 12
+
+
+ 503 0027 49       		.uleb128 0x49
+ 504 0028 13       		.uleb128 0x13
+ 505 0029 00       		.byte	0
+ 506 002a 00       		.byte	0
+ 507 002b 04       		.uleb128 0x4
+ 508 002c 24       		.uleb128 0x24
+ 509 002d 00       		.byte	0
+ 510 002e 0B       		.uleb128 0xb
+ 511 002f 0B       		.uleb128 0xb
+ 512 0030 3E       		.uleb128 0x3e
+ 513 0031 0B       		.uleb128 0xb
+ 514 0032 03       		.uleb128 0x3
+ 515 0033 08       		.uleb128 0x8
+ 516 0034 00       		.byte	0
+ 517 0035 00       		.byte	0
+ 518 0036 05       		.uleb128 0x5
+ 519 0037 16       		.uleb128 0x16
+ 520 0038 00       		.byte	0
+ 521 0039 03       		.uleb128 0x3
+ 522 003a 0E       		.uleb128 0xe
+ 523 003b 3A       		.uleb128 0x3a
+ 524 003c 0B       		.uleb128 0xb
+ 525 003d 3B       		.uleb128 0x3b
+ 526 003e 05       		.uleb128 0x5
+ 527 003f 49       		.uleb128 0x49
+ 528 0040 13       		.uleb128 0x13
+ 529 0041 00       		.byte	0
+ 530 0042 00       		.byte	0
+ 531 0043 06       		.uleb128 0x6
+ 532 0044 2E       		.uleb128 0x2e
+ 533 0045 01       		.byte	0x1
+ 534 0046 3F       		.uleb128 0x3f
+ 535 0047 19       		.uleb128 0x19
+ 536 0048 03       		.uleb128 0x3
+ 537 0049 0E       		.uleb128 0xe
+ 538 004a 3A       		.uleb128 0x3a
+ 539 004b 0B       		.uleb128 0xb
+ 540 004c 3B       		.uleb128 0x3b
+ 541 004d 0B       		.uleb128 0xb
+ 542 004e 49       		.uleb128 0x49
+ 543 004f 13       		.uleb128 0x13
+ 544 0050 11       		.uleb128 0x11
+ 545 0051 01       		.uleb128 0x1
+ 546 0052 12       		.uleb128 0x12
+ 547 0053 06       		.uleb128 0x6
+ 548 0054 40       		.uleb128 0x40
+ 549 0055 18       		.uleb128 0x18
+ 550 0056 9642     		.uleb128 0x2116
+ 551 0058 19       		.uleb128 0x19
+ 552 0059 01       		.uleb128 0x1
+ 553 005a 13       		.uleb128 0x13
+ 554 005b 00       		.byte	0
+ 555 005c 00       		.byte	0
+ 556 005d 07       		.uleb128 0x7
+ 557 005e 0B       		.uleb128 0xb
+ 558 005f 01       		.byte	0x1
+ 559 0060 11       		.uleb128 0x11
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 13
+
+
+ 560 0061 01       		.uleb128 0x1
+ 561 0062 12       		.uleb128 0x12
+ 562 0063 06       		.uleb128 0x6
+ 563 0064 01       		.uleb128 0x1
+ 564 0065 13       		.uleb128 0x13
+ 565 0066 00       		.byte	0
+ 566 0067 00       		.byte	0
+ 567 0068 08       		.uleb128 0x8
+ 568 0069 34       		.uleb128 0x34
+ 569 006a 00       		.byte	0
+ 570 006b 03       		.uleb128 0x3
+ 571 006c 08       		.uleb128 0x8
+ 572 006d 3A       		.uleb128 0x3a
+ 573 006e 0B       		.uleb128 0xb
+ 574 006f 3B       		.uleb128 0x3b
+ 575 0070 0B       		.uleb128 0xb
+ 576 0071 49       		.uleb128 0x49
+ 577 0072 13       		.uleb128 0x13
+ 578 0073 02       		.uleb128 0x2
+ 579 0074 18       		.uleb128 0x18
+ 580 0075 00       		.byte	0
+ 581 0076 00       		.byte	0
+ 582 0077 09       		.uleb128 0x9
+ 583 0078 0B       		.uleb128 0xb
+ 584 0079 01       		.byte	0x1
+ 585 007a 11       		.uleb128 0x11
+ 586 007b 01       		.uleb128 0x1
+ 587 007c 12       		.uleb128 0x12
+ 588 007d 06       		.uleb128 0x6
+ 589 007e 00       		.byte	0
+ 590 007f 00       		.byte	0
+ 591 0080 0A       		.uleb128 0xa
+ 592 0081 34       		.uleb128 0x34
+ 593 0082 00       		.byte	0
+ 594 0083 03       		.uleb128 0x3
+ 595 0084 0E       		.uleb128 0xe
+ 596 0085 3A       		.uleb128 0x3a
+ 597 0086 0B       		.uleb128 0xb
+ 598 0087 3B       		.uleb128 0x3b
+ 599 0088 0B       		.uleb128 0xb
+ 600 0089 49       		.uleb128 0x49
+ 601 008a 13       		.uleb128 0x13
+ 602 008b 3F       		.uleb128 0x3f
+ 603 008c 19       		.uleb128 0x19
+ 604 008d 02       		.uleb128 0x2
+ 605 008e 18       		.uleb128 0x18
+ 606 008f 00       		.byte	0
+ 607 0090 00       		.byte	0
+ 608 0091 0B       		.uleb128 0xb
+ 609 0092 01       		.uleb128 0x1
+ 610 0093 01       		.byte	0x1
+ 611 0094 49       		.uleb128 0x49
+ 612 0095 13       		.uleb128 0x13
+ 613 0096 01       		.uleb128 0x1
+ 614 0097 13       		.uleb128 0x13
+ 615 0098 00       		.byte	0
+ 616 0099 00       		.byte	0
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 14
+
+
+ 617 009a 0C       		.uleb128 0xc
+ 618 009b 21       		.uleb128 0x21
+ 619 009c 00       		.byte	0
+ 620 009d 49       		.uleb128 0x49
+ 621 009e 13       		.uleb128 0x13
+ 622 009f 2F       		.uleb128 0x2f
+ 623 00a0 0B       		.uleb128 0xb
+ 624 00a1 00       		.byte	0
+ 625 00a2 00       		.byte	0
+ 626 00a3 00       		.byte	0
+ 627              		.section	.debug_aranges,"",%progbits
+ 628 0000 1C000000 		.4byte	0x1c
+ 629 0004 0200     		.2byte	0x2
+ 630 0006 00000000 		.4byte	.Ldebug_info0
+ 631 000a 04       		.byte	0x4
+ 632 000b 00       		.byte	0
+ 633 000c 0000     		.2byte	0
+ 634 000e 0000     		.2byte	0
+ 635 0010 00000000 		.4byte	.LFB33
+ 636 0014 58010000 		.4byte	.LFE33-.LFB33
+ 637 0018 00000000 		.4byte	0
+ 638 001c 00000000 		.4byte	0
+ 639              		.section	.debug_ranges,"",%progbits
+ 640              	.Ldebug_ranges0:
+ 641 0000 00000000 		.4byte	.LFB33
+ 642 0004 58010000 		.4byte	.LFE33
+ 643 0008 00000000 		.4byte	0
+ 644 000c 00000000 		.4byte	0
+ 645              		.section	.debug_line,"",%progbits
+ 646              	.Ldebug_line0:
+ 647 0000 9A010000 		.section	.debug_str,"MS",%progbits,1
+ 647      02003E01 
+ 647      00000201 
+ 647      FB0E0D00 
+ 647      01010101 
+ 648              	.LASF8:
+ 649 0000 6C6F6E67 		.ascii	"long long int\000"
+ 649      206C6F6E 
+ 649      6720696E 
+ 649      7400
+ 650              	.LASF10:
+ 651 000e 756E7369 		.ascii	"unsigned int\000"
+ 651      676E6564 
+ 651      20696E74 
+ 651      00
+ 652              	.LASF25:
+ 653 001b 6D61696E 		.ascii	"main.c\000"
+ 653      2E6300
+ 654              	.LASF6:
+ 655 0022 5F5F7569 		.ascii	"__uint32_t\000"
+ 655      6E743332 
+ 655      5F7400
+ 656              	.LASF22:
+ 657 002d 6D794461 		.ascii	"myData\000"
+ 657      746100
+ 658              	.LASF23:
+ 659 0034 44617461 		.ascii	"DataStr\000"
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 15
+
+
+ 659      53747200 
+ 660              	.LASF7:
+ 661 003c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 661      20756E73 
+ 661      69676E65 
+ 661      6420696E 
+ 661      7400
+ 662              	.LASF9:
+ 663 004e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 663      206C6F6E 
+ 663      6720756E 
+ 663      7369676E 
+ 663      65642069 
+ 664              	.LASF11:
+ 665 0065 75696E74 		.ascii	"uint16_t\000"
+ 665      31365F74 
+ 665      00
+ 666              	.LASF21:
+ 667 006e 53746174 		.ascii	"Status\000"
+ 667      757300
+ 668              	.LASF0:
+ 669 0075 7369676E 		.ascii	"signed char\000"
+ 669      65642063 
+ 669      68617200 
+ 670              	.LASF5:
+ 671 0081 5F5F7569 		.ascii	"__uint16_t\000"
+ 671      6E743136 
+ 671      5F7400
+ 672              	.LASF1:
+ 673 008c 756E7369 		.ascii	"unsigned char\000"
+ 673      676E6564 
+ 673      20636861 
+ 673      7200
+ 674              	.LASF16:
+ 675 009a 63686172 		.ascii	"char\000"
+ 675      00
+ 676              	.LASF12:
+ 677 009f 75696E74 		.ascii	"uint32_t\000"
+ 677      33325F74 
+ 677      00
+ 678              	.LASF4:
+ 679 00a8 6C6F6E67 		.ascii	"long int\000"
+ 679      20696E74 
+ 679      00
+ 680              	.LASF14:
+ 681 00b1 646F7562 		.ascii	"double\000"
+ 681      6C6500
+ 682              	.LASF26:
+ 683 00b8 433A5C55 		.ascii	"C:\\Users\\SHOZO\\Documents\\PSoC Creator\\STONE_VO"
+ 683      73657273 
+ 683      5C53484F 
+ 683      5A4F5C44 
+ 683      6F63756D 
+ 684 00e6 4943455C 		.ascii	"ICE\\STONE_VOICE_2021.cydsn\000"
+ 684      53544F4E 
+ 684      455F564F 
+ 684      4943455F 
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\cccvuDhK.s 			page 16
+
+
+ 684      32303231 
+ 685              	.LASF20:
+ 686 0101 42757474 		.ascii	"Button\000"
+ 686      6F6E00
+ 687              	.LASF3:
+ 688 0108 73686F72 		.ascii	"short unsigned int\000"
+ 688      7420756E 
+ 688      7369676E 
+ 688      65642069 
+ 688      6E7400
+ 689              	.LASF19:
+ 690 011b 62726967 		.ascii	"bright\000"
+ 690      687400
+ 691              	.LASF18:
+ 692 0122 6C6F6E67 		.ascii	"long double\000"
+ 692      20646F75 
+ 692      626C6500 
+ 693              	.LASF27:
+ 694 012e 6D61696E 		.ascii	"main\000"
+ 694      00
+ 695              	.LASF13:
+ 696 0133 666C6F61 		.ascii	"float\000"
+ 696      7400
+ 697              	.LASF2:
+ 698 0139 73686F72 		.ascii	"short int\000"
+ 698      7420696E 
+ 698      7400
+ 699              	.LASF24:
+ 700 0143 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 700      43313120 
+ 700      352E342E 
+ 700      31203230 
+ 700      31363036 
+ 701 0176 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 701      20726576 
+ 701      6973696F 
+ 701      6E203233 
+ 701      37373135 
+ 702 01a9 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 702      66756E63 
+ 702      74696F6E 
+ 702      2D736563 
+ 702      74696F6E 
+ 703              	.LASF17:
+ 704 01d1 73697A65 		.ascii	"sizetype\000"
+ 704      74797065 
+ 704      00
+ 705              	.LASF15:
+ 706 01da 63686172 		.ascii	"char8\000"
+ 706      3800
+ 707              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -1,0 +1,38 @@
+#N canvas 433 545 451 342 10;
+#X obj 42 260 netsend -u -b;
+#X floatatom 32 287 5 0 0 0 - - -, f 5;
+#X msg 51 230 disconnect;
+#X obj 228 197 list trim;
+#X obj 231 105 hsl 128 15 0 100 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 1016 1;
+#X obj 228 175 list prepend send;
+#X floatatom 235 127 5 0 0 0 - - -, f 5;
+#X obj 27 25 loadbang;
+#X obj 44 75 del 50;
+#X obj 228 15 inlet;
+#X obj 332 15 inlet;
+#X text 369 15 reconnect;
+#X obj 27 55 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 61 173 list trim;
+#X obj 61 151 list prepend connect;
+#X obj 61 128 list prepend \$1;
+#X obj 61 106 list prepend \$2;
+#X obj 228 147 oscformat \$3;
+#X connect 0 0 1 0;
+#X connect 2 0 0 0;
+#X connect 3 0 0 0;
+#X connect 4 0 6 0;
+#X connect 4 0 17 0;
+#X connect 5 0 3 0;
+#X connect 7 0 12 0;
+#X connect 8 0 16 0;
+#X connect 9 0 4 0;
+#X connect 10 0 12 0;
+#X connect 12 0 8 0;
+#X connect 12 0 2 0;
+#X connect 13 0 0 0;
+#X connect 14 0 13 0;
+#X connect 15 0 14 0;
+#X connect 16 0 15 0;
+#X connect 17 0 5 0;

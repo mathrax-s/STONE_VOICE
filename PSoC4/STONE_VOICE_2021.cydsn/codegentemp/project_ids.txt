@@ -1,0 +1,7 @@
+C:\Users\SHOZO\Documents\PSoC Creator\STONE_VOICE\STONE_VOICE_2021.cydsn\STONE_VOICE_2021.cyprj|78ee2ee9-5062-4587-8622-2c97756e8b4f
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|ad08d4ca-3735-4875-9933-f02b97fbe973
+C:\Users\SHOZO\Documents\PSoC Creator\4.3\Downloads ( 4.3).cylib\Downloads ( 4.3).cyprj|320e65c5-8770-4b7c-941e-45e8f3fa8523
+C:\Users\SHOZO\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|6b7f2b11-75a6-4bf9-b182-e7581649ffe5
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|0dfded74-5f07-40f6-a857-6e4f73d35bb2
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|f93645ce-d2af-42ef-b433-68f355b87edc
+C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|8808109a-7172-494a-a0c6-a6ae44a4c574

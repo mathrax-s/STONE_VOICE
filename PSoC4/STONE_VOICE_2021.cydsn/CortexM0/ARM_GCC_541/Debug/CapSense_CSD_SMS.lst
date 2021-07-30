@@ -1,0 +1,3256 @@
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"CapSense_CSD_SMS.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	CapSense_CSD_prescalerTable
+  20              		.section	.rodata
+  21              		.align	2
+  22              		.type	CapSense_CSD_prescalerTable, %object
+  23              		.size	CapSense_CSD_prescalerTable, 16
+  24              	CapSense_CSD_prescalerTable:
+  25 0000 01       		.byte	1
+  26 0001 01       		.byte	1
+  27 0002 01       		.byte	1
+  28 0003 02       		.byte	2
+  29 0004 02       		.byte	2
+  30 0005 02       		.byte	2
+  31 0006 02       		.byte	2
+  32 0007 04       		.byte	4
+  33 0008 04       		.byte	4
+  34 0009 04       		.byte	4
+  35 000a 04       		.byte	4
+  36 000b 04       		.byte	4
+  37 000c 04       		.byte	4
+  38 000d 04       		.byte	4
+  39 000e 04       		.byte	4
+  40 000f 04       		.byte	4
+  41              		.comm	CapSense_CSD_noiseEnvelopeTbl,14,4
+  42              		.comm	CapSense_CSD_runningDifferenceTbl,14,4
+  43              		.comm	CapSense_CSD_signRegisterTbl,14,4
+  44              		.comm	CapSense_CSD_sampleMinTbl,28,4
+  45              		.comm	CapSense_CSD_sampleMaxTbl,28,4
+  46              		.comm	CapSense_CSD_previousSampleTbl,28,4
+  47              		.comm	CapSense_CSD_kValueTbl,14,4
+  48              		.global	CapSense_CSD_sensorSensitivity
+  49              		.data
+  50              		.align	2
+  51              		.type	CapSense_CSD_sensorSensitivity, %object
+  52              		.size	CapSense_CSD_sensorSensitivity, 14
+  53              	CapSense_CSD_sensorSensitivity:
+  54 0000 02       		.byte	2
+  55 0001 02       		.byte	2
+  56 0002 02       		.byte	2
+  57 0003 02       		.byte	2
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 2
+
+
+  58 0004 02       		.byte	2
+  59 0005 02       		.byte	2
+  60 0006 02       		.byte	2
+  61 0007 02       		.byte	2
+  62 0008 02       		.byte	2
+  63 0009 02       		.byte	2
+  64 000a 02       		.byte	2
+  65 000b 02       		.byte	2
+  66 000c 02       		.byte	2
+  67 000d 02       		.byte	2
+  68              		.comm	CapSense_CSD_config,12,4
+  69              		.global	CapSense_CSD_configPointers
+  70              		.section	.rodata
+  71              		.align	2
+  72              		.type	CapSense_CSD_configPointers, %object
+  73              		.size	CapSense_CSD_configPointers, 92
+  74              	CapSense_CSD_configPointers:
+  75 0010 00000000 		.word	CapSense_CSD_modulationIDAC
+  76 0014 00000000 		.word	CapSense_CSD_compensationIDAC
+  77 0018 00000000 		.word	CapSense_CSD_sensorSensitivity
+  78 001c 00000000 		.word	CapSense_CSD_senseClkDividerVal
+  79 0020 00000000 		.word	CapSense_CSD_sampleClkDividerVal
+  80 0024 00000000 		.word	CapSense_CSD_widgetNumber
+  81 0028 00000000 		.word	CapSense_CSD_widgetResolution
+  82 002c 00000000 		.word	CapSense_CSD_noiseEnvelopeTbl
+  83 0030 00000000 		.word	CapSense_CSD_runningDifferenceTbl
+  84 0034 00000000 		.word	CapSense_CSD_signRegisterTbl
+  85 0038 00000000 		.word	CapSense_CSD_sampleMinTbl
+  86 003c 00000000 		.word	CapSense_CSD_sampleMaxTbl
+  87 0040 00000000 		.word	CapSense_CSD_previousSampleTbl
+  88 0044 00000000 		.word	CapSense_CSD_kValueTbl
+  89 0048 00000000 		.word	CapSense_CSD_scanSpeedTbl
+  90 004c 00000000 		.word	CapSense_CSD_prescalerTable
+  91 0050 00000000 		.word	CapSense_CSD_rawDataIndex
+  92 0054 00000000 		.word	CapSense_CSD_numberOfSensors
+  93 0058 00000000 		.word	CapSense_CSD_GetSensorRaw
+  94 005c 00000000 		.word	CapSense_CSD_PreScan
+  95 0060 00000000 		.word	CapSense_CSD_ReadSensorRaw
+  96 0064 00000000 		.word	CapSense_CSD_GetBitValue
+  97 0068 00000000 		.word	CapSense_CSD_SetBitValue
+  98              		.section	.text.CapSense_CSD_AutoTune,"ax",%progbits
+  99              		.align	2
+ 100              		.global	CapSense_CSD_AutoTune
+ 101              		.code	16
+ 102              		.thumb_func
+ 103              		.type	CapSense_CSD_AutoTune, %function
+ 104              	CapSense_CSD_AutoTune:
+ 105              	.LFB32:
+ 106              		.file 1 "Generated_Source\\PSoC4\\CapSense_CSD_SMS.c"
+   1:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** /*******************************************************************************
+   2:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * File Name: CapSense_CSD_SMS.c
+   3:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Version 2.60
+   4:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+   5:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Description:
+   6:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  This file provides the source code of wrapper between CapSense CSD component
+   7:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  and Auto Tuning library.
+   8:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 3
+
+
+   9:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Note:
+  10:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+  11:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** ********************************************************************************
+  12:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Copyright 2013-2016, Cypress Semiconductor Corporation.  All rights reserved.
+  13:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * the software package with which this file was provided.
+  16:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *******************************************************************************/
+  17:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  18:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** #include "CapSense_CSD_SMS.h"
+  19:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** #include "CapSense_CSD_PVT.h"
+  20:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  21:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** #include "cytypes.h"
+  22:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  23:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** #if (CapSense_CSD_TUNING_METHOD == CapSense_CSD__TUNING_AUTO)
+  24:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  25:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  26:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** /*  Real Charge Divider values */
+  27:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** #if ((0u != CapSense_CSD_IS_M0S8PERI_BLOCK) && (0u == CY_PSOC4_4000))
+  28:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     /*  Dividers are not chained */
+  29:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #if (CYDEV_BCLK__HFCLK__MHZ > 24u)
+  30:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         const uint8 CapSense_CSD_prescalerTable[CapSense_CSD_PRESCALERS_TBL_SIZE] = {
+  31:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             4u,     4u,     4u,    8u,    8u,    8u,    8u,    16u,    16u,    16u,    16u,    16u,
+  32:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         };
+  33:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #elif (CYDEV_BCLK__HFCLK__MHZ >12u)
+  34:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         const uint8 CapSense_CSD_prescalerTable[CapSense_CSD_PRESCALERS_TBL_SIZE] = {
+  35:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             2u,     2u,     2u,    4u,    4u,    4u,    4u,    8u,    8u,    8u,    8u,    8u,    8
+  36:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         };
+  37:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #else   /* (CYDEV_BCLK__HFCLK__MHZ > 12u) */
+  38:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         const uint8 CapSense_CSD_prescalerTable[CapSense_CSD_PRESCALERS_TBL_SIZE] = {
+  39:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             1u,     1u,     1u,    2u,    2u,    2u,    2u,    4u,    4u,    4u,    4u,    4u,    4
+  40:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         };
+  41:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #endif /* (CYDEV_BCLK__HFCLK__MHZ > 24u) */
+  42:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  43:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** #elif (0u != CapSense_CSD_IS_M0S8PERI_BLOCK)
+  44:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     /*  Dividers are not chained (PSoC 4000) */
+  45:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #if (CYDEV_BCLK__HFCLK__MHZ >= 12u)
+  46:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         const uint8 CapSense_CSD_prescalerTable[CapSense_CSD_PRESCALERS_TBL_SIZE] = {
+  47:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             1u,     1u,     1u,    2u,    2u,    2u,    2u,    4u,    4u,    4u,    4u,    4u,    4
+  48:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         };
+  49:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  50:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #elif (CYDEV_BCLK__HFCLK__MHZ >= 6u)
+  51:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         const uint8 CapSense_CSD_prescalerTable[CapSense_CSD_PRESCALERS_TBL_SIZE] = {
+  52:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             1u,     1u,     1u,    1u,    1u,    1u,    1u,    2u,    2u,    2u,    2u,    2u,    2
+  53:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         };
+  54:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #else
+  55:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         const uint8 CapSense_CSD_prescalerTable[CapSense_CSD_PRESCALERS_TBL_SIZE] = {
+  56:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             1u,     1u,     1u,    1u,    1u,    1u,    1u,    1u,    1u,    1u,    1u,    1u,    1
+  57:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         };
+  58:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #endif /* (CYDEV_BCLK__HFCLK__MHZ > 12u) */
+  59:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  60:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** #else
+  61:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     /*  Dividers are chained (PSoC 4100, PSoC 4200) */
+  62:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #if (CYDEV_BCLK__HFCLK__MHZ > 24u)
+  63:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         const uint8 CapSense_CSD_prescalerTable[CapSense_CSD_PRESCALERS_TBL_SIZE] = {
+  64:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             2u,     2u,     2u,    4u,    4u,    4u,    4u,    8u,    8u,    8u,    8u,    8u,    8
+  65:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         };
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 4
+
+
+  66:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  67:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #elif (CYDEV_BCLK__HFCLK__MHZ >12u)
+  68:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         const uint8 CapSense_CSD_prescalerTable[CapSense_CSD_PRESCALERS_TBL_SIZE] = {
+  69:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             1u,     1u,     1u,    2u,    2u,    2u,    2u,    4u,    4u,    4u,    4u,    4u,    4
+  70:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         };
+  71:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #else   /* (CYDEV_BCLK__HFCLK__MHZ > 12u) */
+  72:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         const uint8 CapSense_CSD_prescalerTable[CapSense_CSD_PRESCALERS_TBL_SIZE] = {
+  73:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             1u,     1u,     1u,    1u,    1u,    1u,    1u,    2u,    2u,    2u,    2u,    2u,    2
+  74:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         };
+  75:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #endif /* (CYDEV_BCLK__HFCLK__MHZ > 24u) */
+  76:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** #endif /* ((0u != CapSense_CSD_IS_M0S8PERI_BLOCK) && (0u == CY_PSOC4_4000)) */
+  77:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  78:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  79:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** uint8 CapSense_CSD_noiseEnvelopeTbl[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  80:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** uint8 CapSense_CSD_runningDifferenceTbl[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  81:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** uint8 CapSense_CSD_signRegisterTbl[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  82:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** uint16 CapSense_CSD_sampleMinTbl[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  83:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** uint16 CapSense_CSD_sampleMaxTbl[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  84:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** uint16 CapSense_CSD_previousSampleTbl[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  85:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** uint8 CapSense_CSD_kValueTbl[CapSense_CSD_TOTAL_SENSOR_COUNT];
+  86:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  87:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** uint8 CapSense_CSD_sensorSensitivity[] = {
+  88:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     2u, 2u, 2u, 2u, 2u, 2u, 2u, 2u, 2u, 2u, 2u, 2u, 2u, 2u, 
+  89:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** };
+  90:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+  91:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** CapSense_CSD_CONFIG_TYPE_P4_v2_60 CapSense_CSD_config;
+  92:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** CapSense_CSD_CONFIG_TYPE_POINTERS_P4_v2_60 const CapSense_CSD_configPointers = {
+  93:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_modulationIDAC,
+  94:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_compensationIDAC,
+  95:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_sensorSensitivity,
+  96:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_senseClkDividerVal,
+  97:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_sampleClkDividerVal,
+  98:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_widgetNumber,
+  99:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_widgetResolution,
+ 100:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_noiseEnvelopeTbl,
+ 101:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_runningDifferenceTbl,
+ 102:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_signRegisterTbl,
+ 103:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_sampleMinTbl,
+ 104:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_sampleMaxTbl,
+ 105:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_previousSampleTbl,
+ 106:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_kValueTbl,
+ 107:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_scanSpeedTbl,
+ 108:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_prescalerTable,
+ 109:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     (const uint8  *)CapSense_CSD_rawDataIndex,
+ 110:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     (const uint8  *)CapSense_CSD_numberOfSensors,
+ 111:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     &CapSense_CSD_GetSensorRaw,
+ 112:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     &CapSense_CSD_PreScan,
+ 113:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     &CapSense_CSD_ReadSensorRaw,
+ 114:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     &CapSense_CSD_GetBitValue,
+ 115:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     &CapSense_CSD_SetBitValue
+ 116:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** };
+ 117:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 118:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 119:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** /*******************************************************************************
+ 120:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Function Name: CapSense_CSD_AutoTune
+ 121:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** ********************************************************************************
+ 122:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 5
+
+
+ 123:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Summary:
+ 124:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  Provides the tuning procedure for all sensors.
+ 125:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 126:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Parameters:
+ 127:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 128:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 129:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Return:
+ 130:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 131:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 132:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Global Variables:
+ 133:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *   CapSense_CSD_config: the structure which contains configuration parameters
+ 134:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *   CapSense_CSD_senseClkDividerVal[]: used to store the Analog Switch
+ 135:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *   dividers for each sensor.
+ 136:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *   CapSense_CSD_senseClkDividerVal[]: used to store the
+ 137:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *    Analog Switch divider for all sensors.
+ 138:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *   CapSense_CSD_prescalersTuningDone - used to notify the Tuner GUI that
+ 139:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *   the pre-scalers tuning  is done.
+ 140:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 141:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Side Effects:
+ 142:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 143:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 144:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *******************************************************************************/
+ 145:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** void CapSense_CSD_AutoTune(void)
+ 146:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** {
+ 107              		.loc 1 146 0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 8
+ 110              		@ frame_needed = 1, uses_anonymous_args = 0
+ 111 0000 80B5     		push	{r7, lr}
+ 112              		.cfi_def_cfa_offset 8
+ 113              		.cfi_offset 7, -8
+ 114              		.cfi_offset 14, -4
+ 115 0002 82B0     		sub	sp, sp, #8
+ 116              		.cfi_def_cfa_offset 16
+ 117 0004 00AF     		add	r7, sp, #0
+ 118              		.cfi_def_cfa_register 7
+ 147:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     uint32 curSensor;
+ 148:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     uint32 widget;
+ 149:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 150:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_config.totalScanslotsNum = CapSense_CSD_TOTAL_SCANSLOT_COUNT;
+ 119              		.loc 1 150 0
+ 120 0006 334B     		ldr	r3, .L8
+ 121 0008 0E22     		movs	r2, #14
+ 122 000a 1A70     		strb	r2, [r3]
+ 151:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_config.totalWidgetsNum = CapSense_CSD_END_OF_WIDGETS_INDEX;
+ 123              		.loc 1 151 0
+ 124 000c 314B     		ldr	r3, .L8
+ 125 000e 0E22     		movs	r2, #14
+ 126 0010 5A70     		strb	r2, [r3, #1]
+ 152:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_config.totalSensorsNum = CapSense_CSD_TOTAL_SENSOR_COUNT;
+ 127              		.loc 1 152 0
+ 128 0012 304B     		ldr	r3, .L8
+ 129 0014 0E22     		movs	r2, #14
+ 130 0016 9A70     		strb	r2, [r3, #2]
+ 153:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 154:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_config.hfclkFreq_MHz = CYDEV_BCLK__HFCLK__MHZ;
+ 131              		.loc 1 154 0
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 6
+
+
+ 132 0018 2E4B     		ldr	r3, .L8
+ 133 001a 1822     		movs	r2, #24
+ 134 001c DA80     		strh	r2, [r3, #6]
+ 155:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_config.sensetivitySeed = CapSense_CSD_SENSETIVITY_FACTOR;
+ 135              		.loc 1 155 0
+ 136 001e 2D4B     		ldr	r3, .L8
+ 137 0020 2D4A     		ldr	r2, .L8+4
+ 138 0022 9A80     		strh	r2, [r3, #4]
+ 156:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 157:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_config.pointers = &CapSense_CSD_configPointers;
+ 139              		.loc 1 157 0
+ 140 0024 2B4B     		ldr	r3, .L8
+ 141 0026 2D4A     		ldr	r2, .L8+8
+ 142 0028 9A60     		str	r2, [r3, #8]
+ 158:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 159:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_SetAnalogSwitchesSrcDirect();
+ 143              		.loc 1 159 0
+ 144 002a FFF7FEFF 		bl	CapSense_CSD_SetAnalogSwitchesSrcDirect
+ 160:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 161:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     for(widget = 0u; widget < CapSense_CSD_config.totalWidgetsNum; widget++)
+ 145              		.loc 1 161 0
+ 146 002e 0023     		movs	r3, #0
+ 147 0030 3B60     		str	r3, [r7]
+ 148 0032 07E0     		b	.L2
+ 149              	.L3:
+ 162:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ 163:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_widgetResolution[widget] = CapSense_CSD_CALIBRATION_RESOLUTION;
+ 150              		.loc 1 163 0 discriminator 3
+ 151 0034 2A4B     		ldr	r3, .L8+12
+ 152 0036 3A68     		ldr	r2, [r7]
+ 153 0038 9200     		lsls	r2, r2, #2
+ 154 003a 2A49     		ldr	r1, .L8+16
+ 155 003c D150     		str	r1, [r2, r3]
+ 161:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ 156              		.loc 1 161 0 discriminator 3
+ 157 003e 3B68     		ldr	r3, [r7]
+ 158 0040 0133     		adds	r3, r3, #1
+ 159 0042 3B60     		str	r3, [r7]
+ 160              	.L2:
+ 161:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ 161              		.loc 1 161 0 is_stmt 0 discriminator 1
+ 162 0044 234B     		ldr	r3, .L8
+ 163 0046 5B78     		ldrb	r3, [r3, #1]
+ 164 0048 1A00     		movs	r2, r3
+ 165 004a 3B68     		ldr	r3, [r7]
+ 166 004c 9A42     		cmp	r2, r3
+ 167 004e F1D8     		bhi	.L3
+ 164:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     }
+ 165:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 166:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 167:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     for(curSensor = 0u; curSensor < CapSense_CSD_TOTAL_SCANSLOT_COUNT; curSensor++)
+ 168              		.loc 1 167 0 is_stmt 1
+ 169 0050 0023     		movs	r3, #0
+ 170 0052 7B60     		str	r3, [r7, #4]
+ 171 0054 0CE0     		b	.L4
+ 172              	.L5:
+ 168:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 7
+
+
+ 169:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_senseClkDividerVal[curSensor] = CapSense_CSD_CALIBRATION_ASD;
+ 173              		.loc 1 169 0 discriminator 3
+ 174 0056 244A     		ldr	r2, .L8+20
+ 175 0058 7B68     		ldr	r3, [r7, #4]
+ 176 005a D318     		adds	r3, r2, r3
+ 177 005c 0422     		movs	r2, #4
+ 178 005e 1A70     		strb	r2, [r3]
+ 170:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_sampleClkDividerVal[curSensor] = CapSense_CSD_CALIBRATION_MD;
+ 179              		.loc 1 170 0 discriminator 3
+ 180 0060 224A     		ldr	r2, .L8+24
+ 181 0062 7B68     		ldr	r3, [r7, #4]
+ 182 0064 D318     		adds	r3, r2, r3
+ 183 0066 0222     		movs	r2, #2
+ 184 0068 1A70     		strb	r2, [r3]
+ 167:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ 185              		.loc 1 167 0 discriminator 3
+ 186 006a 7B68     		ldr	r3, [r7, #4]
+ 187 006c 0133     		adds	r3, r3, #1
+ 188 006e 7B60     		str	r3, [r7, #4]
+ 189              	.L4:
+ 167:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ 190              		.loc 1 167 0 is_stmt 0 discriminator 1
+ 191 0070 7B68     		ldr	r3, [r7, #4]
+ 192 0072 0D2B     		cmp	r3, #13
+ 193 0074 EFD9     		bls	.L5
+ 171:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     }
+ 172:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 173:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_DisableBaselineIDAC();
+ 194              		.loc 1 173 0 is_stmt 1
+ 195 0076 FFF7FEFF 		bl	CapSense_CSD_DisableBaselineIDAC
+ 174:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 175:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CalibrateSensors_P4_v2_60(&CapSense_CSD_config, CapSense_CSD_CAL_RAW_COUNT);
+ 196              		.loc 1 175 0
+ 197 007a 1D4A     		ldr	r2, .L8+28
+ 198 007c 154B     		ldr	r3, .L8
+ 199 007e 1100     		movs	r1, r2
+ 200 0080 1800     		movs	r0, r3
+ 201 0082 FFF7FEFF 		bl	CalibrateSensors_P4_v2_60
+ 176:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 177:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #if(0u != CapSense_CSD_TOTAL_CENTROIDS_COUNT)
+ 178:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_NormalizeWidgets(CapSense_CSD_END_OF_WIDGETS_INDEX, CapSense_CSD_modulationIDA
+ 179:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #endif /* (0u != CapSense_CSD_TOTAL_CENTROIDS_COUNT)  */
+ 180:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 181:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     TunePrescalers_P4_v2_60(&CapSense_CSD_config);
+ 202              		.loc 1 181 0
+ 203 0086 134B     		ldr	r3, .L8
+ 204 0088 1800     		movs	r0, r3
+ 205 008a FFF7FEFF 		bl	TunePrescalers_P4_v2_60
+ 182:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 183:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #if(CapSense_CSD_PRS_OPTIONS != CapSense_CSD__PRS_NONE)
+ 184:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_prescalersTuningDone = 1u;
+ 206              		.loc 1 184 0
+ 207 008e 194B     		ldr	r3, .L8+32
+ 208 0090 0122     		movs	r2, #1
+ 209 0092 1A70     		strb	r2, [r3]
+ 185:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #endif /* (CapSense_CSD_PRS_OPTIONS == CapSense_CSD__PRS_NONE) */
+ 186:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 8
+
+
+ 187:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CalibrateSensors_P4_v2_60(&CapSense_CSD_config, CapSense_CSD_CAL_RAW_COUNT);
+ 210              		.loc 1 187 0
+ 211 0094 164A     		ldr	r2, .L8+28
+ 212 0096 0F4B     		ldr	r3, .L8
+ 213 0098 1100     		movs	r1, r2
+ 214 009a 1800     		movs	r0, r3
+ 215 009c FFF7FEFF 		bl	CalibrateSensors_P4_v2_60
+ 188:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #if(0u != CapSense_CSD_TOTAL_CENTROIDS_COUNT)
+ 189:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_NormalizeWidgets(CapSense_CSD_END_OF_WIDGETS_INDEX, CapSense_CSD_modulationIDA
+ 190:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #endif /* (0u != CapSense_CSD_TOTAL_CENTROIDS_COUNT)  */
+ 191:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     TuneSensitivity_P4_v2_60(&CapSense_CSD_config);
+ 216              		.loc 1 191 0
+ 217 00a0 0C4B     		ldr	r3, .L8
+ 218 00a2 1800     		movs	r0, r3
+ 219 00a4 FFF7FEFF 		bl	TuneSensitivity_P4_v2_60
+ 192:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 193:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_EnableBaselineIDAC(&CapSense_CSD_config);
+ 220              		.loc 1 193 0
+ 221 00a8 0A4B     		ldr	r3, .L8
+ 222 00aa 1800     		movs	r0, r3
+ 223 00ac FFF7FEFF 		bl	CapSense_CSD_EnableBaselineIDAC
+ 194:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 195:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     for(curSensor = 0u; curSensor < CapSense_CSD_TOTAL_SCANSLOT_COUNT; curSensor++)
+ 224              		.loc 1 195 0
+ 225 00b0 0023     		movs	r3, #0
+ 226 00b2 7B60     		str	r3, [r7, #4]
+ 227 00b4 06E0     		b	.L6
+ 228              	.L7:
+ 196:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ 197:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_UpdateThresholds(curSensor);
+ 229              		.loc 1 197 0 discriminator 3
+ 230 00b6 7B68     		ldr	r3, [r7, #4]
+ 231 00b8 1800     		movs	r0, r3
+ 232 00ba FFF7FEFF 		bl	CapSense_CSD_UpdateThresholds
+ 195:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ 233              		.loc 1 195 0 discriminator 3
+ 234 00be 7B68     		ldr	r3, [r7, #4]
+ 235 00c0 0133     		adds	r3, r3, #1
+ 236 00c2 7B60     		str	r3, [r7, #4]
+ 237              	.L6:
+ 195:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ 238              		.loc 1 195 0 is_stmt 0 discriminator 1
+ 239 00c4 7B68     		ldr	r3, [r7, #4]
+ 240 00c6 0D2B     		cmp	r3, #13
+ 241 00c8 F5D9     		bls	.L7
+ 198:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     }
+ 199:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** }
+ 242              		.loc 1 199 0 is_stmt 1
+ 243 00ca C046     		nop
+ 244 00cc BD46     		mov	sp, r7
+ 245 00ce 02B0     		add	sp, sp, #8
+ 246              		@ sp needed
+ 247 00d0 80BD     		pop	{r7, pc}
+ 248              	.L9:
+ 249 00d2 C046     		.align	2
+ 250              	.L8:
+ 251 00d4 00000000 		.word	CapSense_CSD_config
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 9
+
+
+ 252 00d8 66020000 		.word	614
+ 253 00dc 00000000 		.word	CapSense_CSD_configPointers
+ 254 00e0 00000000 		.word	CapSense_CSD_widgetResolution
+ 255 00e4 0000FF0F 		.word	268369920
+ 256 00e8 00000000 		.word	CapSense_CSD_senseClkDividerVal
+ 257 00ec 00000000 		.word	CapSense_CSD_sampleClkDividerVal
+ 258 00f0 9A0D0000 		.word	3482
+ 259 00f4 00000000 		.word	CapSense_CSD_prescalersTuningDone
+ 260              		.cfi_endproc
+ 261              	.LFE32:
+ 262              		.size	CapSense_CSD_AutoTune, .-CapSense_CSD_AutoTune
+ 263              		.section	.text.CapSense_CSD_UpdateThresholds,"ax",%progbits
+ 264              		.align	2
+ 265              		.global	CapSense_CSD_UpdateThresholds
+ 266              		.code	16
+ 267              		.thumb_func
+ 268              		.type	CapSense_CSD_UpdateThresholds, %function
+ 269              	CapSense_CSD_UpdateThresholds:
+ 270              	.LFB33:
+ 200:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 201:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 202:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** /*******************************************************************************
+ 203:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Function Name: CapSense_CSD_UpdateThresholds
+ 204:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** ********************************************************************************
+ 205:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 206:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Summary:
+ 207:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  The API updates the Finger Threshold, Hysteresis, Noise Threshold, and
+ 208:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  Negative Noise Threshold in the AutoTuning (Smartsense) Mode.
+ 209:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 210:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Parameters:
+ 211:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  sensor: sensor number.
+ 212:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 213:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Return:
+ 214:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 215:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 216:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Global Variables:
+ 217:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  CapSense_CSD_widgetNumber[] - contains widget Number for given sensor.
+ 218:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  0 through 7 (sensor 0 is bit 0, sensor 1 is bit 1).
+ 219:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  For other sensors the array element equals to 255.
+ 220:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  CapSense_CSD_numberOfSensors[widget] - Number of sensors in the widget.
+ 221:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *   CapSense_CSD_fingerThreshold[] - contains the level of signal for each sensor
+ 222:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *   that determines if a finger present on the sensor.
+ 223:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *   CapSense_CSD_negativeNoiseThreshold[] - negative Noise Threshold
+ 224:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *   CapSense_CSD_hysteresis[] - the array with hysteresis values.
+ 225:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 226:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Side Effects:
+ 227:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 228:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 229:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *******************************************************************************/
+ 230:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** void CapSense_CSD_UpdateThresholds(uint32 sensor)
+ 231:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** {
+ 271              		.loc 1 231 0
+ 272              		.cfi_startproc
+ 273              		@ args = 0, pretend = 0, frame = 16
+ 274              		@ frame_needed = 1, uses_anonymous_args = 0
+ 275 0000 90B5     		push	{r4, r7, lr}
+ 276              		.cfi_def_cfa_offset 12
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 10
+
+
+ 277              		.cfi_offset 4, -12
+ 278              		.cfi_offset 7, -8
+ 279              		.cfi_offset 14, -4
+ 280 0002 87B0     		sub	sp, sp, #28
+ 281              		.cfi_def_cfa_offset 40
+ 282 0004 02AF     		add	r7, sp, #8
+ 283              		.cfi_def_cfa 7, 32
+ 284 0006 7860     		str	r0, [r7, #4]
+ 232:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     uint8 fingerThreshold;
+ 233:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     uint32 widget;
+ 234:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 235:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     widget = CapSense_CSD_widgetNumber[sensor];
+ 285              		.loc 1 235 0
+ 286 0008 344A     		ldr	r2, .L17
+ 287 000a 7B68     		ldr	r3, [r7, #4]
+ 288 000c D318     		adds	r3, r2, r3
+ 289 000e 1B78     		ldrb	r3, [r3]
+ 290 0010 FB60     		str	r3, [r7, #12]
+ 236:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 237:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #if(0u != CapSense_CSD_FLEXIBLE_THRESHOLDS_EN)
+ 238:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         fingerThreshold = CapSense_CSD_fingerThreshold[widget];
+ 239:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         /* Update Threshold manually (flexible) */
+ 240:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_noiseThreshold[widget] = (uint8)(fingerThreshold >> 1u);
+ 241:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_negativeNoiseThreshold[widget] = (uint8)(fingerThreshold >> 1u);
+ 242:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_hysteresis[widget] = (uint8)(fingerThreshold >> 3u);
+ 243:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #else
+ 244:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         /* Calculate Finger Threshold and Noise Threshold with Smartsense (automatic) */
+ 245:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CalculateThresholds_P4_v2_60(&CapSense_CSD_config, (uint8)sensor, (uint8)widget, CapSense_C
+ 291              		.loc 1 245 0
+ 292 0012 7B68     		ldr	r3, [r7, #4]
+ 293 0014 D9B2     		uxtb	r1, r3
+ 294 0016 FB68     		ldr	r3, [r7, #12]
+ 295 0018 DAB2     		uxtb	r2, r3
+ 296 001a 314C     		ldr	r4, .L17+4
+ 297 001c 3148     		ldr	r0, .L17+8
+ 298 001e 324B     		ldr	r3, .L17+12
+ 299 0020 0093     		str	r3, [sp]
+ 300 0022 2300     		movs	r3, r4
+ 301 0024 FFF7FEFF 		bl	CalculateThresholds_P4_v2_60
+ 246:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 247:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         fingerThreshold = CapSense_CSD_fingerThreshold[widget];
+ 302              		.loc 1 247 0
+ 303 0028 0B23     		movs	r3, #11
+ 304 002a FB18     		adds	r3, r7, r3
+ 305 002c 2C49     		ldr	r1, .L17+4
+ 306 002e FA68     		ldr	r2, [r7, #12]
+ 307 0030 8A18     		adds	r2, r1, r2
+ 308 0032 1278     		ldrb	r2, [r2]
+ 309 0034 1A70     		strb	r2, [r3]
+ 248:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 249:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         /* Update Threshold based on calculated with Smartsense (automatic) */
+ 250:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_negativeNoiseThreshold[widget] = CapSense_CSD_noiseThreshold[widget];
+ 310              		.loc 1 250 0
+ 311 0036 2C4A     		ldr	r2, .L17+12
+ 312 0038 FB68     		ldr	r3, [r7, #12]
+ 313 003a D318     		adds	r3, r2, r3
+ 314 003c 1978     		ldrb	r1, [r3]
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 11
+
+
+ 315 003e 2B4A     		ldr	r2, .L17+16
+ 316 0040 FB68     		ldr	r3, [r7, #12]
+ 317 0042 D318     		adds	r3, r2, r3
+ 318 0044 0A1C     		adds	r2, r1, #0
+ 319 0046 1A70     		strb	r2, [r3]
+ 251:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 252:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         if(fingerThreshold < CapSense_CSD_THRESHOLD_1)
+ 320              		.loc 1 252 0
+ 321 0048 0B23     		movs	r3, #11
+ 322 004a FB18     		adds	r3, r7, r3
+ 323 004c 1B78     		ldrb	r3, [r3]
+ 324 004e DB2B     		cmp	r3, #219
+ 325 0050 0AD8     		bhi	.L11
+ 253:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         {
+ 254:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             CapSense_CSD_hysteresis[widget] = (uint8)(fingerThreshold >> 3u);
+ 326              		.loc 1 254 0
+ 327 0052 0B23     		movs	r3, #11
+ 328 0054 FB18     		adds	r3, r7, r3
+ 329 0056 1B78     		ldrb	r3, [r3]
+ 330 0058 DB08     		lsrs	r3, r3, #3
+ 331 005a D9B2     		uxtb	r1, r3
+ 332 005c 244A     		ldr	r2, .L17+20
+ 333 005e FB68     		ldr	r3, [r7, #12]
+ 334 0060 D318     		adds	r3, r2, r3
+ 335 0062 0A1C     		adds	r2, r1, #0
+ 336 0064 1A70     		strb	r2, [r3]
+ 255:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         }
+ 256:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         else if(fingerThreshold <  CapSense_CSD_THRESHOLD_2)
+ 257:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         {
+ 258:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             CapSense_CSD_hysteresis[widget] = (uint8)(fingerThreshold >> 4u);
+ 259:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         }
+ 260:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         else if(fingerThreshold <  CapSense_CSD_THRESHOLD_3)
+ 261:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         {
+ 262:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             CapSense_CSD_hysteresis[widget] = (uint8)(fingerThreshold >> 5u);
+ 263:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         }
+ 264:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         else if(fingerThreshold <  CapSense_CSD_THRESHOLD_4)
+ 265:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         {
+ 266:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             CapSense_CSD_hysteresis[widget] = (uint8)(fingerThreshold >> 6u);
+ 267:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         }
+ 268:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         else
+ 269:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         {
+ 270:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****             CapSense_CSD_hysteresis[widget] = 0u;
+ 271:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         }
+ 272:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     #endif /* (0u != CapSense_CSD_FLEXIBLE_THRESHOLDS_EN)  */
+ 273:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** }
+ 337              		.loc 1 273 0
+ 338 0066 34E0     		b	.L16
+ 339              	.L11:
+ 256:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         {
+ 340              		.loc 1 256 0
+ 341 0068 0B23     		movs	r3, #11
+ 342 006a FB18     		adds	r3, r7, r3
+ 343 006c 1B78     		ldrb	r3, [r3]
+ 344 006e EC2B     		cmp	r3, #236
+ 345 0070 0AD8     		bhi	.L13
+ 258:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         }
+ 346              		.loc 1 258 0
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 12
+
+
+ 347 0072 0B23     		movs	r3, #11
+ 348 0074 FB18     		adds	r3, r7, r3
+ 349 0076 1B78     		ldrb	r3, [r3]
+ 350 0078 1B09     		lsrs	r3, r3, #4
+ 351 007a D9B2     		uxtb	r1, r3
+ 352 007c 1C4A     		ldr	r2, .L17+20
+ 353 007e FB68     		ldr	r3, [r7, #12]
+ 354 0080 D318     		adds	r3, r2, r3
+ 355 0082 0A1C     		adds	r2, r1, #0
+ 356 0084 1A70     		strb	r2, [r3]
+ 357              		.loc 1 273 0
+ 358 0086 24E0     		b	.L16
+ 359              	.L13:
+ 260:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         {
+ 360              		.loc 1 260 0
+ 361 0088 0B23     		movs	r3, #11
+ 362 008a FB18     		adds	r3, r7, r3
+ 363 008c 1B78     		ldrb	r3, [r3]
+ 364 008e F42B     		cmp	r3, #244
+ 365 0090 0AD8     		bhi	.L14
+ 262:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         }
+ 366              		.loc 1 262 0
+ 367 0092 0B23     		movs	r3, #11
+ 368 0094 FB18     		adds	r3, r7, r3
+ 369 0096 1B78     		ldrb	r3, [r3]
+ 370 0098 5B09     		lsrs	r3, r3, #5
+ 371 009a D9B2     		uxtb	r1, r3
+ 372 009c 144A     		ldr	r2, .L17+20
+ 373 009e FB68     		ldr	r3, [r7, #12]
+ 374 00a0 D318     		adds	r3, r2, r3
+ 375 00a2 0A1C     		adds	r2, r1, #0
+ 376 00a4 1A70     		strb	r2, [r3]
+ 377              		.loc 1 273 0
+ 378 00a6 14E0     		b	.L16
+ 379              	.L14:
+ 264:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         {
+ 380              		.loc 1 264 0
+ 381 00a8 0B23     		movs	r3, #11
+ 382 00aa FB18     		adds	r3, r7, r3
+ 383 00ac 1B78     		ldrb	r3, [r3]
+ 384 00ae F92B     		cmp	r3, #249
+ 385 00b0 0AD8     		bhi	.L15
+ 266:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         }
+ 386              		.loc 1 266 0
+ 387 00b2 0B23     		movs	r3, #11
+ 388 00b4 FB18     		adds	r3, r7, r3
+ 389 00b6 1B78     		ldrb	r3, [r3]
+ 390 00b8 9B09     		lsrs	r3, r3, #6
+ 391 00ba D9B2     		uxtb	r1, r3
+ 392 00bc 0C4A     		ldr	r2, .L17+20
+ 393 00be FB68     		ldr	r3, [r7, #12]
+ 394 00c0 D318     		adds	r3, r2, r3
+ 395 00c2 0A1C     		adds	r2, r1, #0
+ 396 00c4 1A70     		strb	r2, [r3]
+ 397              		.loc 1 273 0
+ 398 00c6 04E0     		b	.L16
+ 399              	.L15:
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 13
+
+
+ 270:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         }
+ 400              		.loc 1 270 0
+ 401 00c8 094A     		ldr	r2, .L17+20
+ 402 00ca FB68     		ldr	r3, [r7, #12]
+ 403 00cc D318     		adds	r3, r2, r3
+ 404 00ce 0022     		movs	r2, #0
+ 405 00d0 1A70     		strb	r2, [r3]
+ 406              	.L16:
+ 407              		.loc 1 273 0
+ 408 00d2 C046     		nop
+ 409 00d4 BD46     		mov	sp, r7
+ 410 00d6 05B0     		add	sp, sp, #20
+ 411              		@ sp needed
+ 412 00d8 90BD     		pop	{r4, r7, pc}
+ 413              	.L18:
+ 414 00da C046     		.align	2
+ 415              	.L17:
+ 416 00dc 00000000 		.word	CapSense_CSD_widgetNumber
+ 417 00e0 00000000 		.word	CapSense_CSD_fingerThreshold
+ 418 00e4 00000000 		.word	CapSense_CSD_config
+ 419 00e8 00000000 		.word	CapSense_CSD_noiseThreshold
+ 420 00ec 00000000 		.word	CapSense_CSD_negativeNoiseThreshold
+ 421 00f0 00000000 		.word	CapSense_CSD_hysteresis
+ 422              		.cfi_endproc
+ 423              	.LFE33:
+ 424              		.size	CapSense_CSD_UpdateThresholds, .-CapSense_CSD_UpdateThresholds
+ 425              		.section	.text.CapSense_CSD_SetAnalogSwitchesSrcDirect,"ax",%progbits
+ 426              		.align	2
+ 427              		.global	CapSense_CSD_SetAnalogSwitchesSrcDirect
+ 428              		.code	16
+ 429              		.thumb_func
+ 430              		.type	CapSense_CSD_SetAnalogSwitchesSrcDirect, %function
+ 431              	CapSense_CSD_SetAnalogSwitchesSrcDirect:
+ 432              	.LFB34:
+ 274:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 275:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** /*******************************************************************************
+ 276:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Function Name: CapSense_CSD_SetAnalogSwitchesSrcDirect
+ 277:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** ********************************************************************************
+ 278:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 279:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Summary:
+ 280:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  This API switches the charge clock source to prescaler.
+ 281:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 282:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Parameters:
+ 283:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 284:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 285:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Return:
+ 286:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 287:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 288:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Global Variables:
+ 289:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 290:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 291:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Side Effects:
+ 292:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 293:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 294:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *******************************************************************************/
+ 295:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** void CapSense_CSD_SetAnalogSwitchesSrcDirect(void)
+ 296:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** {
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 14
+
+
+ 433              		.loc 1 296 0
+ 434              		.cfi_startproc
+ 435              		@ args = 0, pretend = 0, frame = 0
+ 436              		@ frame_needed = 1, uses_anonymous_args = 0
+ 437 0000 80B5     		push	{r7, lr}
+ 438              		.cfi_def_cfa_offset 8
+ 439              		.cfi_offset 7, -8
+ 440              		.cfi_offset 14, -4
+ 441 0002 00AF     		add	r7, sp, #0
+ 442              		.cfi_def_cfa_register 7
+ 297:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_CSD_CFG_REG &= ~(CapSense_CSD_CSD_CFG_PRS_SELECT);
+ 443              		.loc 1 297 0
+ 444 0004 044B     		ldr	r3, .L20
+ 445 0006 044A     		ldr	r2, .L20
+ 446 0008 1268     		ldr	r2, [r2]
+ 447 000a 4021     		movs	r1, #64
+ 448 000c 8A43     		bics	r2, r1
+ 449 000e 1A60     		str	r2, [r3]
+ 298:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** }
+ 450              		.loc 1 298 0
+ 451 0010 C046     		nop
+ 452 0012 BD46     		mov	sp, r7
+ 453              		@ sp needed
+ 454 0014 80BD     		pop	{r7, pc}
+ 455              	.L21:
+ 456 0016 C046     		.align	2
+ 457              	.L20:
+ 458 0018 04000840 		.word	1074266116
+ 459              		.cfi_endproc
+ 460              	.LFE34:
+ 461              		.size	CapSense_CSD_SetAnalogSwitchesSrcDirect, .-CapSense_CSD_SetAnalogSwitchesSrcDirect
+ 462              		.section	.text.CapSense_CSD_DisableBaselineIDAC,"ax",%progbits
+ 463              		.align	2
+ 464              		.global	CapSense_CSD_DisableBaselineIDAC
+ 465              		.code	16
+ 466              		.thumb_func
+ 467              		.type	CapSense_CSD_DisableBaselineIDAC, %function
+ 468              	CapSense_CSD_DisableBaselineIDAC:
+ 469              	.LFB35:
+ 299:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 300:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 301:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** /*******************************************************************************
+ 302:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Function Name: CapSense_CSD_DisableBaselineIDAC
+ 303:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** ********************************************************************************
+ 304:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 305:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Summary:
+ 306:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  The API disables the Compensation IDAC.
+ 307:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 308:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Parameters:
+ 309:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 310:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 311:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Return:
+ 312:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 313:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 314:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Global Variables:
+ 315:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 316:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 15
+
+
+ 317:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Side Effects:
+ 318:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 319:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 320:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *******************************************************************************/
+ 321:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** void CapSense_CSD_DisableBaselineIDAC(void)
+ 322:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** {
+ 470              		.loc 1 322 0
+ 471              		.cfi_startproc
+ 472              		@ args = 0, pretend = 0, frame = 8
+ 473              		@ frame_needed = 1, uses_anonymous_args = 0
+ 474 0000 80B5     		push	{r7, lr}
+ 475              		.cfi_def_cfa_offset 8
+ 476              		.cfi_offset 7, -8
+ 477              		.cfi_offset 14, -4
+ 478 0002 82B0     		sub	sp, sp, #8
+ 479              		.cfi_def_cfa_offset 16
+ 480 0004 00AF     		add	r7, sp, #0
+ 481              		.cfi_def_cfa_register 7
+ 323:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     uint32 newRegValue;
+ 324:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 325:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     newRegValue = CapSense_CSD_CSD_IDAC_REG;
+ 482              		.loc 1 325 0
+ 483 0006 094B     		ldr	r3, .L23
+ 484 0008 1B68     		ldr	r3, [r3]
+ 485 000a 7B60     		str	r3, [r7, #4]
+ 326:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 327:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     newRegValue &= ~(CapSense_CSD_CSD_IDAC1_MODE_MASK | CapSense_CSD_CSD_IDAC2_MODE_MASK);
+ 486              		.loc 1 327 0
+ 487 000c 7B68     		ldr	r3, [r7, #4]
+ 488 000e 084A     		ldr	r2, .L23+4
+ 489 0010 1340     		ands	r3, r2
+ 490 0012 7B60     		str	r3, [r7, #4]
+ 328:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     newRegValue |= CapSense_CSD_CSD_IDAC1_MODE_VARIABLE;
+ 491              		.loc 1 328 0
+ 492 0014 7B68     		ldr	r3, [r7, #4]
+ 493 0016 8022     		movs	r2, #128
+ 494 0018 9200     		lsls	r2, r2, #2
+ 495 001a 1343     		orrs	r3, r2
+ 496 001c 7B60     		str	r3, [r7, #4]
+ 329:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 330:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_CSD_IDAC_REG = newRegValue;
+ 497              		.loc 1 330 0
+ 498 001e 034B     		ldr	r3, .L23
+ 499 0020 7A68     		ldr	r2, [r7, #4]
+ 500 0022 1A60     		str	r2, [r3]
+ 331:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** }
+ 501              		.loc 1 331 0
+ 502 0024 C046     		nop
+ 503 0026 BD46     		mov	sp, r7
+ 504 0028 02B0     		add	sp, sp, #8
+ 505              		@ sp needed
+ 506 002a 80BD     		pop	{r7, pc}
+ 507              	.L24:
+ 508              		.align	2
+ 509              	.L23:
+ 510 002c 08000840 		.word	1074266120
+ 511 0030 FFFCFFFC 		.word	-50332417
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 16
+
+
+ 512              		.cfi_endproc
+ 513              	.LFE35:
+ 514              		.size	CapSense_CSD_DisableBaselineIDAC, .-CapSense_CSD_DisableBaselineIDAC
+ 515              		.section	.text.CapSense_CSD_EnableBaselineIDAC,"ax",%progbits
+ 516              		.align	2
+ 517              		.global	CapSense_CSD_EnableBaselineIDAC
+ 518              		.code	16
+ 519              		.thumb_func
+ 520              		.type	CapSense_CSD_EnableBaselineIDAC, %function
+ 521              	CapSense_CSD_EnableBaselineIDAC:
+ 522              	.LFB36:
+ 332:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 333:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 334:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** /*******************************************************************************
+ 335:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Function Name: CapSense_CSD_EnableBaselineIDAC
+ 336:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** ********************************************************************************
+ 337:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 338:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Summary:
+ 339:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  The API enables the Compensation IDAC.
+ 340:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 341:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Parameters:
+ 342:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 343:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 344:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Return:
+ 345:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 346:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 347:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Global Variables:
+ 348:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  CapSense_CSD_compensationIDAC[] - used to store a 7-bit idac value for all the sensors.
+ 349:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 350:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Side Effects:
+ 351:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 352:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 353:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *******************************************************************************/
+ 354:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** void  CapSense_CSD_EnableBaselineIDAC(const CapSense_CSD_CONFIG_TYPE_P4_v2_60 *config)
+ 355:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** {
+ 523              		.loc 1 355 0
+ 524              		.cfi_startproc
+ 525              		@ args = 0, pretend = 0, frame = 16
+ 526              		@ frame_needed = 1, uses_anonymous_args = 0
+ 527 0000 80B5     		push	{r7, lr}
+ 528              		.cfi_def_cfa_offset 8
+ 529              		.cfi_offset 7, -8
+ 530              		.cfi_offset 14, -4
+ 531 0002 84B0     		sub	sp, sp, #16
+ 532              		.cfi_def_cfa_offset 24
+ 533 0004 00AF     		add	r7, sp, #0
+ 534              		.cfi_def_cfa_register 7
+ 535 0006 7860     		str	r0, [r7, #4]
+ 356:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     uint32 curSensor;
+ 357:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     uint32 newRegValue;
+ 358:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 359:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     for(curSensor = 0u; curSensor < config->totalScanslotsNum; curSensor++)
+ 536              		.loc 1 359 0
+ 537 0008 0023     		movs	r3, #0
+ 538 000a FB60     		str	r3, [r7, #12]
+ 539 000c 19E0     		b	.L26
+ 540              	.L27:
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 17
+
+
+ 360:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ 361:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_compensationIDAC[curSensor] = CapSense_CSD_modulationIDAC[curSensor] / 2u;
+ 541              		.loc 1 361 0 discriminator 3
+ 542 000e 1C4A     		ldr	r2, .L28
+ 543 0010 FB68     		ldr	r3, [r7, #12]
+ 544 0012 D318     		adds	r3, r2, r3
+ 545 0014 1B78     		ldrb	r3, [r3]
+ 546 0016 5B08     		lsrs	r3, r3, #1
+ 547 0018 D9B2     		uxtb	r1, r3
+ 548 001a 1A4A     		ldr	r2, .L28+4
+ 549 001c FB68     		ldr	r3, [r7, #12]
+ 550 001e D318     		adds	r3, r2, r3
+ 551 0020 0A1C     		adds	r2, r1, #0
+ 552 0022 1A70     		strb	r2, [r3]
+ 362:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         CapSense_CSD_modulationIDAC[curSensor] = (CapSense_CSD_modulationIDAC[curSensor] + 1u) / 2u
+ 553              		.loc 1 362 0 discriminator 3
+ 554 0024 164A     		ldr	r2, .L28
+ 555 0026 FB68     		ldr	r3, [r7, #12]
+ 556 0028 D318     		adds	r3, r2, r3
+ 557 002a 1B78     		ldrb	r3, [r3]
+ 558 002c 0133     		adds	r3, r3, #1
+ 559 002e 5B08     		lsrs	r3, r3, #1
+ 560 0030 D9B2     		uxtb	r1, r3
+ 561 0032 134A     		ldr	r2, .L28
+ 562 0034 FB68     		ldr	r3, [r7, #12]
+ 563 0036 D318     		adds	r3, r2, r3
+ 564 0038 0A1C     		adds	r2, r1, #0
+ 565 003a 1A70     		strb	r2, [r3]
+ 359:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ 566              		.loc 1 359 0 discriminator 3
+ 567 003c FB68     		ldr	r3, [r7, #12]
+ 568 003e 0133     		adds	r3, r3, #1
+ 569 0040 FB60     		str	r3, [r7, #12]
+ 570              	.L26:
+ 359:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ 571              		.loc 1 359 0 is_stmt 0 discriminator 1
+ 572 0042 7B68     		ldr	r3, [r7, #4]
+ 573 0044 1B78     		ldrb	r3, [r3]
+ 574 0046 1A00     		movs	r2, r3
+ 575 0048 FB68     		ldr	r3, [r7, #12]
+ 576 004a 9A42     		cmp	r2, r3
+ 577 004c DFD8     		bhi	.L27
+ 363:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     }
+ 364:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 365:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CyIntDisable(CapSense_CSD_ISR_NUMBER);
+ 578              		.loc 1 365 0 is_stmt 1
+ 579 004e 0F20     		movs	r0, #15
+ 580 0050 FFF7FEFF 		bl	CyIntDisable
+ 366:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 367:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     newRegValue = CapSense_CSD_CSD_IDAC_REG;
+ 581              		.loc 1 367 0
+ 582 0054 0C4B     		ldr	r3, .L28+8
+ 583 0056 1B68     		ldr	r3, [r3]
+ 584 0058 BB60     		str	r3, [r7, #8]
+ 368:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     newRegValue &= ~(CapSense_CSD_CSD_IDAC1_MODE_MASK | CapSense_CSD_CSD_IDAC2_MODE_MASK);
+ 585              		.loc 1 368 0
+ 586 005a BB68     		ldr	r3, [r7, #8]
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 18
+
+
+ 587 005c 0B4A     		ldr	r2, .L28+12
+ 588 005e 1340     		ands	r3, r2
+ 589 0060 BB60     		str	r3, [r7, #8]
+ 369:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     newRegValue |= (CapSense_CSD_CSD_IDAC1_MODE_VARIABLE | CapSense_CSD_CSD_IDAC2_MODE_FIXED);
+ 590              		.loc 1 369 0
+ 591 0062 BB68     		ldr	r3, [r7, #8]
+ 592 0064 0A4A     		ldr	r2, .L28+16
+ 593 0066 1343     		orrs	r3, r2
+ 594 0068 BB60     		str	r3, [r7, #8]
+ 370:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_CSD_IDAC_REG = newRegValue;
+ 595              		.loc 1 370 0
+ 596 006a 074B     		ldr	r3, .L28+8
+ 597 006c BA68     		ldr	r2, [r7, #8]
+ 598 006e 1A60     		str	r2, [r3]
+ 371:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 372:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CyIntEnable(CapSense_CSD_ISR_NUMBER);
+ 599              		.loc 1 372 0
+ 600 0070 0F20     		movs	r0, #15
+ 601 0072 FFF7FEFF 		bl	CyIntEnable
+ 373:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** }
+ 602              		.loc 1 373 0
+ 603 0076 C046     		nop
+ 604 0078 BD46     		mov	sp, r7
+ 605 007a 04B0     		add	sp, sp, #16
+ 606              		@ sp needed
+ 607 007c 80BD     		pop	{r7, pc}
+ 608              	.L29:
+ 609 007e C046     		.align	2
+ 610              	.L28:
+ 611 0080 00000000 		.word	CapSense_CSD_modulationIDAC
+ 612 0084 00000000 		.word	CapSense_CSD_compensationIDAC
+ 613 0088 08000840 		.word	1074266120
+ 614 008c FFFCFFFC 		.word	-50332417
+ 615 0090 00020001 		.word	16777728
+ 616              		.cfi_endproc
+ 617              	.LFE36:
+ 618              		.size	CapSense_CSD_EnableBaselineIDAC, .-CapSense_CSD_EnableBaselineIDAC
+ 619              		.section	.text.CapSense_CSD_SetSensitivity,"ax",%progbits
+ 620              		.align	2
+ 621              		.global	CapSense_CSD_SetSensitivity
+ 622              		.code	16
+ 623              		.thumb_func
+ 624              		.type	CapSense_CSD_SetSensitivity, %function
+ 625              	CapSense_CSD_SetSensitivity:
+ 626              	.LFB37:
+ 374:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 375:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 376:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** /*******************************************************************************
+ 377:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Function Name: CapSense_CSD_SetSensitivity
+ 378:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** ********************************************************************************
+ 379:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 380:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Summary:
+ 381:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  This API sets the sensitivity value for the sensor. The sensitivity
+ 382:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  value is used during the auto-tuning algorithm executed as part of the CapSense_Start API.
+ 383:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  This API is called by the application layer prior to calling the CapSense_Start API.
+ 384:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  Calling this API after execution of CapSense_Start API has no effect.
+ 385:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 19
+
+
+ 386:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Parameters:
+ 387:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  sensor  Sensor index
+ 388:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  data    Sensitivity of the sensor. Possible values are below
+ 389:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  1 - 0.1pf sensitivity
+ 390:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  2 - 0.2pf sensitivity
+ 391:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  3 - 0.3pf sensitivity
+ 392:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  4 - 0.4pf sensitivity
+ 393:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  5 - 0.5pf sensitivity
+ 394:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  6 - 0.6pf sensitivity
+ 395:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  7 - 0.7pf sensitivity
+ 396:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  8 - 0.8pf sensitivity
+ 397:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  9 - 0.9pf sensitivity
+ 398:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  10 - 1.0pf sensitivity
+ 399:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  All other values, set sensitivity to 1.0pf
+ 400:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 401:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  Return Value:
+ 402:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *   None
+ 403:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 404:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Global Variables:
+ 405:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * CapSense_CSD_sensorSensitivity[] - This 8-bits array contains Sensitivity in the LSB nibble
+ 406:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *                                and Noise Reset Counter value in the MSB nibble.
+ 407:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 408:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Side Effects:
+ 409:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 410:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 411:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *******************************************************************************/
+ 412:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** void CapSense_CSD_SetSensitivity(uint32 sensor, uint32 value)
+ 413:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** {
+ 627              		.loc 1 413 0
+ 628              		.cfi_startproc
+ 629              		@ args = 0, pretend = 0, frame = 8
+ 630              		@ frame_needed = 1, uses_anonymous_args = 0
+ 631 0000 80B5     		push	{r7, lr}
+ 632              		.cfi_def_cfa_offset 8
+ 633              		.cfi_offset 7, -8
+ 634              		.cfi_offset 14, -4
+ 635 0002 82B0     		sub	sp, sp, #8
+ 636              		.cfi_def_cfa_offset 16
+ 637 0004 00AF     		add	r7, sp, #0
+ 638              		.cfi_def_cfa_register 7
+ 639 0006 7860     		str	r0, [r7, #4]
+ 640 0008 3960     		str	r1, [r7]
+ 414:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     if(value > 10u)
+ 641              		.loc 1 414 0
+ 642 000a 3B68     		ldr	r3, [r7]
+ 643 000c 0A2B     		cmp	r3, #10
+ 644 000e 01D9     		bls	.L31
+ 415:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     {
+ 416:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****         value = 10u;
+ 645              		.loc 1 416 0
+ 646 0010 0A23     		movs	r3, #10
+ 647 0012 3B60     		str	r3, [r7]
+ 648              	.L31:
+ 417:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     }
+ 418:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 419:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     /* Clear SensorSensitivity value in LSB nibble */
+ 420:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_sensorSensitivity[sensor] &= (uint8)~CapSense_CSD_SENSITIVITY_MASK;
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 20
+
+
+ 649              		.loc 1 420 0
+ 650 0014 0F4A     		ldr	r2, .L32
+ 651 0016 7B68     		ldr	r3, [r7, #4]
+ 652 0018 D318     		adds	r3, r2, r3
+ 653 001a 1B78     		ldrb	r3, [r3]
+ 654 001c 0F22     		movs	r2, #15
+ 655 001e 9343     		bics	r3, r2
+ 656 0020 D9B2     		uxtb	r1, r3
+ 657 0022 0C4A     		ldr	r2, .L32
+ 658 0024 7B68     		ldr	r3, [r7, #4]
+ 659 0026 D318     		adds	r3, r2, r3
+ 660 0028 0A1C     		adds	r2, r1, #0
+ 661 002a 1A70     		strb	r2, [r3]
+ 421:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     /* Set SensorSensitivity value in LSB nibble */
+ 422:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     CapSense_CSD_sensorSensitivity[sensor] |= (uint8)value;
+ 662              		.loc 1 422 0
+ 663 002c 094A     		ldr	r2, .L32
+ 664 002e 7B68     		ldr	r3, [r7, #4]
+ 665 0030 D318     		adds	r3, r2, r3
+ 666 0032 1B78     		ldrb	r3, [r3]
+ 667 0034 5AB2     		sxtb	r2, r3
+ 668 0036 3B68     		ldr	r3, [r7]
+ 669 0038 5BB2     		sxtb	r3, r3
+ 670 003a 1343     		orrs	r3, r2
+ 671 003c 5BB2     		sxtb	r3, r3
+ 672 003e D9B2     		uxtb	r1, r3
+ 673 0040 044A     		ldr	r2, .L32
+ 674 0042 7B68     		ldr	r3, [r7, #4]
+ 675 0044 D318     		adds	r3, r2, r3
+ 676 0046 0A1C     		adds	r2, r1, #0
+ 677 0048 1A70     		strb	r2, [r3]
+ 423:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** }
+ 678              		.loc 1 423 0
+ 679 004a C046     		nop
+ 680 004c BD46     		mov	sp, r7
+ 681 004e 02B0     		add	sp, sp, #8
+ 682              		@ sp needed
+ 683 0050 80BD     		pop	{r7, pc}
+ 684              	.L33:
+ 685 0052 C046     		.align	2
+ 686              	.L32:
+ 687 0054 00000000 		.word	CapSense_CSD_sensorSensitivity
+ 688              		.cfi_endproc
+ 689              	.LFE37:
+ 690              		.size	CapSense_CSD_SetSensitivity, .-CapSense_CSD_SetSensitivity
+ 691              		.section	.text.CapSense_CSD_GetSensitivityCoefficient,"ax",%progbits
+ 692              		.align	2
+ 693              		.global	CapSense_CSD_GetSensitivityCoefficient
+ 694              		.code	16
+ 695              		.thumb_func
+ 696              		.type	CapSense_CSD_GetSensitivityCoefficient, %function
+ 697              	CapSense_CSD_GetSensitivityCoefficient:
+ 698              	.LFB38:
+ 424:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 425:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 426:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** /*******************************************************************************
+ 427:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Function Name: CapSense_CSD_GetSensitivityCoefficient
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 21
+
+
+ 428:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** ********************************************************************************
+ 429:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 430:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Summary:
+ 431:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  This API returns the K coefficient for the appropriate sensor.
+ 432:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 433:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Parameters:
+ 434:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  sensor:  Sensor index
+ 435:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 436:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  Return Value:
+ 437:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *   K - value for the appropriate sensor.
+ 438:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 439:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Global Variables:
+ 440:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  CapSense_CSD_kValueTbl[] - This 8-bits array contains the K value for each sensor.
+ 441:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 442:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Side Effects:
+ 443:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 444:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 445:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *******************************************************************************/
+ 446:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** uint8 CapSense_CSD_GetSensitivityCoefficient(uint32 sensor)
+ 447:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** {
+ 699              		.loc 1 447 0
+ 700              		.cfi_startproc
+ 701              		@ args = 0, pretend = 0, frame = 8
+ 702              		@ frame_needed = 1, uses_anonymous_args = 0
+ 703 0000 80B5     		push	{r7, lr}
+ 704              		.cfi_def_cfa_offset 8
+ 705              		.cfi_offset 7, -8
+ 706              		.cfi_offset 14, -4
+ 707 0002 82B0     		sub	sp, sp, #8
+ 708              		.cfi_def_cfa_offset 16
+ 709 0004 00AF     		add	r7, sp, #0
+ 710              		.cfi_def_cfa_register 7
+ 711 0006 7860     		str	r0, [r7, #4]
+ 448:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     return (CapSense_CSD_kValueTbl[sensor]);
+ 712              		.loc 1 448 0
+ 713 0008 034A     		ldr	r2, .L36
+ 714 000a 7B68     		ldr	r3, [r7, #4]
+ 715 000c D318     		adds	r3, r2, r3
+ 716 000e 1B78     		ldrb	r3, [r3]
+ 449:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** }
+ 717              		.loc 1 449 0
+ 718 0010 1800     		movs	r0, r3
+ 719 0012 BD46     		mov	sp, r7
+ 720 0014 02B0     		add	sp, sp, #8
+ 721              		@ sp needed
+ 722 0016 80BD     		pop	{r7, pc}
+ 723              	.L37:
+ 724              		.align	2
+ 725              	.L36:
+ 726 0018 00000000 		.word	CapSense_CSD_kValueTbl
+ 727              		.cfi_endproc
+ 728              	.LFE38:
+ 729              		.size	CapSense_CSD_GetSensitivityCoefficient, .-CapSense_CSD_GetSensitivityCoefficient
+ 730              		.section	.text.CapSense_CSD_GetNoiseEnvelope,"ax",%progbits
+ 731              		.align	2
+ 732              		.global	CapSense_CSD_GetNoiseEnvelope
+ 733              		.code	16
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 22
+
+
+ 734              		.thumb_func
+ 735              		.type	CapSense_CSD_GetNoiseEnvelope, %function
+ 736              	CapSense_CSD_GetNoiseEnvelope:
+ 737              	.LFB39:
+ 450:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 451:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 452:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** /*******************************************************************************
+ 453:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Function Name: CapSense_CSD_GetNoiseEnvelope
+ 454:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** ********************************************************************************
+ 455:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 456:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Summary:
+ 457:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  This function returns the noise value of a
+ 458:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  component.
+ 459:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 460:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Parameters:
+ 461:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  sensor - Sensor number.
+ 462:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 463:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Return:
+ 464:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  The noise envelope value of the sensor
+ 465:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  indicated by argument.
+ 466:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 467:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Global Variables:
+ 468:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  CapSense_CSD_noiseEnvelopeTbl[] - array with Noise Envelope.
+ 469:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 470:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Side Effects:
+ 471:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 472:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 473:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *******************************************************************************/
+ 474:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** uint16 CapSense_CSD_GetNoiseEnvelope(uint32 sensor)
+ 475:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** {
+ 738              		.loc 1 475 0
+ 739              		.cfi_startproc
+ 740              		@ args = 0, pretend = 0, frame = 8
+ 741              		@ frame_needed = 1, uses_anonymous_args = 0
+ 742 0000 80B5     		push	{r7, lr}
+ 743              		.cfi_def_cfa_offset 8
+ 744              		.cfi_offset 7, -8
+ 745              		.cfi_offset 14, -4
+ 746 0002 82B0     		sub	sp, sp, #8
+ 747              		.cfi_def_cfa_offset 16
+ 748 0004 00AF     		add	r7, sp, #0
+ 749              		.cfi_def_cfa_register 7
+ 750 0006 7860     		str	r0, [r7, #4]
+ 476:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     return((uint16)((uint16)CapSense_CSD_noiseEnvelopeTbl[sensor] << 1u) + 1u);
+ 751              		.loc 1 476 0
+ 752 0008 064A     		ldr	r2, .L40
+ 753 000a 7B68     		ldr	r3, [r7, #4]
+ 754 000c D318     		adds	r3, r2, r3
+ 755 000e 1B78     		ldrb	r3, [r3]
+ 756 0010 9BB2     		uxth	r3, r3
+ 757 0012 DB18     		adds	r3, r3, r3
+ 758 0014 9BB2     		uxth	r3, r3
+ 759 0016 0133     		adds	r3, r3, #1
+ 760 0018 9BB2     		uxth	r3, r3
+ 477:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** }
+ 761              		.loc 1 477 0
+ 762 001a 1800     		movs	r0, r3
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 23
+
+
+ 763 001c BD46     		mov	sp, r7
+ 764 001e 02B0     		add	sp, sp, #8
+ 765              		@ sp needed
+ 766 0020 80BD     		pop	{r7, pc}
+ 767              	.L41:
+ 768 0022 C046     		.align	2
+ 769              	.L40:
+ 770 0024 00000000 		.word	CapSense_CSD_noiseEnvelopeTbl
+ 771              		.cfi_endproc
+ 772              	.LFE39:
+ 773              		.size	CapSense_CSD_GetNoiseEnvelope, .-CapSense_CSD_GetNoiseEnvelope
+ 774              		.global	__aeabi_uidiv
+ 775              		.section	.text.CapSense_CSD_GetNormalizedDiffCountData,"ax",%progbits
+ 776              		.align	2
+ 777              		.global	CapSense_CSD_GetNormalizedDiffCountData
+ 778              		.code	16
+ 779              		.thumb_func
+ 780              		.type	CapSense_CSD_GetNormalizedDiffCountData, %function
+ 781              	CapSense_CSD_GetNormalizedDiffCountData:
+ 782              	.LFB40:
+ 478:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 479:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** 
+ 480:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** /*******************************************************************************
+ 481:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Function Name: CapSense_CSD_GetNormalizedDiffCountData
+ 482:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** ********************************************************************************
+ 483:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 484:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Summary:
+ 485:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  This API returns normalized difference count data.
+ 486:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 487:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Parameters:
+ 488:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  sensor:  Sensor number.
+ 489:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 490:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Return:
+ 491:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  This API returns a normalized count value of the sensor indicated by the
+ 492:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  argument.
+ 493:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 494:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Global Variables:
+ 495:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  CapSense_CSD_sensorSignal[] - array with difference counts for sensors
+ 496:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 497:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** * Side Effects:
+ 498:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *  None
+ 499:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *
+ 500:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** *******************************************************************************/
+ 501:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** uint16 CapSense_CSD_GetNormalizedDiffCountData(uint32 sensor)
+ 502:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** {
+ 783              		.loc 1 502 0
+ 784              		.cfi_startproc
+ 785              		@ args = 0, pretend = 0, frame = 8
+ 786              		@ frame_needed = 1, uses_anonymous_args = 0
+ 787 0000 80B5     		push	{r7, lr}
+ 788              		.cfi_def_cfa_offset 8
+ 789              		.cfi_offset 7, -8
+ 790              		.cfi_offset 14, -4
+ 791 0002 82B0     		sub	sp, sp, #8
+ 792              		.cfi_def_cfa_offset 16
+ 793 0004 00AF     		add	r7, sp, #0
+ 794              		.cfi_def_cfa_register 7
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 24
+
+
+ 795 0006 7860     		str	r0, [r7, #4]
+ 503:Generated_Source\PSoC4/CapSense_CSD_SMS.c ****     return (uint16)(((uint32)CapSense_CSD_sensorSignal[sensor] << 7u) / CapSense_CSD_kValueTbl[sens
+ 796              		.loc 1 503 0
+ 797 0008 084A     		ldr	r2, .L44
+ 798 000a 7B68     		ldr	r3, [r7, #4]
+ 799 000c D318     		adds	r3, r2, r3
+ 800 000e 1B78     		ldrb	r3, [r3]
+ 801 0010 D801     		lsls	r0, r3, #7
+ 802 0012 074A     		ldr	r2, .L44+4
+ 803 0014 7B68     		ldr	r3, [r7, #4]
+ 804 0016 D318     		adds	r3, r2, r3
+ 805 0018 1B78     		ldrb	r3, [r3]
+ 806 001a 1900     		movs	r1, r3
+ 807 001c FFF7FEFF 		bl	__aeabi_uidiv
+ 808 0020 0300     		movs	r3, r0
+ 809 0022 9BB2     		uxth	r3, r3
+ 504:Generated_Source\PSoC4/CapSense_CSD_SMS.c **** }
+ 810              		.loc 1 504 0
+ 811 0024 1800     		movs	r0, r3
+ 812 0026 BD46     		mov	sp, r7
+ 813 0028 02B0     		add	sp, sp, #8
+ 814              		@ sp needed
+ 815 002a 80BD     		pop	{r7, pc}
+ 816              	.L45:
+ 817              		.align	2
+ 818              	.L44:
+ 819 002c 00000000 		.word	CapSense_CSD_sensorSignal
+ 820 0030 00000000 		.word	CapSense_CSD_kValueTbl
+ 821              		.cfi_endproc
+ 822              	.LFE40:
+ 823              		.size	CapSense_CSD_GetNormalizedDiffCountData, .-CapSense_CSD_GetNormalizedDiffCountData
+ 824              		.text
+ 825              	.Letext0:
+ 826              		.file 2 "Generated_Source\\PSoC4\\cytypes.h"
+ 827              		.file 3 "Generated_Source\\PSoC4\\CapSense_CSD_PVT.h"
+ 828              		.file 4 "Generated_Source\\PSoC4\\CapSense_CSD.h"
+ 829              		.file 5 "Generated_Source\\PSoC4\\CapSense_CSD_CSHL.h"
+ 830              		.section	.debug_info,"",%progbits
+ 831              	.Ldebug_info0:
+ 832 0000 56060000 		.4byte	0x656
+ 833 0004 0400     		.2byte	0x4
+ 834 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 835 000a 04       		.byte	0x4
+ 836 000b 01       		.uleb128 0x1
+ 837 000c 20030000 		.4byte	.LASF90
+ 838 0010 0C       		.byte	0xc
+ 839 0011 2D050000 		.4byte	.LASF91
+ 840 0015 35040000 		.4byte	.LASF92
+ 841 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 842 001d 00000000 		.4byte	0
+ 843 0021 00000000 		.4byte	.Ldebug_line0
+ 844 0025 02       		.uleb128 0x2
+ 845 0026 01       		.byte	0x1
+ 846 0027 06       		.byte	0x6
+ 847 0028 7D010000 		.4byte	.LASF0
+ 848 002c 02       		.uleb128 0x2
+ 849 002d 01       		.byte	0x1
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 25
+
+
+ 850 002e 08       		.byte	0x8
+ 851 002f 0E050000 		.4byte	.LASF1
+ 852 0033 02       		.uleb128 0x2
+ 853 0034 02       		.byte	0x2
+ 854 0035 05       		.byte	0x5
+ 855 0036 7B050000 		.4byte	.LASF2
+ 856 003a 02       		.uleb128 0x2
+ 857 003b 02       		.byte	0x2
+ 858 003c 07       		.byte	0x7
+ 859 003d BF020000 		.4byte	.LASF3
+ 860 0041 02       		.uleb128 0x2
+ 861 0042 04       		.byte	0x4
+ 862 0043 05       		.byte	0x5
+ 863 0044 E4010000 		.4byte	.LASF4
+ 864 0048 02       		.uleb128 0x2
+ 865 0049 04       		.byte	0x4
+ 866 004a 07       		.byte	0x7
+ 867 004b 8F020000 		.4byte	.LASF5
+ 868 004f 02       		.uleb128 0x2
+ 869 0050 08       		.byte	0x8
+ 870 0051 05       		.byte	0x5
+ 871 0052 6F010000 		.4byte	.LASF6
+ 872 0056 02       		.uleb128 0x2
+ 873 0057 08       		.byte	0x8
+ 874 0058 07       		.byte	0x7
+ 875 0059 FB000000 		.4byte	.LASF7
+ 876 005d 03       		.uleb128 0x3
+ 877 005e 04       		.byte	0x4
+ 878 005f 05       		.byte	0x5
+ 879 0060 696E7400 		.ascii	"int\000"
+ 880 0064 02       		.uleb128 0x2
+ 881 0065 04       		.byte	0x4
+ 882 0066 07       		.byte	0x7
+ 883 0067 4D020000 		.4byte	.LASF8
+ 884 006b 04       		.uleb128 0x4
+ 885 006c 07020000 		.4byte	.LASF9
+ 886 0070 02       		.byte	0x2
+ 887 0071 D201     		.2byte	0x1d2
+ 888 0073 2C000000 		.4byte	0x2c
+ 889 0077 04       		.uleb128 0x4
+ 890 0078 0A000000 		.4byte	.LASF10
+ 891 007c 02       		.byte	0x2
+ 892 007d D301     		.2byte	0x1d3
+ 893 007f 3A000000 		.4byte	0x3a
+ 894 0083 04       		.uleb128 0x4
+ 895 0084 20020000 		.4byte	.LASF11
+ 896 0088 02       		.byte	0x2
+ 897 0089 D401     		.2byte	0x1d4
+ 898 008b 48000000 		.4byte	0x48
+ 899 008f 02       		.uleb128 0x2
+ 900 0090 04       		.byte	0x4
+ 901 0091 04       		.byte	0x4
+ 902 0092 B8040000 		.4byte	.LASF12
+ 903 0096 02       		.uleb128 0x2
+ 904 0097 08       		.byte	0x8
+ 905 0098 04       		.byte	0x4
+ 906 0099 0D020000 		.4byte	.LASF13
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 26
+
+
+ 907 009d 02       		.uleb128 0x2
+ 908 009e 01       		.byte	0x1
+ 909 009f 08       		.byte	0x8
+ 910 00a0 21060000 		.4byte	.LASF14
+ 911 00a4 04       		.uleb128 0x4
+ 912 00a5 BB030000 		.4byte	.LASF15
+ 913 00a9 02       		.byte	0x2
+ 914 00aa 7E02     		.2byte	0x27e
+ 915 00ac B0000000 		.4byte	0xb0
+ 916 00b0 05       		.uleb128 0x5
+ 917 00b1 83000000 		.4byte	0x83
+ 918 00b5 02       		.uleb128 0x2
+ 919 00b6 04       		.byte	0x4
+ 920 00b7 07       		.byte	0x7
+ 921 00b8 E0030000 		.4byte	.LASF16
+ 922 00bc 02       		.uleb128 0x2
+ 923 00bd 08       		.byte	0x8
+ 924 00be 04       		.byte	0x4
+ 925 00bf E9030000 		.4byte	.LASF17
+ 926 00c3 06       		.uleb128 0x6
+ 927 00c4 5C       		.byte	0x5c
+ 928 00c5 03       		.byte	0x3
+ 929 00c6 2F       		.byte	0x2f
+ 930 00c7 E0010000 		.4byte	0x1e0
+ 931 00cb 07       		.uleb128 0x7
+ 932 00cc 17040000 		.4byte	.LASF18
+ 933 00d0 03       		.byte	0x3
+ 934 00d1 31       		.byte	0x31
+ 935 00d2 E0010000 		.4byte	0x1e0
+ 936 00d6 00       		.byte	0
+ 937 00d7 07       		.uleb128 0x7
+ 938 00d8 26040000 		.4byte	.LASF19
+ 939 00dc 03       		.byte	0x3
+ 940 00dd 32       		.byte	0x32
+ 941 00de E0010000 		.4byte	0x1e0
+ 942 00e2 04       		.byte	0x4
+ 943 00e3 07       		.uleb128 0x7
+ 944 00e4 D2020000 		.4byte	.LASF20
+ 945 00e8 03       		.byte	0x3
+ 946 00e9 33       		.byte	0x33
+ 947 00ea E0010000 		.4byte	0x1e0
+ 948 00ee 08       		.byte	0x8
+ 949 00ef 07       		.uleb128 0x7
+ 950 00f0 13030000 		.4byte	.LASF21
+ 951 00f4 03       		.byte	0x3
+ 952 00f5 34       		.byte	0x34
+ 953 00f6 E0010000 		.4byte	0x1e0
+ 954 00fa 0C       		.byte	0xc
+ 955 00fb 07       		.uleb128 0x7
+ 956 00fc 8C050000 		.4byte	.LASF22
+ 957 0100 03       		.byte	0x3
+ 958 0101 35       		.byte	0x35
+ 959 0102 E0010000 		.4byte	0x1e0
+ 960 0106 10       		.byte	0x10
+ 961 0107 07       		.uleb128 0x7
+ 962 0108 B5010000 		.4byte	.LASF23
+ 963 010c 03       		.byte	0x3
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 27
+
+
+ 964 010d 36       		.byte	0x36
+ 965 010e E6010000 		.4byte	0x1e6
+ 966 0112 14       		.byte	0x14
+ 967 0113 07       		.uleb128 0x7
+ 968 0114 A1020000 		.4byte	.LASF24
+ 969 0118 03       		.byte	0x3
+ 970 0119 37       		.byte	0x37
+ 971 011a F1010000 		.4byte	0x1f1
+ 972 011e 18       		.byte	0x18
+ 973 011f 07       		.uleb128 0x7
+ 974 0120 C1030000 		.4byte	.LASF25
+ 975 0124 03       		.byte	0x3
+ 976 0125 38       		.byte	0x38
+ 977 0126 E0010000 		.4byte	0x1e0
+ 978 012a 1C       		.byte	0x1c
+ 979 012b 07       		.uleb128 0x7
+ 980 012c 26060000 		.4byte	.LASF26
+ 981 0130 03       		.byte	0x3
+ 982 0131 39       		.byte	0x39
+ 983 0132 E0010000 		.4byte	0x1e0
+ 984 0136 20       		.byte	0x20
+ 985 0137 07       		.uleb128 0x7
+ 986 0138 EF040000 		.4byte	.LASF27
+ 987 013c 03       		.byte	0x3
+ 988 013d 3A       		.byte	0x3a
+ 989 013e E0010000 		.4byte	0x1e0
+ 990 0142 24       		.byte	0x24
+ 991 0143 07       		.uleb128 0x7
+ 992 0144 AE030000 		.4byte	.LASF28
+ 993 0148 03       		.byte	0x3
+ 994 0149 3B       		.byte	0x3b
+ 995 014a F7010000 		.4byte	0x1f7
+ 996 014e 28       		.byte	0x28
+ 997 014f 07       		.uleb128 0x7
+ 998 0150 5A020000 		.4byte	.LASF29
+ 999 0154 03       		.byte	0x3
+ 1000 0155 3C       		.byte	0x3c
+ 1001 0156 F7010000 		.4byte	0x1f7
+ 1002 015a 2C       		.byte	0x2c
+ 1003 015b 07       		.uleb128 0x7
+ 1004 015c F3050000 		.4byte	.LASF30
+ 1005 0160 03       		.byte	0x3
+ 1006 0161 3D       		.byte	0x3d
+ 1007 0162 F7010000 		.4byte	0x1f7
+ 1008 0166 30       		.byte	0x30
+ 1009 0167 07       		.uleb128 0x7
+ 1010 0168 B2050000 		.4byte	.LASF31
+ 1011 016c 03       		.byte	0x3
+ 1012 016d 3E       		.byte	0x3e
+ 1013 016e E0010000 		.4byte	0x1e0
+ 1014 0172 34       		.byte	0x34
+ 1015 0173 07       		.uleb128 0x7
+ 1016 0174 FD060000 		.4byte	.LASF32
+ 1017 0178 03       		.byte	0x3
+ 1018 0179 3F       		.byte	0x3f
+ 1019 017a E0010000 		.4byte	0x1e0
+ 1020 017e 38       		.byte	0x38
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 28
+
+
+ 1021 017f 07       		.uleb128 0x7
+ 1022 0180 FF040000 		.4byte	.LASF33
+ 1023 0184 03       		.byte	0x3
+ 1024 0185 40       		.byte	0x40
+ 1025 0186 E6010000 		.4byte	0x1e6
+ 1026 018a 3C       		.byte	0x3c
+ 1027 018b 07       		.uleb128 0x7
+ 1028 018c EA070000 		.4byte	.LASF34
+ 1029 0190 03       		.byte	0x3
+ 1030 0191 41       		.byte	0x41
+ 1031 0192 E6010000 		.4byte	0x1e6
+ 1032 0196 40       		.byte	0x40
+ 1033 0197 07       		.uleb128 0x7
+ 1034 0198 A5010000 		.4byte	.LASF35
+ 1035 019c 03       		.byte	0x3
+ 1036 019d 42       		.byte	0x42
+ 1037 019e E6010000 		.4byte	0x1e6
+ 1038 01a2 44       		.byte	0x44
+ 1039 01a3 07       		.uleb128 0x7
+ 1040 01a4 97000000 		.4byte	.LASF36
+ 1041 01a8 03       		.byte	0x3
+ 1042 01a9 43       		.byte	0x43
+ 1043 01aa 0C020000 		.4byte	0x20c
+ 1044 01ae 48       		.byte	0x48
+ 1045 01af 07       		.uleb128 0x7
+ 1046 01b0 B6060000 		.4byte	.LASF37
+ 1047 01b4 03       		.byte	0x3
+ 1048 01b5 44       		.byte	0x44
+ 1049 01b6 1D020000 		.4byte	0x21d
+ 1050 01ba 4C       		.byte	0x4c
+ 1051 01bb 07       		.uleb128 0x7
+ 1052 01bc 1C050000 		.4byte	.LASF38
+ 1053 01c0 03       		.byte	0x3
+ 1054 01c1 45       		.byte	0x45
+ 1055 01c2 0C020000 		.4byte	0x20c
+ 1056 01c6 50       		.byte	0x50
+ 1057 01c7 07       		.uleb128 0x7
+ 1058 01c8 B0020000 		.4byte	.LASF39
+ 1059 01cc 03       		.byte	0x3
+ 1060 01cd 46       		.byte	0x46
+ 1061 01ce 37020000 		.4byte	0x237
+ 1062 01d2 54       		.byte	0x54
+ 1063 01d3 07       		.uleb128 0x7
+ 1064 01d4 96070000 		.4byte	.LASF40
+ 1065 01d8 03       		.byte	0x3
+ 1066 01d9 47       		.byte	0x47
+ 1067 01da 52020000 		.4byte	0x252
+ 1068 01de 58       		.byte	0x58
+ 1069 01df 00       		.byte	0
+ 1070 01e0 08       		.uleb128 0x8
+ 1071 01e1 04       		.byte	0x4
+ 1072 01e2 6B000000 		.4byte	0x6b
+ 1073 01e6 08       		.uleb128 0x8
+ 1074 01e7 04       		.byte	0x4
+ 1075 01e8 EC010000 		.4byte	0x1ec
+ 1076 01ec 09       		.uleb128 0x9
+ 1077 01ed 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 29
+
+
+ 1078 01f1 08       		.uleb128 0x8
+ 1079 01f2 04       		.byte	0x4
+ 1080 01f3 83000000 		.4byte	0x83
+ 1081 01f7 08       		.uleb128 0x8
+ 1082 01f8 04       		.byte	0x4
+ 1083 01f9 77000000 		.4byte	0x77
+ 1084 01fd 0A       		.uleb128 0xa
+ 1085 01fe 77000000 		.4byte	0x77
+ 1086 0202 0C020000 		.4byte	0x20c
+ 1087 0206 0B       		.uleb128 0xb
+ 1088 0207 83000000 		.4byte	0x83
+ 1089 020b 00       		.byte	0
+ 1090 020c 08       		.uleb128 0x8
+ 1091 020d 04       		.byte	0x4
+ 1092 020e FD010000 		.4byte	0x1fd
+ 1093 0212 0C       		.uleb128 0xc
+ 1094 0213 1D020000 		.4byte	0x21d
+ 1095 0217 0B       		.uleb128 0xb
+ 1096 0218 83000000 		.4byte	0x83
+ 1097 021c 00       		.byte	0
+ 1098 021d 08       		.uleb128 0x8
+ 1099 021e 04       		.byte	0x4
+ 1100 021f 12020000 		.4byte	0x212
+ 1101 0223 0A       		.uleb128 0xa
+ 1102 0224 83000000 		.4byte	0x83
+ 1103 0228 37020000 		.4byte	0x237
+ 1104 022c 0B       		.uleb128 0xb
+ 1105 022d E6010000 		.4byte	0x1e6
+ 1106 0231 0B       		.uleb128 0xb
+ 1107 0232 83000000 		.4byte	0x83
+ 1108 0236 00       		.byte	0
+ 1109 0237 08       		.uleb128 0x8
+ 1110 0238 04       		.byte	0x4
+ 1111 0239 23020000 		.4byte	0x223
+ 1112 023d 0C       		.uleb128 0xc
+ 1113 023e 52020000 		.4byte	0x252
+ 1114 0242 0B       		.uleb128 0xb
+ 1115 0243 E0010000 		.4byte	0x1e0
+ 1116 0247 0B       		.uleb128 0xb
+ 1117 0248 83000000 		.4byte	0x83
+ 1118 024c 0B       		.uleb128 0xb
+ 1119 024d 83000000 		.4byte	0x83
+ 1120 0251 00       		.byte	0
+ 1121 0252 08       		.uleb128 0x8
+ 1122 0253 04       		.byte	0x4
+ 1123 0254 3D020000 		.4byte	0x23d
+ 1124 0258 0D       		.uleb128 0xd
+ 1125 0259 BF070000 		.4byte	.LASF41
+ 1126 025d 03       		.byte	0x3
+ 1127 025e 48       		.byte	0x48
+ 1128 025f C3000000 		.4byte	0xc3
+ 1129 0263 06       		.uleb128 0x6
+ 1130 0264 0C       		.byte	0xc
+ 1131 0265 03       		.byte	0x3
+ 1132 0266 4A       		.byte	0x4a
+ 1133 0267 B4020000 		.4byte	0x2b4
+ 1134 026b 07       		.uleb128 0x7
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 30
+
+
+ 1135 026c 66070000 		.4byte	.LASF42
+ 1136 0270 03       		.byte	0x3
+ 1137 0271 4C       		.byte	0x4c
+ 1138 0272 6B000000 		.4byte	0x6b
+ 1139 0276 00       		.byte	0
+ 1140 0277 07       		.uleb128 0x7
+ 1141 0278 F7070000 		.4byte	.LASF43
+ 1142 027c 03       		.byte	0x3
+ 1143 027d 4D       		.byte	0x4d
+ 1144 027e 6B000000 		.4byte	0x6b
+ 1145 0282 01       		.byte	0x1
+ 1146 0283 07       		.uleb128 0x7
+ 1147 0284 37020000 		.4byte	.LASF44
+ 1148 0288 03       		.byte	0x3
+ 1149 0289 4E       		.byte	0x4e
+ 1150 028a 6B000000 		.4byte	0x6b
+ 1151 028e 02       		.byte	0x2
+ 1152 028f 07       		.uleb128 0x7
+ 1153 0290 27020000 		.4byte	.LASF45
+ 1154 0294 03       		.byte	0x3
+ 1155 0295 4F       		.byte	0x4f
+ 1156 0296 77000000 		.4byte	0x77
+ 1157 029a 04       		.byte	0x4
+ 1158 029b 07       		.uleb128 0x7
+ 1159 029c D2030000 		.4byte	.LASF46
+ 1160 02a0 03       		.byte	0x3
+ 1161 02a1 50       		.byte	0x50
+ 1162 02a2 77000000 		.4byte	0x77
+ 1163 02a6 06       		.byte	0x6
+ 1164 02a7 07       		.uleb128 0x7
+ 1165 02a8 E8020000 		.4byte	.LASF47
+ 1166 02ac 03       		.byte	0x3
+ 1167 02ad 51       		.byte	0x51
+ 1168 02ae B4020000 		.4byte	0x2b4
+ 1169 02b2 08       		.byte	0x8
+ 1170 02b3 00       		.byte	0
+ 1171 02b4 08       		.uleb128 0x8
+ 1172 02b5 04       		.byte	0x4
+ 1173 02b6 BA020000 		.4byte	0x2ba
+ 1174 02ba 09       		.uleb128 0x9
+ 1175 02bb 58020000 		.4byte	0x258
+ 1176 02bf 0D       		.uleb128 0xd
+ 1177 02c0 F5030000 		.4byte	.LASF48
+ 1178 02c4 03       		.byte	0x3
+ 1179 02c5 52       		.byte	0x52
+ 1180 02c6 63020000 		.4byte	0x263
+ 1181 02ca 0E       		.uleb128 0xe
+ 1182 02cb A1000000 		.4byte	.LASF51
+ 1183 02cf 01       		.byte	0x1
+ 1184 02d0 91       		.byte	0x91
+ 1185 02d1 00000000 		.4byte	.LFB32
+ 1186 02d5 F8000000 		.4byte	.LFE32-.LFB32
+ 1187 02d9 01       		.uleb128 0x1
+ 1188 02da 9C       		.byte	0x9c
+ 1189 02db FC020000 		.4byte	0x2fc
+ 1190 02df 0F       		.uleb128 0xf
+ 1191 02e0 00000000 		.4byte	.LASF49
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 31
+
+
+ 1192 02e4 01       		.byte	0x1
+ 1193 02e5 93       		.byte	0x93
+ 1194 02e6 83000000 		.4byte	0x83
+ 1195 02ea 02       		.uleb128 0x2
+ 1196 02eb 91       		.byte	0x91
+ 1197 02ec 74       		.sleb128 -12
+ 1198 02ed 0F       		.uleb128 0xf
+ 1199 02ee 85050000 		.4byte	.LASF50
+ 1200 02f2 01       		.byte	0x1
+ 1201 02f3 94       		.byte	0x94
+ 1202 02f4 83000000 		.4byte	0x83
+ 1203 02f8 02       		.uleb128 0x2
+ 1204 02f9 91       		.byte	0x91
+ 1205 02fa 70       		.sleb128 -16
+ 1206 02fb 00       		.byte	0
+ 1207 02fc 0E       		.uleb128 0xe
+ 1208 02fd 69000000 		.4byte	.LASF52
+ 1209 0301 01       		.byte	0x1
+ 1210 0302 E6       		.byte	0xe6
+ 1211 0303 00000000 		.4byte	.LFB33
+ 1212 0307 F4000000 		.4byte	.LFE33-.LFB33
+ 1213 030b 01       		.uleb128 0x1
+ 1214 030c 9C       		.byte	0x9c
+ 1215 030d 3C030000 		.4byte	0x33c
+ 1216 0311 10       		.uleb128 0x10
+ 1217 0312 E1020000 		.4byte	.LASF57
+ 1218 0316 01       		.byte	0x1
+ 1219 0317 E6       		.byte	0xe6
+ 1220 0318 83000000 		.4byte	0x83
+ 1221 031c 02       		.uleb128 0x2
+ 1222 031d 91       		.byte	0x91
+ 1223 031e 64       		.sleb128 -28
+ 1224 031f 0F       		.uleb128 0xf
+ 1225 0320 87000000 		.4byte	.LASF53
+ 1226 0324 01       		.byte	0x1
+ 1227 0325 E8       		.byte	0xe8
+ 1228 0326 6B000000 		.4byte	0x6b
+ 1229 032a 02       		.uleb128 0x2
+ 1230 032b 91       		.byte	0x91
+ 1231 032c 6B       		.sleb128 -21
+ 1232 032d 0F       		.uleb128 0xf
+ 1233 032e 85050000 		.4byte	.LASF50
+ 1234 0332 01       		.byte	0x1
+ 1235 0333 E9       		.byte	0xe9
+ 1236 0334 83000000 		.4byte	0x83
+ 1237 0338 02       		.uleb128 0x2
+ 1238 0339 91       		.byte	0x91
+ 1239 033a 6C       		.sleb128 -20
+ 1240 033b 00       		.byte	0
+ 1241 033c 11       		.uleb128 0x11
+ 1242 033d D3000000 		.4byte	.LASF93
+ 1243 0341 01       		.byte	0x1
+ 1244 0342 2701     		.2byte	0x127
+ 1245 0344 00000000 		.4byte	.LFB34
+ 1246 0348 1C000000 		.4byte	.LFE34-.LFB34
+ 1247 034c 01       		.uleb128 0x1
+ 1248 034d 9C       		.byte	0x9c
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 32
+
+
+ 1249 034e 12       		.uleb128 0x12
+ 1250 034f 0A070000 		.4byte	.LASF54
+ 1251 0353 01       		.byte	0x1
+ 1252 0354 4101     		.2byte	0x141
+ 1253 0356 00000000 		.4byte	.LFB35
+ 1254 035a 34000000 		.4byte	.LFE35-.LFB35
+ 1255 035e 01       		.uleb128 0x1
+ 1256 035f 9C       		.byte	0x9c
+ 1257 0360 74030000 		.4byte	0x374
+ 1258 0364 13       		.uleb128 0x13
+ 1259 0365 14020000 		.4byte	.LASF55
+ 1260 0369 01       		.byte	0x1
+ 1261 036a 4301     		.2byte	0x143
+ 1262 036c 83000000 		.4byte	0x83
+ 1263 0370 02       		.uleb128 0x2
+ 1264 0371 91       		.byte	0x91
+ 1265 0372 74       		.sleb128 -12
+ 1266 0373 00       		.byte	0
+ 1267 0374 14       		.uleb128 0x14
+ 1268 0375 98040000 		.4byte	.LASF56
+ 1269 0379 01       		.byte	0x1
+ 1270 037a 6201     		.2byte	0x162
+ 1271 037c 00000000 		.4byte	.LFB36
+ 1272 0380 94000000 		.4byte	.LFE36-.LFB36
+ 1273 0384 01       		.uleb128 0x1
+ 1274 0385 9C       		.byte	0x9c
+ 1275 0386 B8030000 		.4byte	0x3b8
+ 1276 038a 15       		.uleb128 0x15
+ 1277 038b 3B060000 		.4byte	.LASF58
+ 1278 038f 01       		.byte	0x1
+ 1279 0390 6201     		.2byte	0x162
+ 1280 0392 B8030000 		.4byte	0x3b8
+ 1281 0396 02       		.uleb128 0x2
+ 1282 0397 91       		.byte	0x91
+ 1283 0398 6C       		.sleb128 -20
+ 1284 0399 13       		.uleb128 0x13
+ 1285 039a 00000000 		.4byte	.LASF49
+ 1286 039e 01       		.byte	0x1
+ 1287 039f 6401     		.2byte	0x164
+ 1288 03a1 83000000 		.4byte	0x83
+ 1289 03a5 02       		.uleb128 0x2
+ 1290 03a6 91       		.byte	0x91
+ 1291 03a7 74       		.sleb128 -12
+ 1292 03a8 13       		.uleb128 0x13
+ 1293 03a9 14020000 		.4byte	.LASF55
+ 1294 03ad 01       		.byte	0x1
+ 1295 03ae 6501     		.2byte	0x165
+ 1296 03b0 83000000 		.4byte	0x83
+ 1297 03b4 02       		.uleb128 0x2
+ 1298 03b5 91       		.byte	0x91
+ 1299 03b6 70       		.sleb128 -16
+ 1300 03b7 00       		.byte	0
+ 1301 03b8 08       		.uleb128 0x8
+ 1302 03b9 04       		.byte	0x4
+ 1303 03ba BE030000 		.4byte	0x3be
+ 1304 03be 09       		.uleb128 0x9
+ 1305 03bf BF020000 		.4byte	0x2bf
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 33
+
+
+ 1306 03c3 12       		.uleb128 0x12
+ 1307 03c4 96050000 		.4byte	.LASF59
+ 1308 03c8 01       		.byte	0x1
+ 1309 03c9 9C01     		.2byte	0x19c
+ 1310 03cb 00000000 		.4byte	.LFB37
+ 1311 03cf 58000000 		.4byte	.LFE37-.LFB37
+ 1312 03d3 01       		.uleb128 0x1
+ 1313 03d4 9C       		.byte	0x9c
+ 1314 03d5 F8030000 		.4byte	0x3f8
+ 1315 03d9 15       		.uleb128 0x15
+ 1316 03da E1020000 		.4byte	.LASF57
+ 1317 03de 01       		.byte	0x1
+ 1318 03df 9C01     		.2byte	0x19c
+ 1319 03e1 83000000 		.4byte	0x83
+ 1320 03e5 02       		.uleb128 0x2
+ 1321 03e6 91       		.byte	0x91
+ 1322 03e7 74       		.sleb128 -12
+ 1323 03e8 15       		.uleb128 0x15
+ 1324 03e9 47020000 		.4byte	.LASF60
+ 1325 03ed 01       		.byte	0x1
+ 1326 03ee 9C01     		.2byte	0x19c
+ 1327 03f0 83000000 		.4byte	0x83
+ 1328 03f4 02       		.uleb128 0x2
+ 1329 03f5 91       		.byte	0x91
+ 1330 03f6 70       		.sleb128 -16
+ 1331 03f7 00       		.byte	0
+ 1332 03f8 16       		.uleb128 0x16
+ 1333 03f9 28000000 		.4byte	.LASF61
+ 1334 03fd 01       		.byte	0x1
+ 1335 03fe BE01     		.2byte	0x1be
+ 1336 0400 6B000000 		.4byte	0x6b
+ 1337 0404 00000000 		.4byte	.LFB38
+ 1338 0408 1C000000 		.4byte	.LFE38-.LFB38
+ 1339 040c 01       		.uleb128 0x1
+ 1340 040d 9C       		.byte	0x9c
+ 1341 040e 22040000 		.4byte	0x422
+ 1342 0412 15       		.uleb128 0x15
+ 1343 0413 E1020000 		.4byte	.LASF57
+ 1344 0417 01       		.byte	0x1
+ 1345 0418 BE01     		.2byte	0x1be
+ 1346 041a 83000000 		.4byte	0x83
+ 1347 041e 02       		.uleb128 0x2
+ 1348 041f 91       		.byte	0x91
+ 1349 0420 74       		.sleb128 -12
+ 1350 0421 00       		.byte	0
+ 1351 0422 16       		.uleb128 0x16
+ 1352 0423 78070000 		.4byte	.LASF62
+ 1353 0427 01       		.byte	0x1
+ 1354 0428 DA01     		.2byte	0x1da
+ 1355 042a 77000000 		.4byte	0x77
+ 1356 042e 00000000 		.4byte	.LFB39
+ 1357 0432 28000000 		.4byte	.LFE39-.LFB39
+ 1358 0436 01       		.uleb128 0x1
+ 1359 0437 9C       		.byte	0x9c
+ 1360 0438 4C040000 		.4byte	0x44c
+ 1361 043c 15       		.uleb128 0x15
+ 1362 043d E1020000 		.4byte	.LASF57
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 34
+
+
+ 1363 0441 01       		.byte	0x1
+ 1364 0442 DA01     		.2byte	0x1da
+ 1365 0444 83000000 		.4byte	0x83
+ 1366 0448 02       		.uleb128 0x2
+ 1367 0449 91       		.byte	0x91
+ 1368 044a 74       		.sleb128 -12
+ 1369 044b 00       		.byte	0
+ 1370 044c 17       		.uleb128 0x17
+ 1371 044d 67020000 		.4byte	.LASF63
+ 1372 0451 01       		.byte	0x1
+ 1373 0452 F501     		.2byte	0x1f5
+ 1374 0454 77000000 		.4byte	0x77
+ 1375 0458 00000000 		.4byte	.LFB40
+ 1376 045c 34000000 		.4byte	.LFE40-.LFB40
+ 1377 0460 01       		.uleb128 0x1
+ 1378 0461 9C       		.byte	0x9c
+ 1379 0462 76040000 		.4byte	0x476
+ 1380 0466 15       		.uleb128 0x15
+ 1381 0467 E1020000 		.4byte	.LASF57
+ 1382 046b 01       		.byte	0x1
+ 1383 046c F501     		.2byte	0x1f5
+ 1384 046e 83000000 		.4byte	0x83
+ 1385 0472 02       		.uleb128 0x2
+ 1386 0473 91       		.byte	0x91
+ 1387 0474 74       		.sleb128 -12
+ 1388 0475 00       		.byte	0
+ 1389 0476 18       		.uleb128 0x18
+ 1390 0477 6B000000 		.4byte	0x6b
+ 1391 047b 86040000 		.4byte	0x486
+ 1392 047f 19       		.uleb128 0x19
+ 1393 0480 B5000000 		.4byte	0xb5
+ 1394 0484 01       		.byte	0x1
+ 1395 0485 00       		.byte	0
+ 1396 0486 1A       		.uleb128 0x1a
+ 1397 0487 7E040000 		.4byte	.LASF64
+ 1398 048b 04       		.byte	0x4
+ 1399 048c C502     		.2byte	0x2c5
+ 1400 048e 76040000 		.4byte	0x476
+ 1401 0492 1A       		.uleb128 0x1a
+ 1402 0493 F1020000 		.4byte	.LASF65
+ 1403 0497 04       		.byte	0x4
+ 1404 0498 CA02     		.2byte	0x2ca
+ 1405 049a 6B000000 		.4byte	0x6b
+ 1406 049e 18       		.uleb128 0x18
+ 1407 049f 6B000000 		.4byte	0x6b
+ 1408 04a3 AE040000 		.4byte	0x4ae
+ 1409 04a7 19       		.uleb128 0x19
+ 1410 04a8 B5000000 		.4byte	0xb5
+ 1411 04ac 0D       		.byte	0xd
+ 1412 04ad 00       		.byte	0
+ 1413 04ae 1A       		.uleb128 0x1a
+ 1414 04af B7000000 		.4byte	.LASF66
+ 1415 04b3 04       		.byte	0x4
+ 1416 04b4 D602     		.2byte	0x2d6
+ 1417 04b6 9E040000 		.4byte	0x49e
+ 1418 04ba 1A       		.uleb128 0x1a
+ 1419 04bb C6010000 		.4byte	.LASF67
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 35
+
+
+ 1420 04bf 04       		.byte	0x4
+ 1421 04c0 D702     		.2byte	0x2d7
+ 1422 04c2 9E040000 		.4byte	0x49e
+ 1423 04c6 18       		.uleb128 0x18
+ 1424 04c7 83000000 		.4byte	0x83
+ 1425 04cb D6040000 		.4byte	0x4d6
+ 1426 04cf 19       		.uleb128 0x19
+ 1427 04d0 B5000000 		.4byte	0xb5
+ 1428 04d4 0D       		.byte	0xd
+ 1429 04d5 00       		.byte	0
+ 1430 04d6 1A       		.uleb128 0x1a
+ 1431 04d7 80060000 		.4byte	.LASF68
+ 1432 04db 04       		.byte	0x4
+ 1433 04dc DE02     		.2byte	0x2de
+ 1434 04de C6040000 		.4byte	0x4c6
+ 1435 04e2 1A       		.uleb128 0x1a
+ 1436 04e3 31010000 		.4byte	.LASF69
+ 1437 04e7 04       		.byte	0x4
+ 1438 04e8 E002     		.2byte	0x2e0
+ 1439 04ea 9E040000 		.4byte	0x49e
+ 1440 04ee 1A       		.uleb128 0x1a
+ 1441 04ef 2B070000 		.4byte	.LASF70
+ 1442 04f3 04       		.byte	0x4
+ 1443 04f4 E102     		.2byte	0x2e1
+ 1444 04f6 9E040000 		.4byte	0x49e
+ 1445 04fa 18       		.uleb128 0x18
+ 1446 04fb EC010000 		.4byte	0x1ec
+ 1447 04ff 0A050000 		.4byte	0x50a
+ 1448 0503 19       		.uleb128 0x19
+ 1449 0504 B5000000 		.4byte	0xb5
+ 1450 0508 0D       		.byte	0xd
+ 1451 0509 00       		.byte	0
+ 1452 050a 1A       		.uleb128 0x1a
+ 1453 050b ED010000 		.4byte	.LASF71
+ 1454 050f 04       		.byte	0x4
+ 1455 0510 F102     		.2byte	0x2f1
+ 1456 0512 16050000 		.4byte	0x516
+ 1457 0516 09       		.uleb128 0x9
+ 1458 0517 FA040000 		.4byte	0x4fa
+ 1459 051b 1A       		.uleb128 0x1a
+ 1460 051c 4C070000 		.4byte	.LASF72
+ 1461 0520 05       		.byte	0x5
+ 1462 0521 3301     		.2byte	0x133
+ 1463 0523 9E040000 		.4byte	0x49e
+ 1464 0527 1A       		.uleb128 0x1a
+ 1465 0528 D2040000 		.4byte	.LASF73
+ 1466 052c 05       		.byte	0x5
+ 1467 052d 3B01     		.2byte	0x13b
+ 1468 052f 9E040000 		.4byte	0x49e
+ 1469 0533 1A       		.uleb128 0x1a
+ 1470 0534 05060000 		.4byte	.LASF74
+ 1471 0538 05       		.byte	0x5
+ 1472 0539 3C01     		.2byte	0x13c
+ 1473 053b 9E040000 		.4byte	0x49e
+ 1474 053f 1A       		.uleb128 0x1a
+ 1475 0540 57050000 		.4byte	.LASF75
+ 1476 0544 05       		.byte	0x5
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 36
+
+
+ 1477 0545 3D01     		.2byte	0x13d
+ 1478 0547 9E040000 		.4byte	0x49e
+ 1479 054b 1A       		.uleb128 0x1a
+ 1480 054c 9E060000 		.4byte	.LASF76
+ 1481 0550 05       		.byte	0x5
+ 1482 0551 3E01     		.2byte	0x13e
+ 1483 0553 9E040000 		.4byte	0x49e
+ 1484 0557 1A       		.uleb128 0x1a
+ 1485 0558 A5070000 		.4byte	.LASF77
+ 1486 055c 05       		.byte	0x5
+ 1487 055d 4701     		.2byte	0x147
+ 1488 055f 63050000 		.4byte	0x563
+ 1489 0563 09       		.uleb128 0x9
+ 1490 0564 FA040000 		.4byte	0x4fa
+ 1491 0568 1A       		.uleb128 0x1a
+ 1492 0569 BC050000 		.4byte	.LASF78
+ 1493 056d 05       		.byte	0x5
+ 1494 056e 4801     		.2byte	0x148
+ 1495 0570 74050000 		.4byte	0x574
+ 1496 0574 09       		.uleb128 0x9
+ 1497 0575 FA040000 		.4byte	0x4fa
+ 1498 0579 1B       		.uleb128 0x1b
+ 1499 057a 51010000 		.4byte	.LASF79
+ 1500 057e 01       		.byte	0x1
+ 1501 057f 4F       		.byte	0x4f
+ 1502 0580 9E040000 		.4byte	0x49e
+ 1503 0584 05       		.uleb128 0x5
+ 1504 0585 03       		.byte	0x3
+ 1505 0586 00000000 		.4byte	CapSense_CSD_noiseEnvelopeTbl
+ 1506 058a 1B       		.uleb128 0x1b
+ 1507 058b 42060000 		.4byte	.LASF80
+ 1508 058f 01       		.byte	0x1
+ 1509 0590 50       		.byte	0x50
+ 1510 0591 9E040000 		.4byte	0x49e
+ 1511 0595 05       		.uleb128 0x5
+ 1512 0596 03       		.byte	0x3
+ 1513 0597 00000000 		.4byte	CapSense_CSD_runningDifferenceTbl
+ 1514 059b 1B       		.uleb128 0x1b
+ 1515 059c E0060000 		.4byte	.LASF81
+ 1516 05a0 01       		.byte	0x1
+ 1517 05a1 51       		.byte	0x51
+ 1518 05a2 9E040000 		.4byte	0x49e
+ 1519 05a6 05       		.uleb128 0x5
+ 1520 05a7 03       		.byte	0x3
+ 1521 05a8 00000000 		.4byte	CapSense_CSD_signRegisterTbl
+ 1522 05ac 18       		.uleb128 0x18
+ 1523 05ad 77000000 		.4byte	0x77
+ 1524 05b1 BC050000 		.4byte	0x5bc
+ 1525 05b5 19       		.uleb128 0x19
+ 1526 05b6 B5000000 		.4byte	0xb5
+ 1527 05ba 0D       		.byte	0xd
+ 1528 05bb 00       		.byte	0
+ 1529 05bc 1B       		.uleb128 0x1b
+ 1530 05bd D9050000 		.4byte	.LASF82
+ 1531 05c1 01       		.byte	0x1
+ 1532 05c2 52       		.byte	0x52
+ 1533 05c3 AC050000 		.4byte	0x5ac
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 37
+
+
+ 1534 05c7 05       		.uleb128 0x5
+ 1535 05c8 03       		.byte	0x3
+ 1536 05c9 00000000 		.4byte	CapSense_CSD_sampleMinTbl
+ 1537 05cd 1B       		.uleb128 0x1b
+ 1538 05ce 4F000000 		.4byte	.LASF83
+ 1539 05d2 01       		.byte	0x1
+ 1540 05d3 53       		.byte	0x53
+ 1541 05d4 AC050000 		.4byte	0x5ac
+ 1542 05d8 05       		.uleb128 0x5
+ 1543 05d9 03       		.byte	0x3
+ 1544 05da 00000000 		.4byte	CapSense_CSD_sampleMaxTbl
+ 1545 05de 1B       		.uleb128 0x1b
+ 1546 05df 12010000 		.4byte	.LASF84
+ 1547 05e3 01       		.byte	0x1
+ 1548 05e4 54       		.byte	0x54
+ 1549 05e5 AC050000 		.4byte	0x5ac
+ 1550 05e9 05       		.uleb128 0x5
+ 1551 05ea 03       		.byte	0x3
+ 1552 05eb 00000000 		.4byte	CapSense_CSD_previousSampleTbl
+ 1553 05ef 1B       		.uleb128 0x1b
+ 1554 05f0 11000000 		.4byte	.LASF85
+ 1555 05f4 01       		.byte	0x1
+ 1556 05f5 55       		.byte	0x55
+ 1557 05f6 9E040000 		.4byte	0x49e
+ 1558 05fa 05       		.uleb128 0x5
+ 1559 05fb 03       		.byte	0x3
+ 1560 05fc 00000000 		.4byte	CapSense_CSD_kValueTbl
+ 1561 0600 18       		.uleb128 0x18
+ 1562 0601 EC010000 		.4byte	0x1ec
+ 1563 0605 10060000 		.4byte	0x610
+ 1564 0609 19       		.uleb128 0x19
+ 1565 060a B5000000 		.4byte	0xb5
+ 1566 060e 0F       		.byte	0xf
+ 1567 060f 00       		.byte	0
+ 1568 0610 1B       		.uleb128 0x1b
+ 1569 0611 64060000 		.4byte	.LASF86
+ 1570 0615 01       		.byte	0x1
+ 1571 0616 44       		.byte	0x44
+ 1572 0617 21060000 		.4byte	0x621
+ 1573 061b 05       		.uleb128 0x5
+ 1574 061c 03       		.byte	0x3
+ 1575 061d 00000000 		.4byte	CapSense_CSD_prescalerTable
+ 1576 0621 09       		.uleb128 0x9
+ 1577 0622 00060000 		.4byte	0x600
+ 1578 0626 1B       		.uleb128 0x1b
+ 1579 0627 C1060000 		.4byte	.LASF87
+ 1580 062b 01       		.byte	0x1
+ 1581 062c 57       		.byte	0x57
+ 1582 062d 9E040000 		.4byte	0x49e
+ 1583 0631 05       		.uleb128 0x5
+ 1584 0632 03       		.byte	0x3
+ 1585 0633 00000000 		.4byte	CapSense_CSD_sensorSensitivity
+ 1586 0637 1B       		.uleb128 0x1b
+ 1587 0638 BE040000 		.4byte	.LASF88
+ 1588 063c 01       		.byte	0x1
+ 1589 063d 5B       		.byte	0x5b
+ 1590 063e BF020000 		.4byte	0x2bf
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 38
+
+
+ 1591 0642 05       		.uleb128 0x5
+ 1592 0643 03       		.byte	0x3
+ 1593 0644 00000000 		.4byte	CapSense_CSD_config
+ 1594 0648 1B       		.uleb128 0x1b
+ 1595 0649 89010000 		.4byte	.LASF89
+ 1596 064d 01       		.byte	0x1
+ 1597 064e 5C       		.byte	0x5c
+ 1598 064f BA020000 		.4byte	0x2ba
+ 1599 0653 05       		.uleb128 0x5
+ 1600 0654 03       		.byte	0x3
+ 1601 0655 00000000 		.4byte	CapSense_CSD_configPointers
+ 1602 0659 00       		.byte	0
+ 1603              		.section	.debug_abbrev,"",%progbits
+ 1604              	.Ldebug_abbrev0:
+ 1605 0000 01       		.uleb128 0x1
+ 1606 0001 11       		.uleb128 0x11
+ 1607 0002 01       		.byte	0x1
+ 1608 0003 25       		.uleb128 0x25
+ 1609 0004 0E       		.uleb128 0xe
+ 1610 0005 13       		.uleb128 0x13
+ 1611 0006 0B       		.uleb128 0xb
+ 1612 0007 03       		.uleb128 0x3
+ 1613 0008 0E       		.uleb128 0xe
+ 1614 0009 1B       		.uleb128 0x1b
+ 1615 000a 0E       		.uleb128 0xe
+ 1616 000b 55       		.uleb128 0x55
+ 1617 000c 17       		.uleb128 0x17
+ 1618 000d 11       		.uleb128 0x11
+ 1619 000e 01       		.uleb128 0x1
+ 1620 000f 10       		.uleb128 0x10
+ 1621 0010 17       		.uleb128 0x17
+ 1622 0011 00       		.byte	0
+ 1623 0012 00       		.byte	0
+ 1624 0013 02       		.uleb128 0x2
+ 1625 0014 24       		.uleb128 0x24
+ 1626 0015 00       		.byte	0
+ 1627 0016 0B       		.uleb128 0xb
+ 1628 0017 0B       		.uleb128 0xb
+ 1629 0018 3E       		.uleb128 0x3e
+ 1630 0019 0B       		.uleb128 0xb
+ 1631 001a 03       		.uleb128 0x3
+ 1632 001b 0E       		.uleb128 0xe
+ 1633 001c 00       		.byte	0
+ 1634 001d 00       		.byte	0
+ 1635 001e 03       		.uleb128 0x3
+ 1636 001f 24       		.uleb128 0x24
+ 1637 0020 00       		.byte	0
+ 1638 0021 0B       		.uleb128 0xb
+ 1639 0022 0B       		.uleb128 0xb
+ 1640 0023 3E       		.uleb128 0x3e
+ 1641 0024 0B       		.uleb128 0xb
+ 1642 0025 03       		.uleb128 0x3
+ 1643 0026 08       		.uleb128 0x8
+ 1644 0027 00       		.byte	0
+ 1645 0028 00       		.byte	0
+ 1646 0029 04       		.uleb128 0x4
+ 1647 002a 16       		.uleb128 0x16
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 39
+
+
+ 1648 002b 00       		.byte	0
+ 1649 002c 03       		.uleb128 0x3
+ 1650 002d 0E       		.uleb128 0xe
+ 1651 002e 3A       		.uleb128 0x3a
+ 1652 002f 0B       		.uleb128 0xb
+ 1653 0030 3B       		.uleb128 0x3b
+ 1654 0031 05       		.uleb128 0x5
+ 1655 0032 49       		.uleb128 0x49
+ 1656 0033 13       		.uleb128 0x13
+ 1657 0034 00       		.byte	0
+ 1658 0035 00       		.byte	0
+ 1659 0036 05       		.uleb128 0x5
+ 1660 0037 35       		.uleb128 0x35
+ 1661 0038 00       		.byte	0
+ 1662 0039 49       		.uleb128 0x49
+ 1663 003a 13       		.uleb128 0x13
+ 1664 003b 00       		.byte	0
+ 1665 003c 00       		.byte	0
+ 1666 003d 06       		.uleb128 0x6
+ 1667 003e 13       		.uleb128 0x13
+ 1668 003f 01       		.byte	0x1
+ 1669 0040 0B       		.uleb128 0xb
+ 1670 0041 0B       		.uleb128 0xb
+ 1671 0042 3A       		.uleb128 0x3a
+ 1672 0043 0B       		.uleb128 0xb
+ 1673 0044 3B       		.uleb128 0x3b
+ 1674 0045 0B       		.uleb128 0xb
+ 1675 0046 01       		.uleb128 0x1
+ 1676 0047 13       		.uleb128 0x13
+ 1677 0048 00       		.byte	0
+ 1678 0049 00       		.byte	0
+ 1679 004a 07       		.uleb128 0x7
+ 1680 004b 0D       		.uleb128 0xd
+ 1681 004c 00       		.byte	0
+ 1682 004d 03       		.uleb128 0x3
+ 1683 004e 0E       		.uleb128 0xe
+ 1684 004f 3A       		.uleb128 0x3a
+ 1685 0050 0B       		.uleb128 0xb
+ 1686 0051 3B       		.uleb128 0x3b
+ 1687 0052 0B       		.uleb128 0xb
+ 1688 0053 49       		.uleb128 0x49
+ 1689 0054 13       		.uleb128 0x13
+ 1690 0055 38       		.uleb128 0x38
+ 1691 0056 0B       		.uleb128 0xb
+ 1692 0057 00       		.byte	0
+ 1693 0058 00       		.byte	0
+ 1694 0059 08       		.uleb128 0x8
+ 1695 005a 0F       		.uleb128 0xf
+ 1696 005b 00       		.byte	0
+ 1697 005c 0B       		.uleb128 0xb
+ 1698 005d 0B       		.uleb128 0xb
+ 1699 005e 49       		.uleb128 0x49
+ 1700 005f 13       		.uleb128 0x13
+ 1701 0060 00       		.byte	0
+ 1702 0061 00       		.byte	0
+ 1703 0062 09       		.uleb128 0x9
+ 1704 0063 26       		.uleb128 0x26
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 40
+
+
+ 1705 0064 00       		.byte	0
+ 1706 0065 49       		.uleb128 0x49
+ 1707 0066 13       		.uleb128 0x13
+ 1708 0067 00       		.byte	0
+ 1709 0068 00       		.byte	0
+ 1710 0069 0A       		.uleb128 0xa
+ 1711 006a 15       		.uleb128 0x15
+ 1712 006b 01       		.byte	0x1
+ 1713 006c 27       		.uleb128 0x27
+ 1714 006d 19       		.uleb128 0x19
+ 1715 006e 49       		.uleb128 0x49
+ 1716 006f 13       		.uleb128 0x13
+ 1717 0070 01       		.uleb128 0x1
+ 1718 0071 13       		.uleb128 0x13
+ 1719 0072 00       		.byte	0
+ 1720 0073 00       		.byte	0
+ 1721 0074 0B       		.uleb128 0xb
+ 1722 0075 05       		.uleb128 0x5
+ 1723 0076 00       		.byte	0
+ 1724 0077 49       		.uleb128 0x49
+ 1725 0078 13       		.uleb128 0x13
+ 1726 0079 00       		.byte	0
+ 1727 007a 00       		.byte	0
+ 1728 007b 0C       		.uleb128 0xc
+ 1729 007c 15       		.uleb128 0x15
+ 1730 007d 01       		.byte	0x1
+ 1731 007e 27       		.uleb128 0x27
+ 1732 007f 19       		.uleb128 0x19
+ 1733 0080 01       		.uleb128 0x1
+ 1734 0081 13       		.uleb128 0x13
+ 1735 0082 00       		.byte	0
+ 1736 0083 00       		.byte	0
+ 1737 0084 0D       		.uleb128 0xd
+ 1738 0085 16       		.uleb128 0x16
+ 1739 0086 00       		.byte	0
+ 1740 0087 03       		.uleb128 0x3
+ 1741 0088 0E       		.uleb128 0xe
+ 1742 0089 3A       		.uleb128 0x3a
+ 1743 008a 0B       		.uleb128 0xb
+ 1744 008b 3B       		.uleb128 0x3b
+ 1745 008c 0B       		.uleb128 0xb
+ 1746 008d 49       		.uleb128 0x49
+ 1747 008e 13       		.uleb128 0x13
+ 1748 008f 00       		.byte	0
+ 1749 0090 00       		.byte	0
+ 1750 0091 0E       		.uleb128 0xe
+ 1751 0092 2E       		.uleb128 0x2e
+ 1752 0093 01       		.byte	0x1
+ 1753 0094 3F       		.uleb128 0x3f
+ 1754 0095 19       		.uleb128 0x19
+ 1755 0096 03       		.uleb128 0x3
+ 1756 0097 0E       		.uleb128 0xe
+ 1757 0098 3A       		.uleb128 0x3a
+ 1758 0099 0B       		.uleb128 0xb
+ 1759 009a 3B       		.uleb128 0x3b
+ 1760 009b 0B       		.uleb128 0xb
+ 1761 009c 27       		.uleb128 0x27
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 41
+
+
+ 1762 009d 19       		.uleb128 0x19
+ 1763 009e 11       		.uleb128 0x11
+ 1764 009f 01       		.uleb128 0x1
+ 1765 00a0 12       		.uleb128 0x12
+ 1766 00a1 06       		.uleb128 0x6
+ 1767 00a2 40       		.uleb128 0x40
+ 1768 00a3 18       		.uleb128 0x18
+ 1769 00a4 9642     		.uleb128 0x2116
+ 1770 00a6 19       		.uleb128 0x19
+ 1771 00a7 01       		.uleb128 0x1
+ 1772 00a8 13       		.uleb128 0x13
+ 1773 00a9 00       		.byte	0
+ 1774 00aa 00       		.byte	0
+ 1775 00ab 0F       		.uleb128 0xf
+ 1776 00ac 34       		.uleb128 0x34
+ 1777 00ad 00       		.byte	0
+ 1778 00ae 03       		.uleb128 0x3
+ 1779 00af 0E       		.uleb128 0xe
+ 1780 00b0 3A       		.uleb128 0x3a
+ 1781 00b1 0B       		.uleb128 0xb
+ 1782 00b2 3B       		.uleb128 0x3b
+ 1783 00b3 0B       		.uleb128 0xb
+ 1784 00b4 49       		.uleb128 0x49
+ 1785 00b5 13       		.uleb128 0x13
+ 1786 00b6 02       		.uleb128 0x2
+ 1787 00b7 18       		.uleb128 0x18
+ 1788 00b8 00       		.byte	0
+ 1789 00b9 00       		.byte	0
+ 1790 00ba 10       		.uleb128 0x10
+ 1791 00bb 05       		.uleb128 0x5
+ 1792 00bc 00       		.byte	0
+ 1793 00bd 03       		.uleb128 0x3
+ 1794 00be 0E       		.uleb128 0xe
+ 1795 00bf 3A       		.uleb128 0x3a
+ 1796 00c0 0B       		.uleb128 0xb
+ 1797 00c1 3B       		.uleb128 0x3b
+ 1798 00c2 0B       		.uleb128 0xb
+ 1799 00c3 49       		.uleb128 0x49
+ 1800 00c4 13       		.uleb128 0x13
+ 1801 00c5 02       		.uleb128 0x2
+ 1802 00c6 18       		.uleb128 0x18
+ 1803 00c7 00       		.byte	0
+ 1804 00c8 00       		.byte	0
+ 1805 00c9 11       		.uleb128 0x11
+ 1806 00ca 2E       		.uleb128 0x2e
+ 1807 00cb 00       		.byte	0
+ 1808 00cc 3F       		.uleb128 0x3f
+ 1809 00cd 19       		.uleb128 0x19
+ 1810 00ce 03       		.uleb128 0x3
+ 1811 00cf 0E       		.uleb128 0xe
+ 1812 00d0 3A       		.uleb128 0x3a
+ 1813 00d1 0B       		.uleb128 0xb
+ 1814 00d2 3B       		.uleb128 0x3b
+ 1815 00d3 05       		.uleb128 0x5
+ 1816 00d4 27       		.uleb128 0x27
+ 1817 00d5 19       		.uleb128 0x19
+ 1818 00d6 11       		.uleb128 0x11
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 42
+
+
+ 1819 00d7 01       		.uleb128 0x1
+ 1820 00d8 12       		.uleb128 0x12
+ 1821 00d9 06       		.uleb128 0x6
+ 1822 00da 40       		.uleb128 0x40
+ 1823 00db 18       		.uleb128 0x18
+ 1824 00dc 9742     		.uleb128 0x2117
+ 1825 00de 19       		.uleb128 0x19
+ 1826 00df 00       		.byte	0
+ 1827 00e0 00       		.byte	0
+ 1828 00e1 12       		.uleb128 0x12
+ 1829 00e2 2E       		.uleb128 0x2e
+ 1830 00e3 01       		.byte	0x1
+ 1831 00e4 3F       		.uleb128 0x3f
+ 1832 00e5 19       		.uleb128 0x19
+ 1833 00e6 03       		.uleb128 0x3
+ 1834 00e7 0E       		.uleb128 0xe
+ 1835 00e8 3A       		.uleb128 0x3a
+ 1836 00e9 0B       		.uleb128 0xb
+ 1837 00ea 3B       		.uleb128 0x3b
+ 1838 00eb 05       		.uleb128 0x5
+ 1839 00ec 27       		.uleb128 0x27
+ 1840 00ed 19       		.uleb128 0x19
+ 1841 00ee 11       		.uleb128 0x11
+ 1842 00ef 01       		.uleb128 0x1
+ 1843 00f0 12       		.uleb128 0x12
+ 1844 00f1 06       		.uleb128 0x6
+ 1845 00f2 40       		.uleb128 0x40
+ 1846 00f3 18       		.uleb128 0x18
+ 1847 00f4 9742     		.uleb128 0x2117
+ 1848 00f6 19       		.uleb128 0x19
+ 1849 00f7 01       		.uleb128 0x1
+ 1850 00f8 13       		.uleb128 0x13
+ 1851 00f9 00       		.byte	0
+ 1852 00fa 00       		.byte	0
+ 1853 00fb 13       		.uleb128 0x13
+ 1854 00fc 34       		.uleb128 0x34
+ 1855 00fd 00       		.byte	0
+ 1856 00fe 03       		.uleb128 0x3
+ 1857 00ff 0E       		.uleb128 0xe
+ 1858 0100 3A       		.uleb128 0x3a
+ 1859 0101 0B       		.uleb128 0xb
+ 1860 0102 3B       		.uleb128 0x3b
+ 1861 0103 05       		.uleb128 0x5
+ 1862 0104 49       		.uleb128 0x49
+ 1863 0105 13       		.uleb128 0x13
+ 1864 0106 02       		.uleb128 0x2
+ 1865 0107 18       		.uleb128 0x18
+ 1866 0108 00       		.byte	0
+ 1867 0109 00       		.byte	0
+ 1868 010a 14       		.uleb128 0x14
+ 1869 010b 2E       		.uleb128 0x2e
+ 1870 010c 01       		.byte	0x1
+ 1871 010d 3F       		.uleb128 0x3f
+ 1872 010e 19       		.uleb128 0x19
+ 1873 010f 03       		.uleb128 0x3
+ 1874 0110 0E       		.uleb128 0xe
+ 1875 0111 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 43
+
+
+ 1876 0112 0B       		.uleb128 0xb
+ 1877 0113 3B       		.uleb128 0x3b
+ 1878 0114 05       		.uleb128 0x5
+ 1879 0115 27       		.uleb128 0x27
+ 1880 0116 19       		.uleb128 0x19
+ 1881 0117 11       		.uleb128 0x11
+ 1882 0118 01       		.uleb128 0x1
+ 1883 0119 12       		.uleb128 0x12
+ 1884 011a 06       		.uleb128 0x6
+ 1885 011b 40       		.uleb128 0x40
+ 1886 011c 18       		.uleb128 0x18
+ 1887 011d 9642     		.uleb128 0x2116
+ 1888 011f 19       		.uleb128 0x19
+ 1889 0120 01       		.uleb128 0x1
+ 1890 0121 13       		.uleb128 0x13
+ 1891 0122 00       		.byte	0
+ 1892 0123 00       		.byte	0
+ 1893 0124 15       		.uleb128 0x15
+ 1894 0125 05       		.uleb128 0x5
+ 1895 0126 00       		.byte	0
+ 1896 0127 03       		.uleb128 0x3
+ 1897 0128 0E       		.uleb128 0xe
+ 1898 0129 3A       		.uleb128 0x3a
+ 1899 012a 0B       		.uleb128 0xb
+ 1900 012b 3B       		.uleb128 0x3b
+ 1901 012c 05       		.uleb128 0x5
+ 1902 012d 49       		.uleb128 0x49
+ 1903 012e 13       		.uleb128 0x13
+ 1904 012f 02       		.uleb128 0x2
+ 1905 0130 18       		.uleb128 0x18
+ 1906 0131 00       		.byte	0
+ 1907 0132 00       		.byte	0
+ 1908 0133 16       		.uleb128 0x16
+ 1909 0134 2E       		.uleb128 0x2e
+ 1910 0135 01       		.byte	0x1
+ 1911 0136 3F       		.uleb128 0x3f
+ 1912 0137 19       		.uleb128 0x19
+ 1913 0138 03       		.uleb128 0x3
+ 1914 0139 0E       		.uleb128 0xe
+ 1915 013a 3A       		.uleb128 0x3a
+ 1916 013b 0B       		.uleb128 0xb
+ 1917 013c 3B       		.uleb128 0x3b
+ 1918 013d 05       		.uleb128 0x5
+ 1919 013e 27       		.uleb128 0x27
+ 1920 013f 19       		.uleb128 0x19
+ 1921 0140 49       		.uleb128 0x49
+ 1922 0141 13       		.uleb128 0x13
+ 1923 0142 11       		.uleb128 0x11
+ 1924 0143 01       		.uleb128 0x1
+ 1925 0144 12       		.uleb128 0x12
+ 1926 0145 06       		.uleb128 0x6
+ 1927 0146 40       		.uleb128 0x40
+ 1928 0147 18       		.uleb128 0x18
+ 1929 0148 9742     		.uleb128 0x2117
+ 1930 014a 19       		.uleb128 0x19
+ 1931 014b 01       		.uleb128 0x1
+ 1932 014c 13       		.uleb128 0x13
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 44
+
+
+ 1933 014d 00       		.byte	0
+ 1934 014e 00       		.byte	0
+ 1935 014f 17       		.uleb128 0x17
+ 1936 0150 2E       		.uleb128 0x2e
+ 1937 0151 01       		.byte	0x1
+ 1938 0152 3F       		.uleb128 0x3f
+ 1939 0153 19       		.uleb128 0x19
+ 1940 0154 03       		.uleb128 0x3
+ 1941 0155 0E       		.uleb128 0xe
+ 1942 0156 3A       		.uleb128 0x3a
+ 1943 0157 0B       		.uleb128 0xb
+ 1944 0158 3B       		.uleb128 0x3b
+ 1945 0159 05       		.uleb128 0x5
+ 1946 015a 27       		.uleb128 0x27
+ 1947 015b 19       		.uleb128 0x19
+ 1948 015c 49       		.uleb128 0x49
+ 1949 015d 13       		.uleb128 0x13
+ 1950 015e 11       		.uleb128 0x11
+ 1951 015f 01       		.uleb128 0x1
+ 1952 0160 12       		.uleb128 0x12
+ 1953 0161 06       		.uleb128 0x6
+ 1954 0162 40       		.uleb128 0x40
+ 1955 0163 18       		.uleb128 0x18
+ 1956 0164 9642     		.uleb128 0x2116
+ 1957 0166 19       		.uleb128 0x19
+ 1958 0167 01       		.uleb128 0x1
+ 1959 0168 13       		.uleb128 0x13
+ 1960 0169 00       		.byte	0
+ 1961 016a 00       		.byte	0
+ 1962 016b 18       		.uleb128 0x18
+ 1963 016c 01       		.uleb128 0x1
+ 1964 016d 01       		.byte	0x1
+ 1965 016e 49       		.uleb128 0x49
+ 1966 016f 13       		.uleb128 0x13
+ 1967 0170 01       		.uleb128 0x1
+ 1968 0171 13       		.uleb128 0x13
+ 1969 0172 00       		.byte	0
+ 1970 0173 00       		.byte	0
+ 1971 0174 19       		.uleb128 0x19
+ 1972 0175 21       		.uleb128 0x21
+ 1973 0176 00       		.byte	0
+ 1974 0177 49       		.uleb128 0x49
+ 1975 0178 13       		.uleb128 0x13
+ 1976 0179 2F       		.uleb128 0x2f
+ 1977 017a 0B       		.uleb128 0xb
+ 1978 017b 00       		.byte	0
+ 1979 017c 00       		.byte	0
+ 1980 017d 1A       		.uleb128 0x1a
+ 1981 017e 34       		.uleb128 0x34
+ 1982 017f 00       		.byte	0
+ 1983 0180 03       		.uleb128 0x3
+ 1984 0181 0E       		.uleb128 0xe
+ 1985 0182 3A       		.uleb128 0x3a
+ 1986 0183 0B       		.uleb128 0xb
+ 1987 0184 3B       		.uleb128 0x3b
+ 1988 0185 05       		.uleb128 0x5
+ 1989 0186 49       		.uleb128 0x49
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 45
+
+
+ 1990 0187 13       		.uleb128 0x13
+ 1991 0188 3F       		.uleb128 0x3f
+ 1992 0189 19       		.uleb128 0x19
+ 1993 018a 3C       		.uleb128 0x3c
+ 1994 018b 19       		.uleb128 0x19
+ 1995 018c 00       		.byte	0
+ 1996 018d 00       		.byte	0
+ 1997 018e 1B       		.uleb128 0x1b
+ 1998 018f 34       		.uleb128 0x34
+ 1999 0190 00       		.byte	0
+ 2000 0191 03       		.uleb128 0x3
+ 2001 0192 0E       		.uleb128 0xe
+ 2002 0193 3A       		.uleb128 0x3a
+ 2003 0194 0B       		.uleb128 0xb
+ 2004 0195 3B       		.uleb128 0x3b
+ 2005 0196 0B       		.uleb128 0xb
+ 2006 0197 49       		.uleb128 0x49
+ 2007 0198 13       		.uleb128 0x13
+ 2008 0199 3F       		.uleb128 0x3f
+ 2009 019a 19       		.uleb128 0x19
+ 2010 019b 02       		.uleb128 0x2
+ 2011 019c 18       		.uleb128 0x18
+ 2012 019d 00       		.byte	0
+ 2013 019e 00       		.byte	0
+ 2014 019f 00       		.byte	0
+ 2015              		.section	.debug_aranges,"",%progbits
+ 2016 0000 5C000000 		.4byte	0x5c
+ 2017 0004 0200     		.2byte	0x2
+ 2018 0006 00000000 		.4byte	.Ldebug_info0
+ 2019 000a 04       		.byte	0x4
+ 2020 000b 00       		.byte	0
+ 2021 000c 0000     		.2byte	0
+ 2022 000e 0000     		.2byte	0
+ 2023 0010 00000000 		.4byte	.LFB32
+ 2024 0014 F8000000 		.4byte	.LFE32-.LFB32
+ 2025 0018 00000000 		.4byte	.LFB33
+ 2026 001c F4000000 		.4byte	.LFE33-.LFB33
+ 2027 0020 00000000 		.4byte	.LFB34
+ 2028 0024 1C000000 		.4byte	.LFE34-.LFB34
+ 2029 0028 00000000 		.4byte	.LFB35
+ 2030 002c 34000000 		.4byte	.LFE35-.LFB35
+ 2031 0030 00000000 		.4byte	.LFB36
+ 2032 0034 94000000 		.4byte	.LFE36-.LFB36
+ 2033 0038 00000000 		.4byte	.LFB37
+ 2034 003c 58000000 		.4byte	.LFE37-.LFB37
+ 2035 0040 00000000 		.4byte	.LFB38
+ 2036 0044 1C000000 		.4byte	.LFE38-.LFB38
+ 2037 0048 00000000 		.4byte	.LFB39
+ 2038 004c 28000000 		.4byte	.LFE39-.LFB39
+ 2039 0050 00000000 		.4byte	.LFB40
+ 2040 0054 34000000 		.4byte	.LFE40-.LFB40
+ 2041 0058 00000000 		.4byte	0
+ 2042 005c 00000000 		.4byte	0
+ 2043              		.section	.debug_ranges,"",%progbits
+ 2044              	.Ldebug_ranges0:
+ 2045 0000 00000000 		.4byte	.LFB32
+ 2046 0004 F8000000 		.4byte	.LFE32
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 46
+
+
+ 2047 0008 00000000 		.4byte	.LFB33
+ 2048 000c F4000000 		.4byte	.LFE33
+ 2049 0010 00000000 		.4byte	.LFB34
+ 2050 0014 1C000000 		.4byte	.LFE34
+ 2051 0018 00000000 		.4byte	.LFB35
+ 2052 001c 34000000 		.4byte	.LFE35
+ 2053 0020 00000000 		.4byte	.LFB36
+ 2054 0024 94000000 		.4byte	.LFE36
+ 2055 0028 00000000 		.4byte	.LFB37
+ 2056 002c 58000000 		.4byte	.LFE37
+ 2057 0030 00000000 		.4byte	.LFB38
+ 2058 0034 1C000000 		.4byte	.LFE38
+ 2059 0038 00000000 		.4byte	.LFB39
+ 2060 003c 28000000 		.4byte	.LFE39
+ 2061 0040 00000000 		.4byte	.LFB40
+ 2062 0044 34000000 		.4byte	.LFE40
+ 2063 0048 00000000 		.4byte	0
+ 2064 004c 00000000 		.4byte	0
+ 2065              		.section	.debug_line,"",%progbits
+ 2066              	.Ldebug_line0:
+ 2067 0000 BB010000 		.section	.debug_str,"MS",%progbits,1
+ 2067      02008C00 
+ 2067      00000201 
+ 2067      FB0E0D00 
+ 2067      01010101 
+ 2068              	.LASF49:
+ 2069 0000 63757253 		.ascii	"curSensor\000"
+ 2069      656E736F 
+ 2069      7200
+ 2070              	.LASF10:
+ 2071 000a 75696E74 		.ascii	"uint16\000"
+ 2071      313600
+ 2072              	.LASF85:
+ 2073 0011 43617053 		.ascii	"CapSense_CSD_kValueTbl\000"
+ 2073      656E7365 
+ 2073      5F435344 
+ 2073      5F6B5661 
+ 2073      6C756554 
+ 2074              	.LASF61:
+ 2075 0028 43617053 		.ascii	"CapSense_CSD_GetSensitivityCoefficient\000"
+ 2075      656E7365 
+ 2075      5F435344 
+ 2075      5F476574 
+ 2075      53656E73 
+ 2076              	.LASF83:
+ 2077 004f 43617053 		.ascii	"CapSense_CSD_sampleMaxTbl\000"
+ 2077      656E7365 
+ 2077      5F435344 
+ 2077      5F73616D 
+ 2077      706C654D 
+ 2078              	.LASF52:
+ 2079 0069 43617053 		.ascii	"CapSense_CSD_UpdateThresholds\000"
+ 2079      656E7365 
+ 2079      5F435344 
+ 2079      5F557064 
+ 2079      61746554 
+ 2080              	.LASF53:
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 47
+
+
+ 2081 0087 66696E67 		.ascii	"fingerThreshold\000"
+ 2081      65725468 
+ 2081      72657368 
+ 2081      6F6C6400 
+ 2082              	.LASF36:
+ 2083 0097 70747247 		.ascii	"ptrGetRaw\000"
+ 2083      65745261 
+ 2083      7700
+ 2084              	.LASF51:
+ 2085 00a1 43617053 		.ascii	"CapSense_CSD_AutoTune\000"
+ 2085      656E7365 
+ 2085      5F435344 
+ 2085      5F417574 
+ 2085      6F54756E 
+ 2086              	.LASF66:
+ 2087 00b7 43617053 		.ascii	"CapSense_CSD_modulationIDAC\000"
+ 2087      656E7365 
+ 2087      5F435344 
+ 2087      5F6D6F64 
+ 2087      756C6174 
+ 2088              	.LASF93:
+ 2089 00d3 43617053 		.ascii	"CapSense_CSD_SetAnalogSwitchesSrcDirect\000"
+ 2089      656E7365 
+ 2089      5F435344 
+ 2089      5F536574 
+ 2089      416E616C 
+ 2090              	.LASF7:
+ 2091 00fb 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2091      206C6F6E 
+ 2091      6720756E 
+ 2091      7369676E 
+ 2091      65642069 
+ 2092              	.LASF84:
+ 2093 0112 43617053 		.ascii	"CapSense_CSD_previousSampleTbl\000"
+ 2093      656E7365 
+ 2093      5F435344 
+ 2093      5F707265 
+ 2093      76696F75 
+ 2094              	.LASF69:
+ 2095 0131 43617053 		.ascii	"CapSense_CSD_senseClkDividerVal\000"
+ 2095      656E7365 
+ 2095      5F435344 
+ 2095      5F73656E 
+ 2095      7365436C 
+ 2096              	.LASF79:
+ 2097 0151 43617053 		.ascii	"CapSense_CSD_noiseEnvelopeTbl\000"
+ 2097      656E7365 
+ 2097      5F435344 
+ 2097      5F6E6F69 
+ 2097      7365456E 
+ 2098              	.LASF6:
+ 2099 016f 6C6F6E67 		.ascii	"long long int\000"
+ 2099      206C6F6E 
+ 2099      6720696E 
+ 2099      7400
+ 2100              	.LASF0:
+ 2101 017d 7369676E 		.ascii	"signed char\000"
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 48
+
+
+ 2101      65642063 
+ 2101      68617200 
+ 2102              	.LASF89:
+ 2103 0189 43617053 		.ascii	"CapSense_CSD_configPointers\000"
+ 2103      656E7365 
+ 2103      5F435344 
+ 2103      5F636F6E 
+ 2103      66696750 
+ 2104              	.LASF35:
+ 2105 01a5 6E756D62 		.ascii	"numberOfSensors\000"
+ 2105      65724F66 
+ 2105      53656E73 
+ 2105      6F727300 
+ 2106              	.LASF23:
+ 2107 01b5 77696467 		.ascii	"widgetNubmersTbl\000"
+ 2107      65744E75 
+ 2107      626D6572 
+ 2107      7354626C 
+ 2107      00
+ 2108              	.LASF67:
+ 2109 01c6 43617053 		.ascii	"CapSense_CSD_compensationIDAC\000"
+ 2109      656E7365 
+ 2109      5F435344 
+ 2109      5F636F6D 
+ 2109      70656E73 
+ 2110              	.LASF4:
+ 2111 01e4 6C6F6E67 		.ascii	"long int\000"
+ 2111      20696E74 
+ 2111      00
+ 2112              	.LASF71:
+ 2113 01ed 43617053 		.ascii	"CapSense_CSD_widgetNumber\000"
+ 2113      656E7365 
+ 2113      5F435344 
+ 2113      5F776964 
+ 2113      6765744E 
+ 2114              	.LASF9:
+ 2115 0207 75696E74 		.ascii	"uint8\000"
+ 2115      3800
+ 2116              	.LASF13:
+ 2117 020d 646F7562 		.ascii	"double\000"
+ 2117      6C6500
+ 2118              	.LASF55:
+ 2119 0214 6E657752 		.ascii	"newRegValue\000"
+ 2119      65675661 
+ 2119      6C756500 
+ 2120              	.LASF11:
+ 2121 0220 75696E74 		.ascii	"uint32\000"
+ 2121      333200
+ 2122              	.LASF45:
+ 2123 0227 73656E73 		.ascii	"sensetivitySeed\000"
+ 2123      65746976 
+ 2123      69747953 
+ 2123      65656400 
+ 2124              	.LASF44:
+ 2125 0237 746F7461 		.ascii	"totalSensorsNum\000"
+ 2125      6C53656E 
+ 2125      736F7273 
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 49
+
+
+ 2125      4E756D00 
+ 2126              	.LASF60:
+ 2127 0247 76616C75 		.ascii	"value\000"
+ 2127      6500
+ 2128              	.LASF8:
+ 2129 024d 756E7369 		.ascii	"unsigned int\000"
+ 2129      676E6564 
+ 2129      20696E74 
+ 2129      00
+ 2130              	.LASF29:
+ 2131 025a 73616D70 		.ascii	"sampleMaxTbl\000"
+ 2131      6C654D61 
+ 2131      7854626C 
+ 2131      00
+ 2132              	.LASF63:
+ 2133 0267 43617053 		.ascii	"CapSense_CSD_GetNormalizedDiffCountData\000"
+ 2133      656E7365 
+ 2133      5F435344 
+ 2133      5F476574 
+ 2133      4E6F726D 
+ 2134              	.LASF5:
+ 2135 028f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2135      20756E73 
+ 2135      69676E65 
+ 2135      6420696E 
+ 2135      7400
+ 2136              	.LASF24:
+ 2137 02a1 7265736F 		.ascii	"resolutionsTbl\000"
+ 2137      6C757469 
+ 2137      6F6E7354 
+ 2137      626C00
+ 2138              	.LASF39:
+ 2139 02b0 70747247 		.ascii	"ptrGetBitValue\000"
+ 2139      65744269 
+ 2139      7456616C 
+ 2139      756500
+ 2140              	.LASF3:
+ 2141 02bf 73686F72 		.ascii	"short unsigned int\000"
+ 2141      7420756E 
+ 2141      7369676E 
+ 2141      65642069 
+ 2141      6E7400
+ 2142              	.LASF20:
+ 2143 02d2 73656E73 		.ascii	"sensetivityTbl\000"
+ 2143      65746976 
+ 2143      69747954 
+ 2143      626C00
+ 2144              	.LASF57:
+ 2145 02e1 73656E73 		.ascii	"sensor\000"
+ 2145      6F7200
+ 2146              	.LASF47:
+ 2147 02e8 706F696E 		.ascii	"pointers\000"
+ 2147      74657273 
+ 2147      00
+ 2148              	.LASF65:
+ 2149 02f1 43617053 		.ascii	"CapSense_CSD_prescalersTuningDone\000"
+ 2149      656E7365 
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 50
+
+
+ 2149      5F435344 
+ 2149      5F707265 
+ 2149      7363616C 
+ 2150              	.LASF21:
+ 2151 0313 63686172 		.ascii	"chargeDivTbl\000"
+ 2151      67654469 
+ 2151      7654626C 
+ 2151      00
+ 2152              	.LASF90:
+ 2153 0320 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2153      43313120 
+ 2153      352E342E 
+ 2153      31203230 
+ 2153      31363036 
+ 2154 0353 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 2154      20726576 
+ 2154      6973696F 
+ 2154      6E203233 
+ 2154      37373135 
+ 2155 0386 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 2155      66756E63 
+ 2155      74696F6E 
+ 2155      2D736563 
+ 2155      74696F6E 
+ 2156              	.LASF28:
+ 2157 03ae 73616D70 		.ascii	"sampleMinTbl\000"
+ 2157      6C654D69 
+ 2157      6E54626C 
+ 2157      00
+ 2158              	.LASF15:
+ 2159 03bb 72656733 		.ascii	"reg32\000"
+ 2159      3200
+ 2160              	.LASF25:
+ 2161 03c1 6E6F6973 		.ascii	"noiseEnvelopeTbl\000"
+ 2161      65456E76 
+ 2161      656C6F70 
+ 2161      6554626C 
+ 2161      00
+ 2162              	.LASF46:
+ 2163 03d2 6866636C 		.ascii	"hfclkFreq_MHz\000"
+ 2163      6B467265 
+ 2163      715F4D48 
+ 2163      7A00
+ 2164              	.LASF16:
+ 2165 03e0 73697A65 		.ascii	"sizetype\000"
+ 2165      74797065 
+ 2165      00
+ 2166              	.LASF17:
+ 2167 03e9 6C6F6E67 		.ascii	"long double\000"
+ 2167      20646F75 
+ 2167      626C6500 
+ 2168              	.LASF48:
+ 2169 03f5 43617053 		.ascii	"CapSense_CSD_CONFIG_TYPE_P4_v2_60\000"
+ 2169      656E7365 
+ 2169      5F435344 
+ 2169      5F434F4E 
+ 2169      4649475F 
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 51
+
+
+ 2170              	.LASF18:
+ 2171 0417 69646163 		.ascii	"idac1LevelsTbl\000"
+ 2171      314C6576 
+ 2171      656C7354 
+ 2171      626C00
+ 2172              	.LASF19:
+ 2173 0426 69646163 		.ascii	"idac2LevelsTbl\000"
+ 2173      324C6576 
+ 2173      656C7354 
+ 2173      626C00
+ 2174              	.LASF92:
+ 2175 0435 433A5C55 		.ascii	"C:\\Users\\SHOZO\\Documents\\PSoC Creator\\STONE_VO"
+ 2175      73657273 
+ 2175      5C53484F 
+ 2175      5A4F5C44 
+ 2175      6F63756D 
+ 2176 0463 4943455C 		.ascii	"ICE\\STONE_VOICE_2021.cydsn\000"
+ 2176      53544F4E 
+ 2176      455F564F 
+ 2176      4943455F 
+ 2176      32303231 
+ 2177              	.LASF64:
+ 2178 047e 43617053 		.ascii	"CapSense_CSD_scanSpeedTbl\000"
+ 2178      656E7365 
+ 2178      5F435344 
+ 2178      5F736361 
+ 2178      6E537065 
+ 2179              	.LASF56:
+ 2180 0498 43617053 		.ascii	"CapSense_CSD_EnableBaselineIDAC\000"
+ 2180      656E7365 
+ 2180      5F435344 
+ 2180      5F456E61 
+ 2180      626C6542 
+ 2181              	.LASF12:
+ 2182 04b8 666C6F61 		.ascii	"float\000"
+ 2182      7400
+ 2183              	.LASF88:
+ 2184 04be 43617053 		.ascii	"CapSense_CSD_config\000"
+ 2184      656E7365 
+ 2184      5F435344 
+ 2184      5F636F6E 
+ 2184      66696700 
+ 2185              	.LASF73:
+ 2186 04d2 43617053 		.ascii	"CapSense_CSD_fingerThreshold\000"
+ 2186      656E7365 
+ 2186      5F435344 
+ 2186      5F66696E 
+ 2186      67657254 
+ 2187              	.LASF27:
+ 2188 04ef 7369676E 		.ascii	"signRegisterTbl\000"
+ 2188      52656769 
+ 2188      73746572 
+ 2188      54626C00 
+ 2189              	.LASF33:
+ 2190 04ff 70726573 		.ascii	"prescalerTable\000"
+ 2190      63616C65 
+ 2190      72546162 
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 52
+
+
+ 2190      6C6500
+ 2191              	.LASF1:
+ 2192 050e 756E7369 		.ascii	"unsigned char\000"
+ 2192      676E6564 
+ 2192      20636861 
+ 2192      7200
+ 2193              	.LASF38:
+ 2194 051c 70747252 		.ascii	"ptrReadSensorRaw\000"
+ 2194      65616453 
+ 2194      656E736F 
+ 2194      72526177 
+ 2194      00
+ 2195              	.LASF91:
+ 2196 052d 47656E65 		.ascii	"Generated_Source\\PSoC4\\CapSense_CSD_SMS.c\000"
+ 2196      72617465 
+ 2196      645F536F 
+ 2196      75726365 
+ 2196      5C50536F 
+ 2197              	.LASF75:
+ 2198 0557 43617053 		.ascii	"CapSense_CSD_negativeNoiseThreshold\000"
+ 2198      656E7365 
+ 2198      5F435344 
+ 2198      5F6E6567 
+ 2198      61746976 
+ 2199              	.LASF2:
+ 2200 057b 73686F72 		.ascii	"short int\000"
+ 2200      7420696E 
+ 2200      7400
+ 2201              	.LASF50:
+ 2202 0585 77696467 		.ascii	"widget\000"
+ 2202      657400
+ 2203              	.LASF22:
+ 2204 058c 6D6F6444 		.ascii	"modDivTbl\000"
+ 2204      69765462 
+ 2204      6C00
+ 2205              	.LASF59:
+ 2206 0596 43617053 		.ascii	"CapSense_CSD_SetSensitivity\000"
+ 2206      656E7365 
+ 2206      5F435344 
+ 2206      5F536574 
+ 2206      53656E73 
+ 2207              	.LASF31:
+ 2208 05b2 6B56616C 		.ascii	"kValueTbl\000"
+ 2208      75655462 
+ 2208      6C00
+ 2209              	.LASF78:
+ 2210 05bc 43617053 		.ascii	"CapSense_CSD_numberOfSensors\000"
+ 2210      656E7365 
+ 2210      5F435344 
+ 2210      5F6E756D 
+ 2210      6265724F 
+ 2211              	.LASF82:
+ 2212 05d9 43617053 		.ascii	"CapSense_CSD_sampleMinTbl\000"
+ 2212      656E7365 
+ 2212      5F435344 
+ 2212      5F73616D 
+ 2212      706C654D 
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 53
+
+
+ 2213              	.LASF30:
+ 2214 05f3 70726576 		.ascii	"previousSampleTbl\000"
+ 2214      696F7573 
+ 2214      53616D70 
+ 2214      6C655462 
+ 2214      6C00
+ 2215              	.LASF74:
+ 2216 0605 43617053 		.ascii	"CapSense_CSD_noiseThreshold\000"
+ 2216      656E7365 
+ 2216      5F435344 
+ 2216      5F6E6F69 
+ 2216      73655468 
+ 2217              	.LASF14:
+ 2218 0621 63686172 		.ascii	"char\000"
+ 2218      00
+ 2219              	.LASF26:
+ 2220 0626 72756E6E 		.ascii	"runningDifferenceTbl\000"
+ 2220      696E6744 
+ 2220      69666665 
+ 2220      72656E63 
+ 2220      6554626C 
+ 2221              	.LASF58:
+ 2222 063b 636F6E66 		.ascii	"config\000"
+ 2222      696700
+ 2223              	.LASF80:
+ 2224 0642 43617053 		.ascii	"CapSense_CSD_runningDifferenceTbl\000"
+ 2224      656E7365 
+ 2224      5F435344 
+ 2224      5F72756E 
+ 2224      6E696E67 
+ 2225              	.LASF86:
+ 2226 0664 43617053 		.ascii	"CapSense_CSD_prescalerTable\000"
+ 2226      656E7365 
+ 2226      5F435344 
+ 2226      5F707265 
+ 2226      7363616C 
+ 2227              	.LASF68:
+ 2228 0680 43617053 		.ascii	"CapSense_CSD_widgetResolution\000"
+ 2228      656E7365 
+ 2228      5F435344 
+ 2228      5F776964 
+ 2228      67657452 
+ 2229              	.LASF76:
+ 2230 069e 43617053 		.ascii	"CapSense_CSD_hysteresis\000"
+ 2230      656E7365 
+ 2230      5F435344 
+ 2230      5F687973 
+ 2230      74657265 
+ 2231              	.LASF37:
+ 2232 06b6 70747250 		.ascii	"ptrPreScan\000"
+ 2232      72655363 
+ 2232      616E00
+ 2233              	.LASF87:
+ 2234 06c1 43617053 		.ascii	"CapSense_CSD_sensorSensitivity\000"
+ 2234      656E7365 
+ 2234      5F435344 
+ 2234      5F73656E 
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 54
+
+
+ 2234      736F7253 
+ 2235              	.LASF81:
+ 2236 06e0 43617053 		.ascii	"CapSense_CSD_signRegisterTbl\000"
+ 2236      656E7365 
+ 2236      5F435344 
+ 2236      5F736967 
+ 2236      6E526567 
+ 2237              	.LASF32:
+ 2238 06fd 7363616E 		.ascii	"scanSpeedTbl\000"
+ 2238      53706565 
+ 2238      6454626C 
+ 2238      00
+ 2239              	.LASF54:
+ 2240 070a 43617053 		.ascii	"CapSense_CSD_DisableBaselineIDAC\000"
+ 2240      656E7365 
+ 2240      5F435344 
+ 2240      5F446973 
+ 2240      61626C65 
+ 2241              	.LASF70:
+ 2242 072b 43617053 		.ascii	"CapSense_CSD_sampleClkDividerVal\000"
+ 2242      656E7365 
+ 2242      5F435344 
+ 2242      5F73616D 
+ 2242      706C6543 
+ 2243              	.LASF72:
+ 2244 074c 43617053 		.ascii	"CapSense_CSD_sensorSignal\000"
+ 2244      656E7365 
+ 2244      5F435344 
+ 2244      5F73656E 
+ 2244      736F7253 
+ 2245              	.LASF42:
+ 2246 0766 746F7461 		.ascii	"totalScanslotsNum\000"
+ 2246      6C536361 
+ 2246      6E736C6F 
+ 2246      74734E75 
+ 2246      6D00
+ 2247              	.LASF62:
+ 2248 0778 43617053 		.ascii	"CapSense_CSD_GetNoiseEnvelope\000"
+ 2248      656E7365 
+ 2248      5F435344 
+ 2248      5F476574 
+ 2248      4E6F6973 
+ 2249              	.LASF40:
+ 2250 0796 70747253 		.ascii	"ptrSetBitValue\000"
+ 2250      65744269 
+ 2250      7456616C 
+ 2250      756500
+ 2251              	.LASF77:
+ 2252 07a5 43617053 		.ascii	"CapSense_CSD_rawDataIndex\000"
+ 2252      656E7365 
+ 2252      5F435344 
+ 2252      5F726177 
+ 2252      44617461 
+ 2253              	.LASF41:
+ 2254 07bf 43617053 		.ascii	"CapSense_CSD_CONFIG_TYPE_POINTERS_P4_v2_60\000"
+ 2254      656E7365 
+ 2254      5F435344 
+ARM GAS  C:\Users\SHOZO\AppData\Local\Temp\ccIGu75A.s 			page 55
+
+
+ 2254      5F434F4E 
+ 2254      4649475F 
+ 2255              	.LASF34:
+ 2256 07ea 72617744 		.ascii	"rawDataIndex\000"
+ 2256      61746149 
+ 2256      6E646578 
+ 2256      00
+ 2257              	.LASF43:
+ 2258 07f7 746F7461 		.ascii	"totalWidgetsNum\000"
+ 2258      6C576964 
+ 2258      67657473 
+ 2258      4E756D00 
+ 2259              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
