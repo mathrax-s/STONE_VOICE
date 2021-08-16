@@ -1,0 +1,17 @@
+#N canvas -2 35 770 606 10;
+#X obj 63 126 freeverb~;
+#X msg 76 96 wet 0.8 \, roomsize 0.8 \, dry 0.5;
+#X obj 76 74 r StartReset;
+#X msg 135 126 wet \$1 \, roomsize \$1;
+#X obj 175 151 lop~ 16000;
+#X obj 41 21 inlet~;
+#X obj 165 257 dac~;
+#X obj 241 187 hip~ 5;
+#X connect 0 0 4 0;
+#X connect 1 0 0 0;
+#X connect 2 0 1 0;
+#X connect 3 0 0 0;
+#X connect 4 0 7 0;
+#X connect 5 0 0 0;
+#X connect 7 0 6 1;
+#X connect 7 0 6 0;

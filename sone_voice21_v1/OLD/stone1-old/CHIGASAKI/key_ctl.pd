@@ -1,0 +1,40 @@
+#N canvas 282 348 604 205 10;
+#X obj 23 23 keyname;
+#X symbolatom 89 50 10 0 0 0 - - -;
+#X floatatom 23 56 5 0 0 0 - - -;
+#X obj 181 18 key;
+#X floatatom 181 56 3 0 0 0 - - -;
+#X floatatom 218 68 3 0 0 0 - - -;
+#X obj 220 18 keyup;
+#X obj 44 97 pack float symbol float float;
+#N canvas 0 0 450 300 (subpatch) 0;
+#X array \$0-keyArray 256 float 1;
+#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+1 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1;
+#X coords 0 1.2 255 0 256 100 1 0 0;
+#X restore 328 71 graph;
+#X obj 46 151 tabwrite \$0-keyArray;
+#X obj 264 18 inlet;
+#X obj 264 39 tabread \$0-keyArray;
+#X obj 264 60 outlet;
+#X obj 218 44 spell;
+#X connect 0 0 2 0;
+#X connect 0 1 1 0;
+#X connect 1 0 7 1;
+#X connect 1 0 13 0;
+#X connect 2 0 7 0;
+#X connect 2 0 9 0;
+#X connect 3 0 4 0;
+#X connect 4 0 7 2;
+#X connect 4 0 9 1;
+#X connect 5 0 7 3;
+#X connect 5 0 9 1;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 13 0 5 0;

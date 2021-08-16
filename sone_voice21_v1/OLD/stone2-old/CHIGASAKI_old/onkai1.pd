@@ -1,0 +1,45 @@
+#N canvas 409 29 820 407 10;
+#X obj 54 113 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 54 211 t f b;
+#N canvas 0 22 450 300 (subpatch) 0;
+#X array onkai_1 12 float 3;
+#A 0 50 52 55 57 59 62 62 64 67 69 71 74;
+#X coords 0 0 12 127 50 50 1 0 0;
+#X restore 168 234 graph;
+#X obj 54 159 t b b;
+#X obj 212 53 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 212 99 t b b;
+#X obj 465 111 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 465 157 t b b;
+#X obj 53 266 tabwrite onkai_1;
+#X obj 55 76 inlet;
+#X obj 212 17 inlet;
+#X obj 464 75 inlet;
+#X msg 465 178 50 \, 52 \, 55 \, 57 \, 59 \, 62 \, 62 \, 64 \, 67 \,
+69 \, 71 \, 74;
+#X obj 64 236 counter 0 12;
+#X msg 213 123 41 \, 42 \, 44 \, 48 \, 49 \, 51 \, 53 \, 54 \, 56 \,
+60 \, 61 \, 63;
+#X msg 54 182 37 \, 39 \, 42 \, 44 \, 46 \, 49 \, 51 \, 55 \, 58 \,
+61 \, 63;
+#X connect 0 0 3 0;
+#X connect 1 0 8 0;
+#X connect 1 1 13 0;
+#X connect 3 0 15 0;
+#X connect 3 1 13 2;
+#X connect 4 0 5 0;
+#X connect 5 0 14 0;
+#X connect 5 1 13 2;
+#X connect 6 0 7 0;
+#X connect 7 0 12 0;
+#X connect 7 1 13 2;
+#X connect 9 0 0 0;
+#X connect 10 0 4 0;
+#X connect 11 0 6 0;
+#X connect 12 0 1 0;
+#X connect 13 0 8 1;
+#X connect 14 0 1 0;
+#X connect 15 0 1 0;

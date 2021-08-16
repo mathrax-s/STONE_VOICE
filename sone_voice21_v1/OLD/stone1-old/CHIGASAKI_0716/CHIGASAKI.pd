@@ -1,0 +1,54 @@
+#N canvas 95 23 561 477 10;
+#X obj 19 -20 loadbang;
+#X obj 19 7 del 500;
+#X msg 19 34 \; pd dsp 1;
+#X obj 19 81 s StartReset;
+#X obj 19 150 hsl 64 15 1 48 0 0 empty empty empty -2 -8 0 10 -257985
+-1 -1 1474 1;
+#X floatatom 16 169 5 0 0 0 - - -;
+#X obj 16 108 r StartReset;
+#X obj 214 -14 r StartReset;
+#X obj 99 150 hsl 64 15 1 48 0 0 empty empty empty -2 -8 0 10 -4032
+-1 -1 402 1;
+#X floatatom 96 169 5 0 0 0 - - -;
+#X obj 96 108 r StartReset;
+#X obj 96 205 s volume_kuma;
+#X obj 16 205 s volume_tenji;
+#X obj 88 -14 m_key;
+#X obj 17 375 m_kuma_sounds_P;
+#X obj 99 270 hsl 64 15 1 48 0 0 empty empty empty -2 -8 0 10 -4032
+-1 -1 3083 1;
+#X floatatom 96 289 5 0 0 0 - - -;
+#X obj 96 228 r StartReset;
+#X obj 96 325 s offset_kuma;
+#X obj 17 355 m_tenji_sounds_P;
+#X obj 19 270 hsl 64 15 1 48 0 0 empty empty empty -2 -8 0 10 -4032
+-1 -1 4691 1;
+#X floatatom 16 289 5 0 0 0 - - -;
+#X obj 16 228 r StartReset;
+#X obj 16 325 s offset_tenji;
+#X msg 96 129 4;
+#X msg 96 249 24;
+#X msg 16 249 36;
+#X msg 16 129 12;
+#X obj 88 6 m_receiveOSC;
+#X obj 89 32 m_kuma_key;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 1 0 3 0;
+#X connect 4 0 5 0;
+#X connect 5 0 12 0;
+#X connect 6 0 27 0;
+#X connect 8 0 9 0;
+#X connect 9 0 11 0;
+#X connect 10 0 24 0;
+#X connect 15 0 16 0;
+#X connect 16 0 18 0;
+#X connect 17 0 25 0;
+#X connect 20 0 21 0;
+#X connect 21 0 23 0;
+#X connect 22 0 26 0;
+#X connect 24 0 8 0;
+#X connect 25 0 15 0;
+#X connect 26 0 20 0;
+#X connect 27 0 4 0;
